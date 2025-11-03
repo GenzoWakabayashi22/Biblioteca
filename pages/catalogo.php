@@ -36,7 +36,7 @@ function mostraStelle($voto_medio, $dimensione = 'text-xs') {
         $output .= "<span class=\"{$dimensione} text-yellow-400\">⭐</span>";
     }
     
-    // Mezza stella se decimale >= 0.5
+    // Mezza stella se decimale >= 0.5 (rappresentata con una stella piena)
     $decimale = $voto_medio - $stelle_piene;
     if ($decimale >= 0.5 && $stelle_piene < 5) {
         $output .= "<span class=\"{$dimensione} text-yellow-400\">⭐</span>";
