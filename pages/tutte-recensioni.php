@@ -128,11 +128,29 @@ $stats = getSingleResult("
 
 // Funzione per mostrare le stelle
 function mostraStelle($voto, $dimensione = 'text-base') {
+    if ($voto == 0) return '';
+    
     $output = '<div class="flex items-center">';
-    for ($i = 1; $i <= 5; $i++) {
-        $class = $i <= $voto ? 'text-yellow-400' : 'text-gray-300';
-        $output .= "<span class=\"{$dimensione} {$class}\">⭐</span>";
+    
+    // Stelle piene
+    $stelle_piene = floor($voto);
+    for ($i = 1; $i <= $stelle_piene; $i++) {
+        $output .= "<span class=\"{$dimensione} text-yellow-400\">⭐</span>";
     }
+    
+    // Mezza stella se decimale >= 0.5
+    $decimale = $voto - $stelle_piene;
+    if ($decimale >= 0.5 && $stelle_piene < 5) {
+        $output .= "<span class=\"{$dimensione} text-yellow-400\">⭐</span>";
+        $stelle_piene++;
+    }
+    
+    // Stelle vuote per completare le 5
+    $stelle_vuote = 5 - $stelle_piene;
+    for ($i = 1; $i <= $stelle_vuote; $i++) {
+        $output .= "<span class=\"{$dimensione} text-gray-300\">☆</span>";
+    }
+    
     $output .= '</div>';
     return $output;
 }
