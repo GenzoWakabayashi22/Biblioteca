@@ -152,16 +152,27 @@ function restituisciLibro($input) {
         
         // **NUOVO**: Inserisci automaticamente in libri_letti
         if ($libro['prestato_a_fratello_id']) {
+            $nota_default = "Letto tramite prestito biblioteca";
+            $nota_separatore = " | ";
+            
             $stmt_letti = $conn->prepare("
                 INSERT INTO libri_letti (fratello_id, libro_id, data_lettura, note) 
                 VALUES (?, ?, NOW(), ?)
-                ON DUPLICATE KEY UPDATE data_lettura = NOW(), note = CONCAT(COALESCE(note, ''), ' | Letto tramite prestito biblioteca')
+                ON DUPLICATE KEY UPDATE 
+                    data_lettura = NOW(), 
+                    note = IF(
+                        COALESCE(note, '') LIKE CONCAT('%', ?, '%'),
+                        note,
+                        CONCAT(COALESCE(note, ''), ?, ?)
+                    )
             ");
             
-            $nota_default = "Letto tramite prestito biblioteca";
-            $stmt_letti->bind_param("iis", 
+            $stmt_letti->bind_param("iissss", 
                 $libro['prestato_a_fratello_id'], 
                 $libro_id, 
+                $nota_default,
+                $nota_default,
+                $nota_separatore,
                 $nota_default
             );
             
