@@ -37,15 +37,31 @@ if (!$libro_id) {
 
 // Funzione per mostrare le stelle
 function mostraStelle($voto, $classe = '') {
-    $stelle = '';
-    for ($i = 1; $i <= 5; $i++) {
-        if ($i <= $voto) {
-            $stelle .= '<span class="text-yellow-500 ' . $classe . '">⭐</span>';
-        } else {
-            $stelle .= '<span class="text-gray-300 ' . $classe . '">⭐</span>';
-        }
+    if ($voto === 0 || $voto === 0.0) return '';
+    
+    $output = '<div class="flex items-center">';
+    
+    // Stelle piene
+    $stelle_piene = floor($voto);
+    for ($i = 1; $i <= $stelle_piene; $i++) {
+        $output .= "<span class=\"text-yellow-500 {$classe}\">⭐</span>";
     }
-    return $stelle;
+    
+    // Mezza stella se decimale >= 0.5 (rappresentata con una stella piena)
+    $decimale = $voto - $stelle_piene;
+    if ($decimale >= 0.5 && $stelle_piene < 5) {
+        $output .= "<span class=\"text-yellow-500 {$classe}\">⭐</span>";
+        $stelle_piene++;
+    }
+    
+    // Stelle vuote per completare le 5
+    $stelle_vuote = 5 - $stelle_piene;
+    for ($i = 1; $i <= $stelle_vuote; $i++) {
+        $output .= "<span class=\"text-gray-300 {$classe}\">☆</span>";
+    }
+    
+    $output .= '</div>';
+    return $output;
 }
 
 // Recupera dati completi del libro

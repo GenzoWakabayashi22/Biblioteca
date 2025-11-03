@@ -26,20 +26,28 @@ if (!$user_logged) {
 
 // Funzione corretta per mostrare le stelle
 function mostraStelle($voto_medio, $dimensione = 'text-xs') {
-    if ($voto_medio == 0) return '';
+    if ($voto_medio === 0 || $voto_medio === 0.0) return '';
     
     $output = '<div class="flex items-center">';
     
-    // Parte intera del voto per le stelle piene
-    $stelle_piene = floor($voto_medio);  // 3.5 → 3
-    
-    // Mostra le stelle piene
+    // Stelle piene
+    $stelle_piene = floor($voto_medio);
     for ($i = 1; $i <= $stelle_piene; $i++) {
         $output .= "<span class=\"{$dimensione} text-yellow-400\">⭐</span>";
     }
     
-    // Mostra UNA stella vuota (sempre) - usa emoji diversa
-    $output .= "<span class=\"{$dimensione} text-gray-400\">☆</span>";
+    // Mezza stella se decimale >= 0.5 (rappresentata con una stella piena)
+    $decimale = $voto_medio - $stelle_piene;
+    if ($decimale >= 0.5 && $stelle_piene < 5) {
+        $output .= "<span class=\"{$dimensione} text-yellow-400\">⭐</span>";
+        $stelle_piene++;
+    }
+    
+    // Stelle vuote per completare le 5
+    $stelle_vuote = 5 - $stelle_piene;
+    for ($i = 1; $i <= $stelle_vuote; $i++) {
+        $output .= "<span class=\"{$dimensione} text-gray-300\">☆</span>";
+    }
     
     $output .= '</div>';
     return $output;
