@@ -128,7 +128,7 @@ $stats = getSingleResult("
 
 // Funzione per mostrare le stelle
 function mostraStelle($voto, $dimensione = 'text-base') {
-    if ($voto == 0) return '';
+    if ($voto === 0 || $voto === 0.0) return '';
     
     $output = '<div class="flex items-center">';
     

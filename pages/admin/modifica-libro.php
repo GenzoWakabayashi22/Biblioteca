@@ -239,7 +239,7 @@ $categorie = $conn->query("SELECT id, nome FROM categorie_libri WHERE attiva = 1
 
 // Funzione per mostrare le stelle
 function mostraStelle($voto, $classe = '') {
-    if ($voto == 0) return '';
+    if ($voto === 0 || $voto === 0.0) return '';
     
     $output = '<div class="flex items-center">';
     

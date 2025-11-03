@@ -26,7 +26,7 @@ if (!$user_logged) {
 
 // Funzione corretta per mostrare le stelle
 function mostraStelle($voto_medio, $dimensione = 'text-xs') {
-    if ($voto_medio == 0) return '';
+    if ($voto_medio === 0 || $voto_medio === 0.0) return '';
     
     $output = '<div class="flex items-center">';
     
