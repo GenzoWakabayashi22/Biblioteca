@@ -1,0 +1,54 @@
+[19-Jun-2025 12:24:45 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.recensioni' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:316
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(316): PDO->prepare('\n        SELECT...')
+#1 /home/jmvvznbb/biblioteca/backend.php(55): getLibri()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 316
+[19-Jun-2025 12:24:51 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.recensioni' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:316
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(316): PDO->prepare('\n        SELECT...')
+#1 /home/jmvvznbb/biblioteca/backend.php(55): getLibri()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 316
+[19-Jun-2025 12:24:52 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.recensioni' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:316
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(316): PDO->prepare('\n        SELECT...')
+#1 /home/jmvvznbb/biblioteca/backend.php(55): getLibri()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 316
+[19-Jun-2025 12:24:56 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.recensioni' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:1314
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(1314): PDO->prepare('SELECT COUNT(*)...')
+#1 /home/jmvvznbb/biblioteca/backend.php(160): getStatsFratello()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 1314
+[19-Jun-2025 12:24:57 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.recensioni' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:1242
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(1242): PDO->query('\n        SELECT...')
+#1 /home/jmvvznbb/biblioteca/backend.php(157): getClassifiche()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 1242
+[19-Jun-2025 12:24:59 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.recensioni' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:316
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(316): PDO->prepare('\n        SELECT...')
+#1 /home/jmvvznbb/biblioteca/backend.php(55): getLibri()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 316
+[19-Jun-2025 12:25:00 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.richieste_prestito' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:1211
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(1211): PDO->query('SELECT COUNT(*)...')
+#1 /home/jmvvznbb/biblioteca/backend.php(154): getDashboardStats()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 1211
+[19-Jun-2025 12:25:17 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.recensioni' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:316
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(316): PDO->prepare('\n        SELECT...')
+#1 /home/jmvvznbb/biblioteca/backend.php(55): getLibri()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 316
+[19-Jun-2025 12:26:30 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jmvvznbb_tornate_db.recensioni' doesn't exist in /home/jmvvznbb/biblioteca/backend.php:316
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/backend.php(316): PDO->prepare('\n        SELECT...')
+#1 /home/jmvvznbb/biblioteca/backend.php(55): getLibri()
+#2 {main}
+  thrown in /home/jmvvznbb/biblioteca/backend.php on line 316

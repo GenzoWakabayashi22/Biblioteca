@@ -1,0 +1,176 @@
+[30-Jun-2025 16:39:40 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[30-Jun-2025 16:39:40 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[07-Jul-2025 09:23:53 UTC] Tentativo di login fallito per fratello ID: 16, nome: Paolo Giulio Gazzano
+[07-Jul-2025 09:23:57 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[07-Jul-2025 09:23:57 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[07-Jul-2025 09:42:13 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[07-Jul-2025 09:42:13 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[07-Jul-2025 10:42:20 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 01:18:23
+[07-Jul-2025 10:42:25 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[07-Jul-2025 10:42:25 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[07-Jul-2025 11:15:52 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:33:27
+[07-Jul-2025 11:16:01 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[07-Jul-2025 11:16:01 UTC] Login riuscito per fratello: Antonio De Chiara (ID: 15) - Admin: No
+[07-Jul-2025 11:16:14 UTC] Logout: Antonio De Chiara (ID: 15) - Durata sessione: 00:00:13
+[07-Jul-2025 11:16:21 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[07-Jul-2025 11:16:21 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[07-Jul-2025 12:05:27 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:49:06
+[07-Jul-2025 12:05:32 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[07-Jul-2025 12:05:32 UTC] Login riuscito per fratello: Davide Santori (ID: 22) - Admin: No
+[07-Jul-2025 12:06:21 UTC] Logout: Davide Santori (ID: 22) - Durata sessione: 00:00:49
+[07-Jul-2025 12:06:26 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[07-Jul-2025 12:06:26 UTC] Login riuscito per fratello: Antonio De Chiara (ID: 15) - Admin: No
+[07-Jul-2025 12:21:13 UTC] Logout: Antonio De Chiara (ID: 15) - Durata sessione: 00:14:47
+[07-Jul-2025 12:21:18 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[07-Jul-2025 12:21:18 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[08-Jul-2025 08:37:20 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[08-Jul-2025 08:37:20 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[08-Jul-2025 08:40:05 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:02:45
+[09-Jul-2025 09:39:50 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 09:39:50 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 10:11:49 UTC] Tentativo di login fallito per fratello ID: 19, nome: Francesco Stefani
+[09-Jul-2025 10:11:55 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:11:55 UTC] Login riuscito per fratello: Francesco Stefani (ID: 19) - Admin: No
+[09-Jul-2025 10:12:15 UTC] Logout: Francesco Stefani (ID: 19) - Durata sessione: 00:00:20
+[09-Jul-2025 10:31:56 UTC] Tentativo di login fallito per fratello ID: 16, nome: Paolo Giulio Gazzano
+[09-Jul-2025 10:32:03 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:32:03 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 10:34:12 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:54:22
+[09-Jul-2025 10:34:17 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:34:17 UTC] Login riuscito per fratello: Antonio De Chiara (ID: 15) - Admin: No
+[09-Jul-2025 10:36:18 UTC] Logout: Antonio De Chiara (ID: 15) - Durata sessione: 00:02:01
+[09-Jul-2025 10:36:24 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:36:24 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 10:37:46 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:01:22
+[09-Jul-2025 10:37:50 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:37:50 UTC] Login riuscito per fratello: Antonio De Chiara (ID: 15) - Admin: No
+[09-Jul-2025 10:46:41 UTC] Logout: Antonio De Chiara (ID: 15) - Durata sessione: 00:08:51
+[09-Jul-2025 10:46:45 UTC] Tentativo di login fallito per fratello ID: 15, nome: Antonio De Chiara
+[09-Jul-2025 10:46:49 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:46:49 UTC] Login riuscito per fratello: Antonio De Chiara (ID: 15) - Admin: No
+[09-Jul-2025 10:51:41 UTC] Logout: Antonio De Chiara (ID: 15) - Durata sessione: 00:04:52
+[09-Jul-2025 10:51:47 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:51:47 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 10:52:19 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:00:32
+[09-Jul-2025 10:52:27 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:52:27 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[09-Jul-2025 10:53:21 UTC] Logout: Francesco Ropresti (ID: 11) - Durata sessione: 00:00:54
+[09-Jul-2025 10:53:26 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:53:26 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 10:55:00 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 10:55:00 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[09-Jul-2025 16:42:16 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 16:42:16 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[09-Jul-2025 16:57:43 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 16:57:43 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 17:04:28 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 17:04:28 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[09-Jul-2025 17:21:50 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 17:21:50 UTC] Login riuscito per fratello: Antonio De Chiara (ID: 15) - Admin: No
+[09-Jul-2025 17:22:02 UTC] Logout: Antonio De Chiara (ID: 15) - Durata sessione: 00:00:12
+[09-Jul-2025 17:22:08 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 17:22:08 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 18:09:35 UTC] Errore restituzione libro: Column 'fratello_id' cannot be null
+[09-Jul-2025 18:11:43 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:49:35
+[09-Jul-2025 18:11:50 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 18:11:50 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[09-Jul-2025 18:12:05 UTC] Logout: Francesco Ropresti (ID: 11) - Durata sessione: 00:00:15
+[09-Jul-2025 18:12:10 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 18:12:10 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 18:12:22 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:00:12
+[09-Jul-2025 18:12:26 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 18:12:26 UTC] Login riuscito per fratello: Davide Santori (ID: 22) - Admin: No
+[09-Jul-2025 18:24:47 UTC] Logout: Davide Santori (ID: 22) - Durata sessione: 00:12:21
+[09-Jul-2025 18:24:53 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 18:24:53 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[09-Jul-2025 18:25:34 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:00:41
+[09-Jul-2025 18:41:49 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[09-Jul-2025 18:41:49 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[10-Jul-2025 04:27:55 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[10-Jul-2025 04:27:55 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[10-Jul-2025 13:43:29 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[10-Jul-2025 13:43:29 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[18-Jul-2025 13:02:04 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[18-Jul-2025 13:02:04 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[21-Jul-2025 05:38:34 UTC] Tentativo di login fallito per fratello ID: 16, nome: Paolo Giulio Gazzano
+[21-Jul-2025 05:38:39 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[21-Jul-2025 05:38:39 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[21-Jul-2025 06:01:42 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:23:03
+[21-Jul-2025 06:01:47 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[21-Jul-2025 06:01:47 UTC] Login riuscito per fratello: Davide Santori (ID: 22) - Admin: No
+[21-Jul-2025 06:02:00 UTC] Logout: Davide Santori (ID: 22) - Durata sessione: 00:00:13
+[21-Jul-2025 06:02:05 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[21-Jul-2025 06:02:05 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[21-Jul-2025 06:59:36 UTC] Tentativo di login fallito per fratello ID: 11, nome: Francesco Ropresti
+[21-Jul-2025 07:09:53 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[21-Jul-2025 07:09:53 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[21-Jul-2025 07:20:07 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[21-Jul-2025 07:20:07 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[21-Jul-2025 11:48:37 UTC] Tentativo di login fallito per fratello ID: 11, nome: Francesco Ropresti
+[21-Jul-2025 11:48:45 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[21-Jul-2025 11:48:45 UTC] Login riuscito per fratello: Francesco Ropresti (ID: 11) - Admin: Sì
+[21-Jul-2025 18:18:16 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[21-Jul-2025 18:18:16 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[21-Jul-2025 18:45:09 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:26:53
+[21-Jul-2025 18:45:22 UTC] Tentativo di login fallito per fratello ID: 7, nome: Stefano Piantone
+[21-Jul-2025 18:45:27 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[21-Jul-2025 18:45:27 UTC] Login riuscito per fratello: Stefano Piantone (ID: 7) - Admin: No
+[21-Jul-2025 18:45:45 UTC] Logout: Stefano Piantone (ID: 7) - Durata sessione: 00:00:18
+[22-Jul-2025 05:09:15 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[22-Jul-2025 05:09:15 UTC] Login riuscito per fratello: Paolo Giulio Gazzano (ID: 16) - Admin: Sì
+[22-Jul-2025 05:12:41 UTC] Logout: Paolo Giulio Gazzano (ID: 16) - Durata sessione: 00:03:26
+[22-Jul-2025 05:12:51 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 7
+[22-Jul-2025 05:12:51 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 8
+[22-Jul-2025 05:12:51 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 9
+[22-Jul-2025 05:12:51 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 10
+[22-Jul-2025 05:12:51 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/jmvvznbb/biblioteca/api/login.php on line 13
+[22-Jul-2025 05:12:51 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[22-Jul-2025 05:12:51 UTC] Login riuscito per Ospite: Ospite (ID: 999)
+[22-Jul-2025 05:12:55 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 7
+[22-Jul-2025 05:12:55 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 8
+[22-Jul-2025 05:12:55 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 9
+[22-Jul-2025 05:12:55 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 10
+[22-Jul-2025 05:12:55 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/jmvvznbb/biblioteca/api/login.php on line 13
+[22-Jul-2025 05:12:55 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[22-Jul-2025 05:12:55 UTC] Login riuscito per Ospite: Ospite (ID: 999)
+[22-Jul-2025 05:13:09 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 7
+[22-Jul-2025 05:13:09 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 8
+[22-Jul-2025 05:13:09 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 9
+[22-Jul-2025 05:13:09 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 10
+[22-Jul-2025 05:13:09 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/jmvvznbb/biblioteca/api/login.php on line 13
+[22-Jul-2025 05:13:09 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[22-Jul-2025 05:13:09 UTC] Login riuscito per Ospite: Ospite (ID: 999)
+[22-Jul-2025 05:14:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 7
+[22-Jul-2025 05:14:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 8
+[22-Jul-2025 05:14:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 9
+[22-Jul-2025 05:14:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 10
+[22-Jul-2025 05:14:11 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/jmvvznbb/biblioteca/api/login.php on line 13
+[22-Jul-2025 05:14:11 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[22-Jul-2025 05:14:11 UTC] Login riuscito per Ospite: Ospite (ID: 999)
+[22-Jul-2025 05:14:21 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 7
+[22-Jul-2025 05:14:21 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 8
+[22-Jul-2025 05:14:21 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 9
+[22-Jul-2025 05:14:21 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 10
+[22-Jul-2025 05:14:21 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/jmvvznbb/biblioteca/api/login.php on line 13
+[22-Jul-2025 05:14:41 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 7
+[22-Jul-2025 05:14:41 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 8
+[22-Jul-2025 05:14:41 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 9
+[22-Jul-2025 05:14:41 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jmvvznbb/biblioteca/api/login.php:1) in /home/jmvvznbb/biblioteca/api/login.php on line 10
+[22-Jul-2025 05:14:41 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/jmvvznbb/biblioteca/api/login.php on line 13
+[22-Jul-2025 05:14:41 UTC] Errore query: Unknown column 'updated_at' in 'SET'
+[22-Jul-2025 05:14:41 UTC] Login riuscito per Admin: Paolo Giulio Gazzano (ID: 16)
+[22-Jul-2025 05:18:28 UTC] Login riuscito per Ospite: Ospite (ID: 999)
+[22-Jul-2025 05:18:45 UTC] Logout: Ospite (ID: 999) - Durata sessione: 00:00:17
+[22-Jul-2025 05:18:51 UTC] Login riuscito per Admin: Paolo Giulio Gazzano (ID: 16)
+[22-Jul-2025 05:57:37 UTC] Login riuscito per Admin: Francesco Ropresti (ID: 11)
+[22-Jul-2025 06:37:44 UTC] Login riuscito per Admin: Francesco Ropresti (ID: 11)
+[22-Jul-2025 12:08:35 UTC] Login riuscito per Admin: Francesco Ropresti (ID: 11)
+[22-Jul-2025 12:25:27 UTC] Login riuscito per Admin: Francesco Ropresti (ID: 11)
+[24-Jul-2025 07:59:04 UTC] Login riuscito per Admin: Paolo Giulio Gazzano (ID: 16)
+[05-Aug-2025 06:40:45 UTC] Tentativo di login fallito per fratello: Francesco Ropresti
+[05-Aug-2025 06:41:00 UTC] Login riuscito per Admin: Francesco Ropresti (ID: 11)
+[05-Aug-2025 09:14:44 UTC] Login riuscito per Admin: Paolo Giulio Gazzano (ID: 16)
+[12-Aug-2025 19:51:44 UTC] Tentativo di login fallito per fratello: Francesco Ropresti
+[12-Aug-2025 19:52:05 UTC] Tentativo di login fallito per fratello: Francesco Ropresti
+[12-Aug-2025 19:52:30 UTC] Login riuscito per Admin: Francesco Ropresti (ID: 11)
+[12-Aug-2025 19:56:31 UTC] Login riuscito per Admin: Paolo Giulio Gazzano (ID: 16)

@@ -1,0 +1,1369 @@
+[07-Jul-2025 10:10:23 UTC] PHP Warning:  require_once(../../config/database.php): Failed to open stream: No such file or directory in /home/jmvvznbb/biblioteca/admin/gestione-libri.php on line 3
+[07-Jul-2025 10:10:23 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../../config/database.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/jmvvznbb/biblioteca/admin/gestione-libri.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/admin/gestione-libri.php on line 3
+[07-Jul-2025 10:10:27 UTC] PHP Warning:  require_once(../../config/database.php): Failed to open stream: No such file or directory in /home/jmvvznbb/biblioteca/admin/gestione-libri.php on line 3
+[07-Jul-2025 10:10:27 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../../config/database.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/jmvvznbb/biblioteca/admin/gestione-libri.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/admin/gestione-libri.php on line 3
+[07-Jul-2025 10:10:33 UTC] PHP Warning:  require_once(../../config/database.php): Failed to open stream: No such file or directory in /home/jmvvznbb/biblioteca/admin/gestione-libri.php on line 3
+[07-Jul-2025 10:10:33 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../../config/database.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/jmvvznbb/biblioteca/admin/gestione-libri.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/admin/gestione-libri.php on line 3
+[07-Jul-2025 10:10:34 UTC] PHP Warning:  require_once(../../config/database.php): Failed to open stream: No such file or directory in /home/jmvvznbb/biblioteca/admin/gestione-libri.php on line 3
+[07-Jul-2025 10:10:34 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../../config/database.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/jmvvznbb/biblioteca/admin/gestione-libri.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/admin/gestione-libri.php on line 3
+[07-Jul-2025 10:12:44 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getDBConnection() in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 18
+[07-Jul-2025 10:20:46 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''15' OFFSET '0'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:116
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(116): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 116
+[07-Jul-2025 10:21:58 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/jmvvznbb/biblioteca/pages/admin/test-db.php on line 43
+[07-Jul-2025 10:22:41 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''15' OFFSET '0'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:116
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(116): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 116
+[07-Jul-2025 10:24:51 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''15' OFFSET '0'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri-test.php:70
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri-test.php(70): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri-test.php on line 70
+[07-Jul-2025 10:37:54 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''15' OFFSET '0'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:128
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(128): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 128
+[07-Jul-2025 10:37:57 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''15' OFFSET '0'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:128
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(128): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 128
+[07-Jul-2025 10:38:07 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''15' OFFSET '0'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:128
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(128): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 128
+[07-Jul-2025 10:41:22 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '15'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:129
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(129): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 129
+[07-Jul-2025 10:41:33 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '15'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:129
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(129): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 129
+[07-Jul-2025 10:41:34 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '15'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:129
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(129): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 129
+[07-Jul-2025 10:41:35 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '15'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:129
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(129): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 129
+[07-Jul-2025 10:41:35 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '15'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:129
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(129): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 129
+[07-Jul-2025 10:41:35 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '15'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:129
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(129): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 129
+[07-Jul-2025 10:42:30 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '15'' at line 8 in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php:129
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php(129): PDOStatement->execute(Array)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-libri.php on line 129
+[07-Jul-2025 11:23:06 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'numero_pagine' in 'SET' in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php:92
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php(92): mysqli->prepare('UPDATE libri SE...')
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 92
+[07-Jul-2025 11:23:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'numero_pagine' in 'SET' in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php:92
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php(92): mysqli->prepare('UPDATE libri SE...')
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 92
+[07-Jul-2025 11:28:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'numero_pagine' in 'SET' in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php:92
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php(92): mysqli->prepare('UPDATE libri SE...')
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 92
+[07-Jul-2025 11:35:28 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 9
+[07-Jul-2025 11:38:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'numero_pagine' in 'SET' in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php:94
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php(94): mysqli->prepare('UPDATE libri SE...')
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 94
+[07-Jul-2025 11:39:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'numero_pagine' in 'SET' in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php:94
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php(94): mysqli->prepare('UPDATE libri SE...')
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 94
+[07-Jul-2025 11:42:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'numero_pagine' in 'SET' in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php:86
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php(86): mysqli->prepare('UPDATE libri SE...')
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 86
+[07-Jul-2025 12:00:35 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php:106
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php(106): mysqli_stmt->bind_param('ssissssssssissi', 'Contattismi di ...', 'Stefano Breccia', 11, NULL, NULL, 'italiano', 'pubblico', NULL, 'prestato', 'buono', NULL, NULL, 11, '2025-07-07', '2025-08-06', 8)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 106
+[07-Jul-2025 12:00:58 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php:106
+Stack trace:
+#0 /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php(106): mysqli_stmt->bind_param('ssissssssssissi', 'Contattismi di ...', 'Stefano Breccia', 11, NULL, NULL, 'italiano', 'pubblico', NULL, 'prestato', 'buono', NULL, NULL, 11, '2025-07-07', '2025-08-06', 8)
+#1 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/modifica-libro.php on line 106
+[07-Jul-2025 12:04:55 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 8
+[07-Jul-2025 12:04:55 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Contattismi di massa
+    [autore] => Stefano Breccia
+    [categoria_id] => 11
+    [isbn] => 
+    [copertina_url] => 
+    [anno_pubblicazione] => 
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => 
+    [stato] => prestato
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 11
+    [data_prestito_corrente] => 2025-07-07
+    [data_scadenza_corrente] => 2025-08-06
+    [note] => 
+)
+
+[07-Jul-2025 12:04:55 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[07-Jul-2025 12:04:55 UTC] MODIFICA LIBRO: Stato precedente: prestato, Nuovo stato: prestato
+[07-Jul-2025 12:04:55 UTC] MODIFICA LIBRO: Prestito aggiornato - Fratello: 11
+[07-Jul-2025 12:04:55 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[07-Jul-2025 12:23:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getDBConnection() in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php on line 18
+[09-Jul-2025 10:24:42 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 100
+[09-Jul-2025 10:24:42 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Kilwinning e I Custodi della Tradizione
+    [autore] => Paolo Giulio Gazzano
+    [categoria_id] => 1
+    [isbn] => 979-12-24003-85-4
+    [copertina_url] => https://img2.libreriauniversitaria.it/BIT/500/385/9791224003854.jpg
+    [anno_pubblicazione] => 2025
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => 
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 10:24:42 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 10:24:42 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 10:24:42 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 10:24:42 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 10:25:04 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 100
+[09-Jul-2025 10:25:04 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Kilwinning e I Custodi della Tradizione
+    [autore] => Paolo Giulio Gazzano
+    [categoria_id] => 1
+    [isbn] => 979-12-24003-85-4
+    [copertina_url] => https://covers.youcanprint.it/p/YCP_M_9791224003854.jpg
+    [anno_pubblicazione] => 2025
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => 
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 10:25:04 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 10:25:04 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 10:25:04 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 10:25:04 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 16:49:09 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 2
+[09-Jul-2025 16:49:09 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Avviamento alla Massoneria
+    [autore] => Umberto Porciatti
+    [categoria_id] => 2
+    [isbn] => 
+    [copertina_url] => https://freeimage.host/i/F1p47S9
+    [anno_pubblicazione] => 
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => 
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 16:49:09 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 16:49:09 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 16:49:09 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 16:49:09 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:01:03 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 4
+[09-Jul-2025 17:01:03 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Cagliostro - Il maestro sconosciuto
+    [autore] => Pier Carpi
+    [categoria_id] => 11
+    [isbn] => 978-8827204498
+    [copertina_url] => https://m.media-amazon.com/images/I/71tcarr94HL._SY522_.jpg
+    [anno_pubblicazione] => 1997
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => In questo libro l'autore vuole dimostrare che il conte di Cagliostro e Giuseppe Balsamo erano in realtà due persone distinte. Secondo l'autore, Balsamo era un imbroglione palermitano, usato dell'Inquisizione per condannare Cagliostro che era invece un guaritore famoso, un alchimista, un veggente e aveva poteri straordinari riconosciutigli anche dai suoi nemici.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:01:03 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:01:03 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:01:03 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:01:03 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:08:47 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 3
+[09-Jul-2025 17:08:47 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Breve storia dei concili
+    [autore] => Hubert Jedin
+    [categoria_id] => 11
+    [isbn] => 978-8837216078
+    [copertina_url] => https://m.media-amazon.com/images/I/81P5NWOFNgL._SL1500_.jpg
+    [anno_pubblicazione] => 1995
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => In questo breve, denso volume Hubert Jedin ripercorre, con la consueta chiarezza e la rigorosa documentazione delle sue opere maggiori, la storia dei Concili, dagli otto Concili della Chiesa unita sino al Vaticano II. Attraverso queste importanti occasioni d’incontro e di verifica, il lettore può ripercorrere l’intera storia della Chiesa, dai primi secoli sino ai giorni nostri, con i suoi personaggi maggiori e minori, i suoi momenti più importanti, i successi e le sconfitte. Un libro fondamentale, utile per comprendere meglio la Chiesa di oggi.
+
+HUBERT JEDIN (1900-1980), storico e teologo tedesco, ha insegnato Storia della Chiesa all’Università di Breslavia e di Bonn. La sua opera più importante è la Storia del Concilio di Trento (4 voll., Morcelliana, 2009-20103). Morcelliana ha pubblicato inoltre: Chiesa della fede - Chiesa della storia (1972); Il matrimonio (con K. Reinhardt, 1981); Il tipo ideale di Vescovo secondo la Riforma cattolica (con G. Alberigo, 1985); Storia della mia vita (1987); Girolamo Seripando (2016); Introduzione alla storia della Chiesa (2023 4ed.); Riforma cattolica o Controriforma? (2023 6ed.).
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:08:47 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:08:47 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:08:47 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:08:47 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:14:43 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 5
+[09-Jul-2025 17:14:43 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Candido
+    [autore] => Voltaire
+    [categoria_id] => 8
+    [isbn] => 978-8806221997
+    [copertina_url] => https://m.media-amazon.com/images/I/61Ig+2lWWZL._SL1174_.jpg
+    [anno_pubblicazione] => 2014
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Attraverso la parabola del povero Candido, un inguaribile ottimista, il narratore continua a "portare uno sguardo rapido su tutti i secoli, tutti i paesi, e di conseguenza, su tutte le sciocchezze di questo piccolo globo". Pubblicato a Ginevra nel 1759, e immediatamente ristampato a Parigi, Londra, Amsterdam e altre città d'Europa, Candido consente a Voltaire di perfezionare il nuovo genere letterario da lui creato, il conte philosophique. Le convulse e mirabolanti disavventure del protagonista offrono all'autore l'opportunità di dimostrare la vanità dell'ottimismo razionalista leibniziano, che vedeva realizzato nell'universo il migliore dei mondi possibili, nonché di sviluppare una straordinaria lezione di sopravvivenza alle catastrofi della natura e della storia.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:14:43 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:14:43 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:14:43 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:14:43 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:17:27 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 6
+[09-Jul-2025 17:17:27 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Cattedrali del Mistero
+    [autore] => Angela Cerinotti
+    [categoria_id] => 3
+    [isbn] => 978-8841217542
+    [copertina_url] => https://giunti.it/cdn/shop/products/76dd5df7d40b4e29895f812292edbba9.jpg?v=1751873744
+    [anno_pubblicazione] => 2020
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Un viaggio affascinante alla scoperta dell’oscura simbologia delle cattedrali gotiche, che ne svela i legami sotterranei con il mondo pagano e spiega il linguaggio iniziatico degli architetti medievali, maestri di un’arte che seppe innalzare edifici di straordinaria bellezza coniugando numerologia sacra e ingegneria.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:17:27 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:17:27 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:17:27 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:17:27 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:18:35 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 7
+[09-Jul-2025 17:18:35 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Ciò che deve sapere un Maestro Massone
+    [autore] => Papus
+    [categoria_id] => 5
+    [isbn] => 
+    [copertina_url] => https://m.media-amazon.com/images/I/7150S6HvhHL._SY522_.jpg
+    [anno_pubblicazione] => 2014
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Il libro del Papus è esoterico ed essoterico allo stesso tempo. Permette al lettore a seconda del proprio grado di consapevolezza, di cognizioni e capacità di addentrarsi in un mondo che diviene via via sempre più complesso per chi non ha le chiavi di accesso ai significati impliciti che l'autore attribuisce ai diversi gradi della massoneria. In questa edizione alle parole conoscenza, sapienza e sapere spesso si è utilizzata la parola scienza. Scienza sia nel senso di scienza massonica sia nel senso di scienza tradizionale. La tradizione dei simboli è anche una scienza vivente. Essa permette a colui che la possiede di adattare le sue conoscenze ai bisogni dei fratelli, di rialzare una società che sprofonda, di sostenere un cuore senza coraggio e di proiettare la luce laddove le tenebre regnavano incontrastate. Sapienza e sapere pur essendo parole dense di significato non sono sufficientemente forti o consone come la parola scienza che dovrebbe automaticamente rimandare da un lato a Guénon e dall'altro a quell'insieme di scritti troppo spesso sottovalutati dalle accademie.
+
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:18:35 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:18:35 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:18:35 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:18:35 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:20:44 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 8
+[09-Jul-2025 17:20:44 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Contattismi di massa
+    [autore] => Stefano Breccia
+    [categoria_id] => 11
+    [isbn] => 978-8889983041
+    [copertina_url] => https://m.media-amazon.com/images/I/41zvkoBsXML.jpg
+    [anno_pubblicazione] => 2009
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Questo libro racconta come interi gruppi di persone, per prolungati periodi, abbiano direttamente interagito con entità extraterrestri sul nostro pianeta.
+
+Oltre a informazioni inedite sul "Caso Ummo", questo straordinario volume svela l'esistenza di "Amicizia" e le incredibili vicende di numerosi individui, direttamente coinvolti in questa vasta operazione di interscambio tra gente della Terra e svariate razze di altri sistemi stellari per la realizzazione di un disegno evolutivo le cui finalità cominciano lentamente a delinearsi.
+
+All'epoca in cui prese piede il fenomeno dei "dischi volanti", in molti affermarono di essere entrati in contatto con i loro occupanti...
+    [stato] => prestato
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 11
+    [data_prestito_corrente] => 2025-07-07
+    [data_scadenza_corrente] => 2025-08-06
+    [note] => 
+)
+
+[09-Jul-2025 17:20:44 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:20:44 UTC] MODIFICA LIBRO: Stato precedente: prestato, Nuovo stato: prestato
+[09-Jul-2025 17:20:44 UTC] MODIFICA LIBRO: Prestito aggiornato - Fratello: 11
+[09-Jul-2025 17:20:44 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:22:38 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 9
+[09-Jul-2025 17:22:38 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Cosa farete della vostra vita?
+    [autore] => J. Krishnamurti
+    [categoria_id] => 9
+    [isbn] => 
+    [copertina_url] => https://m.media-amazon.com/images/I/61Q3t64cVQL._SY522_.jpg
+    [anno_pubblicazione] => 2019
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => n questa raccolta di discorsi e riflessioni dedicata prevalentemente ai giovani, Krishnamurti riflette sulla necessità di imparare come pensare, evitando di aggirare le esperienze dolorose e mettendo fine, piuttosto, alla sofferenza mentale, causata dalla scarsa conoscenza di se stessi. Solo liberandosi dall'opprimente bagaglio di tradizioni e memorie si svilupperà la capacità di affrontare la vita per quello che è: un continuo mutamento, che la mente imprigionata non riesce a cogliere ma si limita a rincorrere con fatica. Siamo, certo, esseri sociali, parte di un processo globale, ma il mondo, dice Krishnamurti, non è diverso da noi, il mondo siamo noi, e la conoscenza di sé è fondamentale per dare il via alla "vera rivoluzione", quella interiore, che scaturisce dall'amore e dal pensiero corretto. Il cambiamento di un singolo è sufficiente a innescare un effetto a catena capace di diffondere il bene, perché la bontà è contagiosa. Il volume è diviso in quattro parti; la prima è dedicata al sé e alla vita, cioè alla comprensione della mente e del rapporto con il mondo che ci circonda; la seconda indaga il processo della conoscenza di sé; la terza fornisce spunti utili a definire che cosa sono l'educazione, il lavoro e il denaro, concentrandosi, ancora una volta, sul come dedicarsi alle attività che si intraprendono, in vista di un fine ben preciso. L'ultima parte affronta il tema delle relazioni con gli altri, dalla famiglia ai rapporti amorosi fino alla società. Relazioni che sono possibili solo quando si riesce ad andare oltre le immagini e le rappresentazioni della memoria. La relazione infatti è contatto, e il contatto deve avvenire fra due persone, liberate dalle immagini stratificate e insignificanti che gravano sul sé che ancora non abbiamo imparato a conoscere.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:22:38 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:22:38 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:22:38 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:22:38 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:23:55 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 10
+[09-Jul-2025 17:23:55 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Da Simon Mago ai Catari. Storia dello Gnosticismo Cristiano
+    [autore] => Douglas Swannie
+    [categoria_id] => 11
+    [isbn] => 978-8864966717
+    [copertina_url] => https://m.media-amazon.com/images/I/51wCpuWlBLL._SY522_.jpg
+    [anno_pubblicazione] => 2023
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Un excursus sullo gnosticismo cristiano, il vasto movimento eterogeneo filosofico religioso che deve il proprio nome alla gnosi, cioè alla conoscenza di dio e delle origini e destino della razza umana, attraverso la "Rivelazione", Che deve giungere attraverso esperienze personali ed essere trasmessa direttamente dai "Maestri", come Cristo, a una ristretta cerchia d'iniziati e non attraverso la gerarchia della Chiesa. Swannie ripercorre il cammino del movimento dai primi gnostici cristiani, come Valentino di Cartagine (così popolare da scendere in lizza per diventare Vescovo di Roma), e passando dal persiano Mani, fondatore del manicheismo, giunge all'ultimo, e più importante: i Catari.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:23:55 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:23:55 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:23:55 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:23:55 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:24:45 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 10
+[09-Jul-2025 17:24:45 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Da Simon Mago ai Catari. Storia dello Gnosticismo Cristiano
+    [autore] => Douglas Swannie
+    [categoria_id] => 11
+    [isbn] => 978-8864966717
+    [copertina_url] => https://m.media-amazon.com/images/I/51wCpuWlBLL._SY522_.jpg
+    [anno_pubblicazione] => 2023
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Un excursus sullo gnosticismo cristiano, il vasto movimento eterogeneo filosofico religioso che deve il proprio nome alla gnosi, cioè alla conoscenza di dio e delle origini e destino della razza umana, attraverso la "Rivelazione", Che deve giungere attraverso esperienze personali ed essere trasmessa direttamente dai "Maestri", come Cristo, a una ristretta cerchia d'iniziati e non attraverso la gerarchia della Chiesa. Swannie ripercorre il cammino del movimento dai primi gnostici cristiani, come Valentino di Cartagine (così popolare da scendere in lizza per diventare Vescovo di Roma), e passando dal persiano Mani, fondatore del manicheismo, giunge all'ultimo, e più importante: i Catari.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:24:45 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:24:45 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:24:45 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:24:45 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:29:56 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 11
+[09-Jul-2025 17:29:56 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Daimon
+    [autore] => Selene C. Williams
+    [categoria_id] => 11
+    [isbn] => 978-8855447171
+    [copertina_url] => https://m.media-amazon.com/images/I/61yyeos37CL._SY522_.jpg
+    [anno_pubblicazione] => 2022
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Un libro che ci aiuta ad ascoltare la voce del daimon per realizzare la missione dell’anima. Con testimonianze e pratiche guidate. È possibile guarire l’anima leggendo una storia? Sì, se questa è un mito e se il mito è raccontato in chiave immaginale, estetica e non moralistica. Il mito ci narra l’origine delle cose, di come si sono manifestate nel mondo la prima volta. E conoscere l’origine delle cose è il punto di partenza per poterle trasformare. Ciascuno di noi mette sulla scena della vita un mito e ciascuno di noi si libera, si realizza, quando «riconosce» il mito che sta vivendo. Solo allora si pone in ascolto del narratore che da sempre lo accompagna: il daimon, lo spirito guida, depositario del ricordo di un’antica età dell’oro. Dialogando con il nostro daimon, attraverso la rilettura del ruolo dei protagonisti nei miti greci, ci facciamo co-creatori del nostro destino, riuscendo a vedere l’origine profonda di paure, fallimenti, rabbia, tradimenti, perdite, tristezze, incomprensioni… E a cambiare la nostra storia per essere felici.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:29:56 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:29:56 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:29:56 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:29:56 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:39:15 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 16
+[09-Jul-2025 17:39:15 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Esoterismo di Dante
+    [autore] => René Guénon
+    [categoria_id] => 3
+    [isbn] => 978-8864964423
+    [copertina_url] => https://m.media-amazon.com/images/I/71YYyu2y96L._SY522_.jpg
+    [anno_pubblicazione] => 2018
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => L'idea di Guénon, in questo volume apparso nel 1925, è che Dante Alighieri sia stato membro di un ordine iniziatico e che, scrivendo la Divina Commedia, abbia voluto lasciare ai lettori della sua opera un messaggio dottrinale nascosto nei versi. Il poema, infatti, è ricco di parallelismi massonici ed ermetici e come tale potrebbe essere letto e capito solo dagli iniziati. Le tre cantiche della Divina Commedia rappresentano quindi un percorso iniziatico: l'Inferno rappresenta il mondo profano; il Purgatorio illustra le prove iniziatiche e il Paradiso rappresenta l'illuminazione. Il numero tre compare ripetutamente nell'Opera e ha una grande importanza nel percorso iniziatico: tre sono i principi massonici (libertà, uguaglianza e fratellanza), tre le virtù teologiche (fede, speranza e carità), tre gli elementi alchemici (zolfo, mercurio e sale) necessari per creare la "Grande Opera". Il libro appare qui nella traduzione e curatela di Arturo Reghini.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:39:15 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:39:15 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:39:15 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:39:15 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:41:55 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 18
+[09-Jul-2025 17:41:55 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Giuseppe Garibaldi Gran Maestro
+    [autore] => Aldo A. Mola
+    [categoria_id] => 6
+    [isbn] => 979-1220337069
+    [copertina_url] => https://copertine.hoepli.it/hoepli/xxl/979/1220/9791220337069.jpg
+    [anno_pubblicazione] => 
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => L'autore offre a tutti gli appassionati di storia, e non solo, un utile ausilio per approfondire un interessante e poco conosciuto argomento, inerente il fatto che Giuseppe Garibaldi era il Gran Maestro della Massoneria, che nell'impresa dei Mille sarà aiutato in tutti i modi dalla Massoneria britannica; e proprio per questo ebbe dietro le quinte l'appoggio anche del futuro re d'Italia Vittorio Emanuele II. L'autore vuole con questo saggio, approfondire un argomento poco conosciuto dal grande pubblico, facendo delineare un'analisi storica sufficientemente trattata. Ne viene fuori uno spaccato di eventi rimasto per molto tempo avvolto tra le pieghe della storia...
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:41:55 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:41:55 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:41:55 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:41:55 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:43:03 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 19
+[09-Jul-2025 17:43:03 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Hatha Yoga Pradipika
+    [autore] => Yogi Ramacharaka
+    [categoria_id] => 11
+    [isbn] => 
+    [copertina_url] => https://m.media-amazon.com/images/I/71YtYne8vxL._SY522_.jpg
+    [anno_pubblicazione] => 2015
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Questo libro trova un degno posto all'interno del panorama della letteratura e dell'insegnamento grazie alle parole e alle espressioni che gli donano un carattere distintivo.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:43:03 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:43:03 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:43:03 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:43:03 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:43:32 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 19
+[09-Jul-2025 17:43:32 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Hatha Yoga Pradipika
+    [autore] => Yogi Ramacharaka
+    [categoria_id] => 11
+    [isbn] => 978-8494223280
+    [copertina_url] => https://m.media-amazon.com/images/I/71YtYne8vxL._SY522_.jpg
+    [anno_pubblicazione] => 2015
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Questo libro trova un degno posto all'interno del panorama della letteratura e dell'insegnamento grazie alle parole e alle espressioni che gli donano un carattere distintivo.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:43:32 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:43:32 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:43:32 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:43:32 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:47:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getDBConnection() in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php on line 18
+[09-Jul-2025 17:48:14 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getDBConnection() in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php on line 18
+[09-Jul-2025 17:49:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getDBConnection() in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php on line 18
+[09-Jul-2025 17:49:42 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getDBConnection() in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php on line 18
+[09-Jul-2025 17:51:49 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 28
+[09-Jul-2025 17:51:49 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I Misteri di Parigi
+    [autore] => Eugène Sue
+    [categoria_id] => 8
+    [isbn] => 978-8817014625
+    [copertina_url] => https://www.ibs.it/images/9788817014625_0_0_536_0_75.jpg
+    [anno_pubblicazione] => 2007
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => A causa delle colpe del passato, il principe Rodolphe di Gerolstein si è imposto una missione: aiutare i miserabili di Parigi e punire i malvagi che li affliggono. La sera del 13 dicembre del 1838, nei sobborghi malfamati della città, Rodolphe salva la giovane prostituta Fleur-de- Marie – detta la "Goualeuse", la "Cantante" – dall’aggressione dello "Chourineur", un ex forzato. I due diventeranno suoi alleati nella lotta contro gli avversari del principe: la contessa Sarah McGregor, ex moglie che gli ha sottratto la figlia creduta morta da tutti ma che verrà ritrovata, e il perfido abate Polidori, suo antico mentore. Uscito a puntate tra il 1842 e il 1843 su "Le Journal de Débats", "I misteri di Parigi" è un grande affresco della società francese dell’Ottocento, in cui la suspense del romanzo d’appendice si unisce alla denuncia sociale.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:51:49 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:51:49 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:51:49 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:51:49 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:53:20 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 27
+[09-Jul-2025 17:53:20 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I Misteri di Eleusi
+    [autore] => Victor Magnien
+    [categoria_id] => 3
+    [isbn] => 978-8898672240
+    [copertina_url] => https://m.media-amazon.com/images/I/81vjY+DwcrL._SL1500_.jpg
+    [anno_pubblicazione] => 1996
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Ampio e approfondito studio di Magnien, filologo classico e coautore del Dizionario Greco-Francese, sulle pratiche misteriche dell'antichità. Sono esaminati a fondo, con generosità di particolari e precisione di fonti, il carattere religioso della triade divina Demetra-Persefone-Dioniso, i legami con i primi filosofi greci, le pratiche rituali, le teorie e i miti sorti intorno a questa religiosità ancestrale, e dissipate le false credenze e i facili stereotipi sviluppatisi nelle precedenti scuole di pensiero.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:53:20 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:53:20 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:53:20 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:53:20 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 17:54:11 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 27
+[09-Jul-2025 17:54:11 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I Misteri di Eleusi
+    [autore] => Victor Magnien
+    [categoria_id] => 3
+    [isbn] => 978-8898672240
+    [copertina_url] => https://m.media-amazon.com/images/I/81vjY+DwcrL._SL1500_.jpg
+    [anno_pubblicazione] => 1996
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Ampio e approfondito studio di Magnien, filologo classico e coautore del Dizionario Greco-Francese, sulle pratiche misteriche dell'antichità. Sono esaminati a fondo, con generosità di particolari e precisione di fonti, il carattere religioso della triade divina Demetra-Persefone-Dioniso, i legami con i primi filosofi greci, le pratiche rituali, le teorie e i miti sorti intorno a questa religiosità ancestrale, e dissipate le false credenze e i facili stereotipi sviluppatisi nelle precedenti scuole di pensiero.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 17:54:11 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 17:54:11 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 17:54:11 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 17:54:11 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:01:59 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 33
+[09-Jul-2025 18:01:59 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I simboli cristiani primitivi
+    [autore] => Jean Daniélou
+    [categoria_id] => 1
+    [isbn] => 978-8886495134
+    [copertina_url] => https://m.media-amazon.com/images/I/41yNKnxO6cL.jpg
+    [anno_pubblicazione] => 2000
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => La croce, l’aratro, la corona, il carro, il pesce, la palma: una nuova pagina della storia del Cristianesimo, in cui l’Autore, con un’attenta analisi delle immagini e dei documenti giudeo-cristiani scoperti in Palestina, restituisce il vero significato al simbolismo cristiano dei primi secoli: questo Cristianesimo, che rimaneva oscuro e sconosciuto e di cui lo studio della simbolica giudeo-cristiana ci fa conoscere certi caratteri, è ora vicino a noi con il suo pensiero squisitamente biblico. Prima di espandersi nel mondo greco e romano e di assumerne il linguaggio, il Cristianesimo ha conosciuto un periodo importante in un ambiente ebreo in cui si parlava l’aramaico. Le tracce di questo giudeo-cristianesimo erano quasi scomparse. Eppure delle opere strane, tramandate in traduzioni in lingue orientali (armeno, siriaco, copto, etiopico) hanno consentito di restituire poco a poco l’eredità letteraria (“Odi di Salomone”, “Ascensione di Isaia”, “Testamento dei Dodici Patriarchi”, “Documento di Damasco”, ecc.). Il Cardinale Jean Daniélou, attento ai simboli studiati in questa letteratura, ha analizzato le immagini e i segni che ci ha trasmesso il Cristianesimo antico. La croce, l’aratro, la corona, il carro, il pesce, la palma: tanti simboli che riacquistano così la loro pienezza dimenticata, e il cui significato e uso si ritrovano confermati dalle scoperte archeologiche che sono, in Palestina, le più importanti dopo i manoscritti del Mar Morto. Ecco che questo Cristianesimo dei primi secoli in Oriente, che ci rimaneva oscuro e sconosciuto, è adesso vicino a noi con il suo pensiero squisitamente biblico.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 18:01:59 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:01:59 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 18:01:59 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 18:01:59 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:06:25 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 35
+[09-Jul-2025 18:06:25 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I Templari
+    [autore] => Piers Paul Read
+    [categoria_id] => 2
+    [isbn] => 978-8854162778
+    [copertina_url] => https://arice.leggere.it/arimg.ashx?e=9788854162778&k=gb&w=500&h=800
+    [anno_pubblicazione] => 2014
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Dai guardiani del Santo Graal del "Parsifal" di Wagner a Brian di Bois Guilbert, il diabolico antieroe dell'"Ivanhoe" di Walter Scott, i Templari, ovvero i Cavalieri del Tempio di Salomone, hanno affascinato l'immaginario occidentale. Ma chi erano davvero? In questo volume Piers Paul Read ripercorre, distinguendo tra storia e leggenda, le vicende del più celebre ordine cavalleresco. L'autore ci mostra come la forza militare dei Templari fosse sostenuta da una corporazione che oggi definiremmo "multinazionale", che traeva la propria ricchezza dall'efficiente gestione di vaste proprietà terriere e da una pionieristica attività bancaria. Espropriato dal re di Francia Filippo IV nel 1307, messo sotto accusa dopo che molti suoi membri avevano confessato sotto tortura atti blasfemi o eresie, l'Ordine venne infine soppresso nel 1312 da papa Clemente V. Ma i Templari erano davvero colpevoli di ciò di cui li si accusava? Quale fu in realtà il loro ruolo e la loro importanza? Le loro vicende influenzano ancora il nostro tempo?
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 18:06:25 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:06:25 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 18:06:25 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 18:06:25 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:20:52 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 37
+[09-Jul-2025 18:20:52 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Il Mistero del Gral
+    [autore] => Julius Evola
+    [categoria_id] => 5
+    [isbn] => 978-8827205020
+    [copertina_url] => https://m.media-amazon.com/images/I/71SmrMDBkcL._SY522_.jpg
+    [anno_pubblicazione] => 1994
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Basandosi sui principali testi originali della leggenda, Evola spiega il senso del mistero del Graal, che ha un carattere iniziatico e regale, legato a una tradizione anteriore e preesistente al cristianesimo, mentre presenta connessioni con l'idea di un centro del mondo e di un misterioso dominatore. Dalle varie avventure cavalleresche che si svolgono in un'atmosfera strana e surreale, egli indica il significato nascosto, che si rifa ad esperienze iniziatiche e a prove interne. Anche il simbolismo della 'donna' viene adeguatamente spiegato. L'esame si porta poi sul significato delle leggende del Graal nel Medioevo occidentale; considera quindi varie correnti che in un certo modo ripresero l'eredità del Graal dopo la distruzione dei Templari.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 18:20:52 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:20:52 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 18:20:52 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 18:20:52 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:21:14 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 35
+[09-Jul-2025 18:21:14 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => La Vera Storia dei Templari
+    [autore] => Piers Paul Read
+    [categoria_id] => 2
+    [isbn] => 978-8854162778
+    [copertina_url] => https://arice.leggere.it/arimg.ashx?e=9788854162778&k=gb&w=500&h=800
+    [anno_pubblicazione] => 2014
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Dai guardiani del Santo Graal del "Parsifal" di Wagner a Brian di Bois Guilbert, il diabolico antieroe dell'"Ivanhoe" di Walter Scott, i Templari, ovvero i Cavalieri del Tempio di Salomone, hanno affascinato l'immaginario occidentale. Ma chi erano davvero? In questo volume Piers Paul Read ripercorre, distinguendo tra storia e leggenda, le vicende del più celebre ordine cavalleresco. L'autore ci mostra come la forza militare dei Templari fosse sostenuta da una corporazione che oggi definiremmo "multinazionale", che traeva la propria ricchezza dall'efficiente gestione di vaste proprietà terriere e da una pionieristica attività bancaria. Espropriato dal re di Francia Filippo IV nel 1307, messo sotto accusa dopo che molti suoi membri avevano confessato sotto tortura atti blasfemi o eresie, l'Ordine venne infine soppresso nel 1312 da papa Clemente V. Ma i Templari erano davvero colpevoli di ciò di cui li si accusava? Quale fu in realtà il loro ruolo e la loro importanza? Le loro vicende influenzano ancora il nostro tempo?
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 18:21:14 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:21:14 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 18:21:14 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 18:21:14 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:26:06 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 40
+[09-Jul-2025 18:26:06 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I Misteri dei Templari
+    [autore] => Louis Charpentier
+    [categoria_id] => 2
+    [isbn] => 978-8833361338
+    [copertina_url] => https://m.media-amazon.com/images/I/81goiWoFotL._SL1500_.jpg
+    [anno_pubblicazione] => 2019
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Il mistero che, ancora oggi, circonda i Templari è fitto come la Foresta d'Oriente. E proprio in questi boschi sacri, dimora di arcane divinità celtiche, si compie il viaggio di Louis Charpentier alla scoperta di una delle più antiche tradizioni esoteriche della civiltà occidentale. Un viaggio a ritroso che, partendo dalle oscure e sporadiche testimonianze storiche a nostra disposizione, porta lo studioso francese, e con lui il lettore, a interrogarsi sulle reali origini dell'Ordine del Tempio. Lasciando da parte la storia ufficiale, Charpentier getta nuova luce sulle tappe più significative della nascita e della diffusione dei Poveri Cavalieri di Cristo, ne ripercorre le imprese e ne rilegge la Regola, con l'intento di offrire risposte alle numerose domande che da sempre li accompagnano. Innanzitutto, come fu possibile una così repentina ascesa? E per quale motivo i Templari furono i protagonisti, neanche due secoli dopo, di una caduta tanto rovinosa, considerata da Jules Michelet «il più grave cataclisma della civiltà occidentale»? Quale fu l'origine dell'immensa ricchezza dell'Ordine e del suo misterioso, introvabile tesoro? E qual è il legame tra la missione dei Cavalieri in Oriente e la ricerca del Graal? Charpentier si muove abilmente nell'intricato mondo dei Templari e, rivelando una sorprendente capacità di leggere tra le righe, racconta una storia parallela, o forse la stessa storia vista, però, da un'altra prospettiva. E se «la storia la fa chi rimane», possiamo vedere nel suo libro il tentativo di dare voce a chi, come l'ultimo Gran Maestro Jacques de Molay, fu arso vivo sul rogo insieme alla sua verità.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 18:26:06 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:26:06 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 18:26:06 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 18:26:06 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:27:03 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 40
+[09-Jul-2025 18:27:03 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I Misteri dei Templari
+    [autore] => Louis Charpentier
+    [categoria_id] => 2
+    [isbn] => 978-8833361338
+    [copertina_url] => https://m.media-amazon.com/images/I/81goiWoFotL._SL1500_.jpg
+    [anno_pubblicazione] => 2019
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Il mistero che, ancora oggi, circonda i Templari è fitto come la Foresta d'Oriente. E proprio in questi boschi sacri, dimora di arcane divinità celtiche, si compie il viaggio di Louis Charpentier alla scoperta di una delle più antiche tradizioni esoteriche della civiltà occidentale. Un viaggio a ritroso che, partendo dalle oscure e sporadiche testimonianze storiche a nostra disposizione, porta lo studioso francese, e con lui il lettore, a interrogarsi sulle reali origini dell'Ordine del Tempio. Lasciando da parte la storia ufficiale, Charpentier getta nuova luce sulle tappe più significative della nascita e della diffusione dei Poveri Cavalieri di Cristo, ne ripercorre le imprese e ne rilegge la Regola, con l'intento di offrire risposte alle numerose domande che da sempre li accompagnano. Innanzitutto, come fu possibile una così repentina ascesa? E per quale motivo i Templari furono i protagonisti, neanche due secoli dopo, di una caduta tanto rovinosa, considerata da Jules Michelet «il più grave cataclisma della civiltà occidentale»? Quale fu l'origine dell'immensa ricchezza dell'Ordine e del suo misterioso, introvabile tesoro? E qual è il legame tra la missione dei Cavalieri in Oriente e la ricerca del Graal? Charpentier si muove abilmente nell'intricato mondo dei Templari e, rivelando una sorprendente capacità di leggere tra le righe, racconta una storia parallela, o forse la stessa storia vista, però, da un'altra prospettiva. E se «la storia la fa chi rimane», possiamo vedere nel suo libro il tentativo di dare voce a chi, come l'ultimo Gran Maestro Jacques de Molay, fu arso vivo sul rogo insieme alla sua verità.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 18:27:03 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:27:03 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 18:27:03 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 18:27:03 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:45:58 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 42
+[09-Jul-2025 18:45:58 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Il Santo Graal
+    [autore] => Michael Baigent
+    [categoria_id] => 11
+    [isbn] => 
+    [copertina_url] => 
+    [anno_pubblicazione] => 2019
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => 
+    [stato] => prestato
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 1
+    [data_prestito_corrente] => 2025-07-09
+    [data_scadenza_corrente] => 2025-08-08
+    [note] => 
+)
+
+[09-Jul-2025 18:45:58 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:45:58 UTC] MODIFICA LIBRO: Stato precedente: prestato, Nuovo stato: prestato
+[09-Jul-2025 18:45:58 UTC] MODIFICA LIBRO: Prestito aggiornato - Fratello: 1
+[09-Jul-2025 18:45:58 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:47:39 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 42
+[09-Jul-2025 18:47:39 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Il Santo Graal
+    [autore] => Michael Baigent
+    [categoria_id] => 11
+    [isbn] => 978-8804703853
+    [copertina_url] => https://m.media-amazon.com/images/I/71-KFST+o8L._SL1500_.jpg
+    [anno_pubblicazione] => 2018
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => «Il Santo Graal» prende avvio da alcuni indizi ritrovati a Carcassonne, nella Francia meridionale, che fanno emergere un quadro quanto mai sconvolgente: Gesù non morì sulla croce, sposò Maria Maddalena – da cui ebbe alcuni figli – e si rifugiò in Francia, dove i suoi discendenti andarono incontro a un grande destino... Un viaggio a ritroso nel tempo tra pergamene in codice, società segrete, cavalieri Templari, roghi di eretici e un'oscura dinastia di re.
+    [stato] => prestato
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 1
+    [data_prestito_corrente] => 2025-07-09
+    [data_scadenza_corrente] => 2025-08-08
+    [note] => 
+)
+
+[09-Jul-2025 18:47:39 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:47:39 UTC] MODIFICA LIBRO: Stato precedente: prestato, Nuovo stato: prestato
+[09-Jul-2025 18:47:39 UTC] MODIFICA LIBRO: Prestito aggiornato - Fratello: 1
+[09-Jul-2025 18:47:39 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 18:48:16 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 42
+[09-Jul-2025 18:48:16 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Il Santo Graal
+    [autore] => Michael Baigent
+    [categoria_id] => 11
+    [isbn] => 978-8804703853
+    [copertina_url] => https://m.media-amazon.com/images/I/71-KFST+o8L._SL1500_.jpg
+    [anno_pubblicazione] => 2018
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => «Il Santo Graal» prende avvio da alcuni indizi ritrovati a Carcassonne, nella Francia meridionale, che fanno emergere un quadro quanto mai sconvolgente: Gesù non morì sulla croce, sposò Maria Maddalena – da cui ebbe alcuni figli – e si rifugiò in Francia, dove i suoi discendenti andarono incontro a un grande destino... Un viaggio a ritroso nel tempo tra pergamene in codice, società segrete, cavalieri Templari, roghi di eretici e un'oscura dinastia di re.
+    [stato] => prestato
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 1
+    [data_prestito_corrente] => 2025-07-09
+    [data_scadenza_corrente] => 2025-08-08
+    [note] => 
+)
+
+[09-Jul-2025 18:48:16 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 18:48:16 UTC] MODIFICA LIBRO: Stato precedente: prestato, Nuovo stato: prestato
+[09-Jul-2025 18:48:16 UTC] MODIFICA LIBRO: Prestito aggiornato - Fratello: 1
+[09-Jul-2025 18:48:16 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 19:01:44 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 43
+[09-Jul-2025 19:01:44 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => La Chiave di Hiram
+    [autore] => Christopher Knight
+    [categoria_id] => 2
+    [isbn] => 978-8804454519
+    [copertina_url] => https://www.libraccio.it/images/9788804454519_0_200_318_75.jpg
+    [anno_pubblicazione] => 1998
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Grazie allo studio comparato di documenti egizi, dell'Antico e Nuovo Testamento, della letteratura cristiana e rabbinica primitiva, dei manoscritti del Mar Morto, Christopher Knight e Robert Lomas sono riusciti a individuare l'esistenza di un simbolismo esoterico utilizzato sia dai faraoni sia da Gesù, poi adottato dai templari e via via tramandato ai «fratelli» moderni.
+
+Furono proprio i templari, infatti, a riesumare i papiri di Qumran, seppelliti dai cristiani primitivi a Gerusalemme poco prima della distruzione della città, e ad appropriarsi degli antichi insegnamenti in essi contenuti. Da allora i manoscritti sono rimasti nascosti nelle pieghe del tempo.
+
+Alla fine di un lungo lavoro di investigazione, i due autori sono riusciti a far luce sull'enigma che impediva l'individuazione dell'ultimo nascondiglio: un misterioso edificio costruito dai discendenti dei templari più di cinque secoli fa in Scozia. Un saggio, coinvolgente come un romanzo, che lascia intuire verità inimmaginabili.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 19:01:44 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 19:01:44 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 19:01:44 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 19:01:44 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 19:01:55 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 43
+[09-Jul-2025 19:01:55 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => La Chiave di Hiram
+    [autore] => Christopher Knight
+    [categoria_id] => 2
+    [isbn] => 978-8804454519
+    [copertina_url] => https://www.libraccio.it/images/9788804454519_0_200_318_75.jpg
+    [anno_pubblicazione] => 1998
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Grazie allo studio comparato di documenti egizi, dell'Antico e Nuovo Testamento, della letteratura cristiana e rabbinica primitiva, dei manoscritti del Mar Morto, Christopher Knight e Robert Lomas sono riusciti a individuare l'esistenza di un simbolismo esoterico utilizzato sia dai faraoni sia da Gesù, poi adottato dai templari e via via tramandato ai «fratelli» moderni.
+
+Furono proprio i templari, infatti, a riesumare i papiri di Qumran, seppelliti dai cristiani primitivi a Gerusalemme poco prima della distruzione della città, e ad appropriarsi degli antichi insegnamenti in essi contenuti. Da allora i manoscritti sono rimasti nascosti nelle pieghe del tempo.
+
+Alla fine di un lungo lavoro di investigazione, i due autori sono riusciti a far luce sull'enigma che impediva l'individuazione dell'ultimo nascondiglio: un misterioso edificio costruito dai discendenti dei templari più di cinque secoli fa in Scozia. Un saggio, coinvolgente come un romanzo, che lascia intuire verità inimmaginabili.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 19:01:55 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 19:01:55 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 19:01:55 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 19:01:55 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 19:18:08 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 39
+[09-Jul-2025 19:18:08 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Il Mistero di Maria Maddalena
+    [autore] => Agostini Massimo
+    [categoria_id] => 11
+    [isbn] => 978-8895665047
+    [copertina_url] => https://img.ubiklibri.it/images/9788895665047_0_900_0_0.jpg
+    [anno_pubblicazione] => 2012
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Un saggio straordinario e controverso, che intreccia storia, arte sacra e spiritualità esoterica, partendo dall’analisi di affreschi medievali rinvenuti nella chiesa domenicana di San Domenico a Fano. Attraverso l’esame dei vangeli canonici e dei vangeli gnostici (come Pistis Sophia, Vangelo di Filippo, Tommaso, Maria), Agostini explora il ruolo di Maria Maddalena come Grande Madre, sacerdotessa, consorte mistica del Cristo e detentrice di una gnosi profonda.
+Il volume unisce studi su tradizioni religiose antiche (Iside nell’Egitto, Sophia nella Cabala), contemplazioni alchemiche e genealogiche, lungo la suggestiva “linea di sangue del Santo Graal”. Sostiene l’immagine di Maria “Sposa e Sposo di nozze alchemiche”, simbolo della nuova alleanza divina, e dei suoi legami con l’Ordine di Dan, rafforzati da paralleli tra i culti femminili antichi e le comunità cristiane primitive.
+Prefazionato da Sir Ian Sinclair, Gran Priore Internazionale degli Scottish Knight Templars, il libro contiene 96 pagine fitte di riferimenti esegetici e di un itinerario iniziatico volto a riscoprire le radici mistiche del Cristianesimo e della leggenda del Graal
+    [stato] => prestato
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 6
+    [data_prestito_corrente] => 2025-07-09
+    [data_scadenza_corrente] => 2025-08-08
+    [note] => 
+)
+
+[09-Jul-2025 19:18:08 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 19:18:08 UTC] MODIFICA LIBRO: Stato precedente: prestato, Nuovo stato: prestato
+[09-Jul-2025 19:18:08 UTC] MODIFICA LIBRO: Prestito aggiornato - Fratello: 6
+[09-Jul-2025 19:18:08 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 19:40:45 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 21
+[09-Jul-2025 19:40:45 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I 7 vizi capitali
+    [autore] => Roberto Gervaso
+    [categoria_id] => 11
+    [isbn] => 978-8831174930
+    [copertina_url] => https://m.media-amazon.com/images/I/31KohNuHwKL.jpg
+    [anno_pubblicazione] => 2027
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Superbia, invidia, ira, accidia, avarizia, gola, lussuria: molti hanno certamente sentito parlare dei "sette vizi capitali", se non altro perché sono ormai entrati nel linguaggio comune e nella nostra cultura, anche laica. Ma, se escludiamo tale conoscenza superficiale o puramente culturale, che cosa sappiamo di questo argomento? Conosciamo quali sono questi vizi e che cosa ciascuno di essi veramente rappresenti? Ci è chiaro che cosa significhi vizio? Facendo riferimento alla grande tradizione della Chiesa (in particolare a tre libri: Gli otto spiriti della malvagità di San Nilo di Anciria; le Istituzioni cenobitiche di san Giovanni Cassiano e La scala del paradiso di san Giovanni Climaco), il presente volume vorrebbe essere una piccola e agile guida, di taglio più pratico che teorico, per aiutare il lettore a riprendere in mano la propria vita e a fare un lavoro serio su se stesso, partendo dalla diagnosi e dalla terapia delle sette malattie da cui ogni malessere spirituale e corporale dell'uomo discende.
+    [stato] => prestato
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 15
+    [data_prestito_corrente] => 2025-07-09
+    [data_scadenza_corrente] => 2025-08-08
+    [note] => 
+)
+
+[09-Jul-2025 19:40:45 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 19:40:45 UTC] MODIFICA LIBRO: Stato precedente: prestato, Nuovo stato: prestato
+[09-Jul-2025 19:40:45 UTC] MODIFICA LIBRO: Prestito aggiornato - Fratello: 15
+[09-Jul-2025 19:40:45 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 19:40:57 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 21
+[09-Jul-2025 19:40:57 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => I 7 vizi capitali
+    [autore] => Dag Tessore
+    [categoria_id] => 11
+    [isbn] => 978-8831174930
+    [copertina_url] => https://m.media-amazon.com/images/I/31KohNuHwKL.jpg
+    [anno_pubblicazione] => 2027
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Superbia, invidia, ira, accidia, avarizia, gola, lussuria: molti hanno certamente sentito parlare dei "sette vizi capitali", se non altro perché sono ormai entrati nel linguaggio comune e nella nostra cultura, anche laica. Ma, se escludiamo tale conoscenza superficiale o puramente culturale, che cosa sappiamo di questo argomento? Conosciamo quali sono questi vizi e che cosa ciascuno di essi veramente rappresenti? Ci è chiaro che cosa significhi vizio? Facendo riferimento alla grande tradizione della Chiesa (in particolare a tre libri: Gli otto spiriti della malvagità di San Nilo di Anciria; le Istituzioni cenobitiche di san Giovanni Cassiano e La scala del paradiso di san Giovanni Climaco), il presente volume vorrebbe essere una piccola e agile guida, di taglio più pratico che teorico, per aiutare il lettore a riprendere in mano la propria vita e a fare un lavoro serio su se stesso, partendo dalla diagnosi e dalla terapia delle sette malattie da cui ogni malessere spirituale e corporale dell'uomo discende.
+    [stato] => prestato
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 15
+    [data_prestito_corrente] => 2025-07-09
+    [data_scadenza_corrente] => 2025-08-08
+    [note] => 
+)
+
+[09-Jul-2025 19:40:57 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 19:40:57 UTC] MODIFICA LIBRO: Stato precedente: prestato, Nuovo stato: prestato
+[09-Jul-2025 19:40:57 UTC] MODIFICA LIBRO: Prestito aggiornato - Fratello: 15
+[09-Jul-2025 19:40:57 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 19:42:00 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 2
+[09-Jul-2025 19:42:00 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Avviamento alla Massoneria
+    [autore] => Umberto Porciatti
+    [categoria_id] => 2
+    [isbn] => 
+    [copertina_url] => https://m.media-amazon.com/images/I/81WuA5TjYcL._SY522_.jpg
+    [anno_pubblicazione] => 
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => 
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 19:42:00 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 19:42:00 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 19:42:00 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 19:42:00 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[09-Jul-2025 19:45:00 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 2
+[09-Jul-2025 19:45:00 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Avviamento alla Massoneria
+    [autore] => Umberto Porciatti
+    [categoria_id] => 2
+    [isbn] => 978-8871690551
+    [copertina_url] => https://m.media-amazon.com/images/I/81WuA5TjYcL._SY522_.jpg
+    [anno_pubblicazione] => 1994
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => “In questa breve opera postuma, l’autore presenta il pensiero massonico in modo chiaro, semplice ed accessibile, e permette di comprendere la natura della Massoneria e di possedere gli strumenti per studi più approfonditi.” 
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[09-Jul-2025 19:45:00 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[09-Jul-2025 19:45:00 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[09-Jul-2025 19:45:00 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[09-Jul-2025 19:45:00 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 07:20:31 UTC] ADMIN: Categoria ID 12 eliminata da admin ID 16
+[21-Jul-2025 07:20:37 UTC] ADMIN: Categoria ID 13 eliminata da admin ID 16
+[21-Jul-2025 07:20:40 UTC] ADMIN: Categoria ID 14 eliminata da admin ID 16
+[21-Jul-2025 07:20:43 UTC] ADMIN: Categoria ID 15 eliminata da admin ID 16
+[21-Jul-2025 07:20:46 UTC] ADMIN: Categoria ID 16 eliminata da admin ID 16
+[21-Jul-2025 07:20:49 UTC] ADMIN: Categoria ID 17 eliminata da admin ID 16
+[21-Jul-2025 07:20:53 UTC] ADMIN: Categoria ID 19 eliminata da admin ID 16
+[21-Jul-2025 07:20:57 UTC] ADMIN: Categoria ID 21 eliminata da admin ID 16
+[21-Jul-2025 07:21:01 UTC] ADMIN: Categoria ID 22 eliminata da admin ID 16
+[21-Jul-2025 07:21:05 UTC] ADMIN: Categoria ID 20 eliminata da admin ID 16
+[21-Jul-2025 07:21:08 UTC] ADMIN: Categoria ID 18 eliminata da admin ID 16
+[21-Jul-2025 07:47:52 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 45
+[21-Jul-2025 07:47:52 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => L'Iniziazione
+    [autore] => Rudolf Steiner
+    [categoria_id] => 3
+    [isbn] => 978-8877874788
+    [copertina_url] => https://cs.ilgiardinodeilibri.it/cop/i/w501/iniziazione.jpg?_=1692697005
+    [anno_pubblicazione] => 2009
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => "L'Iniziazione" di Rudolf Steiner, il fondatore della corrente esoterica dell'Antroposofia, ti mostra la via per risvegliare le tue facoltà spirituali latenti e accedere a una dimensione più profonda della realtà.
+
+Questo manuale fondamentale, diventato un pilastro nel suo ambito, ti guida in un percorso di autoeducazione e trasformazione, basato sui principi dell'Antroposofia, la scienza esoterica che si basa sulla ricerca della dimensione spirituale dell'essere umano.
+
+In questo libro troverai:
+
+I gradini dell'Iniziazione;
+Le condizioni necessarie per l'educazione occulta;
+La vita del sogno del discepolo;
+La continuità della coscienza;
+Il Guardiano della soglia;
+E molto altro ancora.
+Steiner ti fornisce una spiegazione chiara e dettagliata delle condizioni necessarie per l'Iniziazione, ossia il processo di ampliamento della Coscienza che ti permette di entrare in contatto con i mondi superiori, e i suoi effetti sulla vita quotidiana, sul sonno, sui sogni, sulla personalità e sul destino.
+
+Inoltre, ti illustra le tecniche pratiche per sviluppare la calma interiore, il controllo dei pensieri e dei sentimenti, l'illuminazione dell'anima e la visione spirituale.
+
+L'obiettivo di questo volume è di donare qualcosa ai lettori che si sentono attratti dall'investigazione occulta e si pongono domande sui grandi enigmi dell'esistenza.
+
+Per investigare questi fatti, è necessario quindi esercitare la propria capacità di accedere ai mondi soprasensibili.
+
+In ogni essere umano esistono facoltà latenti per mezzo delle quali si possono acquisire conoscenze sui mondi superiori: ma come fare imparare a svilupparle e ad esprimerle nel loro potenziale? Qui sta la soluzione.
+
+Non accontentarti di una visione limitata della realtà ed esplora le infinite possibilità che si aprono davanti a te quando sviluppi le tue potenzialità spirituali.
+
+"L'Iniziazione è il gradino più alto della disciplina occulta del quale ancora sia consentito dare in un libro qualche cenno che in generale possa essere capito [...] le conoscenze e le capacità che vengono conferite all'uomo con l'Iniziazione, senza di essa potrebbero essere acquistate soltanto in un lontanissimo avvenire..."
+
+Rudolf Steiner
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 07:47:52 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 07:47:52 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 07:47:52 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 07:47:52 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 08:03:02 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 100
+[21-Jul-2025 08:03:02 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Kilwinning e I Custodi della Tradizione
+    [autore] => Paolo Giulio Gazzano
+    [categoria_id] => 1
+    [isbn] => 979-12-24003-85-4
+    [copertina_url] => https://covers.youcanprint.it/p/YCP_M_9791224003854.jpg
+    [anno_pubblicazione] => 2025
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => 
+    [stato] => disponibile
+    [condizioni] => ottimo
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 08:03:02 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 08:03:02 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 08:03:02 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 08:03:02 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 11:52:29 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 102
+[21-Jul-2025 11:52:29 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => L’apprendista Libero Muratore. Le fondamenta del cammino.
+    [autore] => Paolo Giulio Gazzano
+    [categoria_id] => 1
+    [isbn] => 979-1222798325
+    [copertina_url] => https://covers.youcanprint.it/e/YCP_L_9791222798332.webp
+    [anno_pubblicazione] => 2025
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => "L'Apprendista Libero Muratore: le fondamenta del cammino" è una guida essenziale per chi intraprende il percorso iniziatico nella Massoneria. Più di un semplice testo teorico, questo libro è uno strumento di lavoro che accompagna l'Apprendista nella comprensione del Rituale, del Simbolismo e della disciplina interiore necessaria per la propria crescita. Attraverso un linguaggio chiaro e rigoroso, il lettore esplora la struttura della Loggia, l'importanza del Silenzio, il valore del Lavoro iniziatico e il profondo significato del Rituale. Ogni capitolo aiuta a interpretare la Massoneria non come un insieme di gesti e parole, ma come un metodo trasformativo che modella l'essere interiore. Questo libro offre agli Apprendisti e ai Fratelli di ogni grado una chiave di lettura per vivere l'Iniziazione con consapevolezza, disciplina e dedizione, comprendendo che il vero Lavoro inizia nella Loggia ma si realizza nella vita quotidiana. Il lettore verrà guidato in un viaggio di scoperta interiore, dove ogni simbolo e gesto rituale diventa un'opportunità di crescita personale. Con un equilibrio tra approfondimento esoterico, riflessione simbolica e applicazione pratica, questo testo rappresenta un punto di riferimento fondamentale per chi desidera comprendere il senso autentico della Tradizione massonica e applicarne gli insegnamenti nel proprio cammino.
+    [stato] => disponibile
+    [condizioni] => ottimo
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 11:52:29 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 11:52:29 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 11:52:29 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 11:52:29 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 12:05:34 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 50
+[21-Jul-2025 12:05:34 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => Il Racconto dell'Anticristo
+    [autore] => Vladimir Soloviev
+    [categoria_id] => 11
+    [isbn] => 978-8864963556
+    [copertina_url] => https://m.media-amazon.com/images/I/71IRn-pZbuL._SL1455_.jpg
+    [anno_pubblicazione] => 2017
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Solov'ev raffigura l'Anticristo come un personaggio affascinante che riuscirà a influenzare e a condizionare un po' tutti. Il racconto è ricco di notazioni psicologiche, merita particolare attenzione il monologo dell'Anticristo, che evidenzia tutto l'itinerario percorso per diventare tale; così anche la presentazione dell'aspetto esteriore dei personaggi. A tre è affidato il riconoscimento dell'Anticristo e la lotta contro di lui, agendo nel racconto come co-protagonosti: il cardinale Simone Barionini che aveva assunto il nome di Pietro II; lo stareta Giovanni e l'eruditissimo teologo tedesco, professor Ernst Pauli. Tre nobili personaggi, ciascuno rappresentante di una confessione religiosa. Saranno dunque le Chiese storiche a salvarci dall'Anticristo, oppure questo compito spetterà a pochi uomini illuminati?
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 12:05:34 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 12:05:34 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 12:05:34 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 12:05:34 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 12:15:18 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 54
+[21-Jul-2025 12:15:18 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => L'Isola del Tesoro
+    [autore] => Robert Louis Stevenson
+    [categoria_id] => 8
+    [isbn] => 978-8832070743
+    [copertina_url] => https://www.orecchioacerbo.it/wp-content/uploads/2021/08/isola-del-tesoro.jpg
+    [anno_pubblicazione] => 2021
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => La vita del giovane Jim Hawkins scorre tranquilla, alla locanda di famiglia nel villaggio sul mare non lontano da Bristol. Fino al giorno in cui, con l’intento di nascondersi, un burbero e alcolizzato uomo di mare, che si fa chiamare capitano Billy Bones, prende in affitto una stanza proprio in quella locanda. Da qui in poi, la vita di Jim è un susseguirsi di incontri pericolosi, di colpi di scena, di scelte coraggiose, di rocambolesche avventure. La mappa del tesoro di Flint, che Billy Bones custodiva gelosamente e che tutti i peggiori filibustieri stavano cercando, finisce invece per un gioco del caso proprio nelle mani di Jim; con il dottor Livesey e con il conte Trelawney, il ragazzo si imbarca sull’Hispaniola, alla ricerca dell’isola e del tesoro. Convinti della facilità dell’impresa e della fedeltà dell’equipaggio, i tre, affiancati da un pugno di marinai ancora fedeli, si ritroveranno invece a dover combattere contro un nutrito manipolo di pirati senza scrupoli, guidati da Long John Silver, imbarcatosi come cuoco di bordo. Per il giovane Jim, l’incontro con quest’uomo che sa essere spietato e leale, segnerà non solo il suo avventuroso battesimo del mare, ma anche il suo rito di passaggio per diventare un uomo. Un inno alla libertà di scelta, all’avventura pura, allo sconfinato mare, alla natura selvaggia.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 12:15:18 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 12:15:18 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 12:15:18 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 12:15:18 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 12:21:12 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 58
+[21-Jul-2025 12:21:12 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => La Genesi
+    [autore] => Zecharia Sitchin
+    [categoria_id] => 11
+    [isbn] => 978-8832130010
+    [copertina_url] => https://copertine.hoepli.it/hoepli/xxl/978/8832/9788832130010.jpg
+    [anno_pubblicazione] => 2019
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => È possibile che l'umanità sia uscita dal Medioevo e dai secoli bui, che abbia prodotto l'Illuminismo, abbia generato la rivoluzione industriale e sia entrata nell'era dell'ingegneria genetica, dell'alta tecnologia e dei voli spaziali, soltanto per ritrovare la conoscenza degli antichi? Per molte generazioni la Bibbia e i suoi insegnamenti sono stati l'àncora della conoscenza per un'umanità alla ricerca, ma la scienza moderna sembra averci gettato alla deriva, specialmente per quanto riguarda il confronto tra teorie evoluzioniste e creazioniste. In questo volume vedremo che tale conflitto non ha ragione di esistere, e che il Libro della Genesi e le sue fonti riflettono i più alti livelli di conoscenza scientifica.
+
+
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 12:21:12 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 12:21:12 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 12:21:12 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 12:21:12 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 12:21:47 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 58
+[21-Jul-2025 12:21:47 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => La Genesi
+    [autore] => Zecharia Sitchin
+    [categoria_id] => 11
+    [isbn] => 978-8832130010
+    [copertina_url] => https://copertine.hoepli.it/hoepli/xxl/978/8832/9788832130010.jpg
+    [anno_pubblicazione] => 2019
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => È possibile che l'umanità sia uscita dal Medioevo e dai secoli bui, che abbia prodotto l'Illuminismo, abbia generato la rivoluzione industriale e sia entrata nell'era dell'ingegneria genetica, dell'alta tecnologia e dei voli spaziali, soltanto per ritrovare la conoscenza degli antichi? Per molte generazioni la Bibbia e i suoi insegnamenti sono stati l'àncora della conoscenza per un'umanità alla ricerca, ma la scienza moderna sembra averci gettato alla deriva, specialmente per quanto riguarda il confronto tra teorie evoluzioniste e creazioniste. In questo volume vedremo che tale conflitto non ha ragione di esistere, e che il Libro della Genesi e le sue fonti riflettono i più alti livelli di conoscenza scientifica.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 12:21:47 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 12:21:47 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 12:21:47 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 12:21:47 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 12:22:49 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 59
+[21-Jul-2025 12:22:49 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => La Loggia Mother Kilwinning No. 0
+    [autore] => Robert Cooper
+    [categoria_id] => 2
+    [isbn] => 978-8831381017
+    [copertina_url] => https://m.media-amazon.com/images/I/61S-XQtVRNL.jpg
+    [anno_pubblicazione] => 2020
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => "La Loggia Mother Kilwinning No.0" di Fabrizio Bartoli e Michele La Rocca è un libro aiuterà ad illuminare i cercatori di verità sulla nebulosa archeostoria della Libera Muratoria.
+
+La Loggia "Mother Kilwinning No.0" si trova in Scozia ed è considerata, da coloro che seguono l’istituzione iniziatica muratoria nelle varie nazioni, la prima Loggia massonica al mondo e per questo gli è stato assegnato il No.0.
+
+Da questa Loggia Madre sono nate le altre Logge scozzesi e inglesi e quindi successivamente quelle in Francia, in Italia e nel resto d’Europa.
+
+Dalle Logge europee sono poi nate le altre Logge presenti nei vari stati del mondo.
+
+Approfondire la conoscenza di questa prima Loggia, in un certo senso, significa andare all'origine della Massoneria, anche se i presupposti e i principi della Tradizione Muratoria sono rintracciabili nelle conoscenze esoteriche e iniziatiche presenti nelle antiche civiltà egizie, mesopotamiche, ebraico-giudaiche e greche.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 12:22:49 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 12:22:49 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 12:22:49 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 12:22:49 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[21-Jul-2025 12:26:16 UTC] MODIFICA LIBRO: POST ricevuto per libro ID 62
+[21-Jul-2025 12:26:16 UTC] MODIFICA LIBRO: Dati POST: Array
+(
+    [action] => salva_libro
+    [titolo] => La ricerca del Santo Graal
+    [autore] => Jean Markale
+    [categoria_id] => 5
+    [isbn] => 978-8871365336
+    [copertina_url] => https://copertine.hoepli.it/hoepli/xxl/978/8871/9788871365336.jpg
+    [anno_pubblicazione] => 2014
+    [lingua] => italiano
+    [grado_minimo] => pubblico
+    [descrizione] => Il Graal? Tutti lo cercano, ma nessuno sa esattamente che cosa sia. Nel corso dei secoli gli sono state attribuite caratteristiche diverse e addirittura per alcuni non sarebbe neppure un oggetto ma la discendenza di Gesù Cristo e Maria Maddalena (che avrebbe trovato rifugio a Rennes-le-Chateau, nella regione francese dell'Aude, punto di partenza per una nuova Crociata). Questa idea che continua a essere, come ovvio, scandalosa - si basa sul fatto che la grafia Sangréal dei manoscritti medievali può essere interpretata sia come "Saint Graal", Santo Graal, che richiama l'immagine di un vaso contenente il sangue di Cristo (l'antico occitano gradal significa "recipiente"), sia come "Sang Royal", Sangue Reale. In questo libro, Jean Markale risale alle fonti del Graal, almeno dal punto di vista letterario, dal romanzo incompiuto di Chrétien de Troyes, scritto alla fine del XII secolo, al Parzival di Wolfram von Eschenbach ripreso poi da Richard Wagner. Senza trascurare il suo significato per alcune tra le più misteriose società segrete, dagli Illuminati di Baviera all'enigmatica Thule che tanto influenzò il nazismo e, in particolare, Himmler, per il quale il Graal era l'energia assoluta.
+    [stato] => disponibile
+    [condizioni] => buono
+    [prestato_a_fratello_id] => 
+    [data_prestito_corrente] => 
+    [data_scadenza_corrente] => 
+    [note] => 
+)
+
+[21-Jul-2025 12:26:16 UTC] MODIFICA LIBRO: Campi base aggiornati OK
+[21-Jul-2025 12:26:16 UTC] MODIFICA LIBRO: Stato precedente: disponibile, Nuovo stato: disponibile
+[21-Jul-2025 12:26:16 UTC] MODIFICA LIBRO: Stato aggiornato a: disponibile, prestito resettato
+[21-Jul-2025 12:26:16 UTC] MODIFICA LIBRO: Aggiornamento completato con successo
+[12-Aug-2025 20:00:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getDBConnection() in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/jmvvznbb/biblioteca/pages/admin/gestione-prestiti.php on line 18
