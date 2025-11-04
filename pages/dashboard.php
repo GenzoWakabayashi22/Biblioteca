@@ -300,7 +300,7 @@ $num_liste = $liste_result ? $liste_result['count'] : 0;
                                         <h3 class="font-semibold text-gray-800 hover:text-indigo-600">
                                             <a href="libro-dettaglio.php?id=<?php echo $prestito['id']; ?>">
                                                 <?php echo htmlspecialchars($prestito['titolo']); ?>
-                            </a>
+                                            </a>
                                         </h3>
                                         <p class="text-gray-600 text-sm"><?php echo htmlspecialchars($prestito['autore']); ?></p>
                                         <div class="flex items-center space-x-4 mt-2 text-sm">
@@ -323,7 +323,6 @@ $num_liste = $liste_result ? $liste_result['count'] : 0;
                                 </div>
                             </div>
                         <?php endforeach; ?>
-                    </div>
                     </div>
                 <?php endif; ?>
             </div>
