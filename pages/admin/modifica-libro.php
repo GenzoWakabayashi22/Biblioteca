@@ -732,10 +732,6 @@ function mostraStelle($voto, $classe = '') {
                        class="block w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm transition">
                         👁️ Vedi Dettaglio Pubblico
                     </a>
-                    <a href="gestione-prestiti.php" 
-                       class="block w-full bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-center text-sm transition">
-                        📋 Gestione Prestiti
-                    </a>
                     <a href="../catalogo.php" 
                        class="block w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-center text-sm transition">
                         📚 Vai al Catalogo
