@@ -269,6 +269,7 @@ function richieciPrestito($input) {
         $stmt_check_richieste->bind_param("i", $libro_id);
         $stmt_check_richieste->execute();
         $richieste_attive = $stmt_check_richieste->get_result()->fetch_assoc();
+        $stmt_check_richieste->close();
 
         if ($richieste_attive['count_richieste'] > 0) {
             throw new Exception('C\'è già una richiesta in attesa per questo libro. Sarai avvisato quando sarà disponibile.');
