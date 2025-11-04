@@ -288,7 +288,7 @@ $total_libri = $total_result['total'];
     <!-- Griglia libri con COPERTINE VERTICALI -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <?php foreach ($libri as $libro): ?>
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" data-libro-id="<?= $libro['id'] ?>">
                 <!-- Header libro con stato -->
                 <div class="p-4 pb-2">
                     <div class="flex justify-between items-start mb-3">

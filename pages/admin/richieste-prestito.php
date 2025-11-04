@@ -5,13 +5,6 @@ require_once '../../config/database.php';
 
 // Verifica sessione
 verificaSessioneAttiva();
-
-// Connessione database
-$conn = new mysqli('localhost', 'jmvvznbb_tornate_user', 'Puntorosso22', 'jmvvznbb_tornate_db');
-if ($conn->connect_error) {
-    die("Errore connessione: " . $conn->connect_error);
-}
-$conn->set_charset('utf8mb4');
 // Gestione azioni POST per approvazione/rifiuto
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
@@ -22,33 +15,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $note_admin = trim($input['note_admin'] ?? '');
     
     if ($action === 'approva_richiesta' && $richiesta_id > 0) {
-        $stmt = $conn->prepare("
+        $query = "
             UPDATE richieste_prestito 
             SET stato = 'approvata', note_admin = ?, data_risposta = NOW(), admin_id = ?
             WHERE id = ? AND stato = 'in_attesa'
-        ");
-        $stmt->bind_param("sii", $note_admin, $_SESSION['fratello_id'], $richiesta_id);
+        ";
+        $stmt = executeQuery($query, [$note_admin, $_SESSION['fratello_id'], $richiesta_id], 'sii');
         
-        if ($stmt->execute()) {
+        if ($stmt && $stmt->affected_rows > 0) {
             echo json_encode(['success' => true, 'message' => 'Richiesta approvata con successo']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Errore durante l\'approvazione: ' . $stmt->error]);
+            echo json_encode(['success' => false, 'message' => 'Errore durante l\'approvazione']);
         }
         exit;
     }
     
     if ($action === 'rifiuta_richiesta' && $richiesta_id > 0) {
-        $stmt = $conn->prepare("
+        $query = "
             UPDATE richieste_prestito 
             SET stato = 'rifiutata', note_admin = ?, data_risposta = NOW(), admin_id = ?
             WHERE id = ? AND stato = 'in_attesa'
-        ");
-        $stmt->bind_param("sii", $note_admin, $_SESSION['fratello_id'], $richiesta_id);
+        ";
+        $stmt = executeQuery($query, [$note_admin, $_SESSION['fratello_id'], $richiesta_id], 'sii');
         
-        if ($stmt->execute()) {
+        if ($stmt && $stmt->affected_rows > 0) {
             echo json_encode(['success' => true, 'message' => 'Richiesta rifiutata con successo']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Errore durante il rifiuto: ' . $stmt->error]);
+            echo json_encode(['success' => false, 'message' => 'Errore durante il rifiuto']);
         }
         exit;
     }
@@ -67,8 +60,6 @@ if (!$is_admin) {
 
 // Recupera richieste
 $stato_filter = $_GET['stato'] ?? 'in_attesa';
-$where_clause = $stato_filter ? "WHERE rp.stato = ?" : "";
-$params = $stato_filter ? [$stato_filter] : [];
 
 $sql = "
     SELECT rp.*, l.titolo, l.autore, l.copertina_url, l.stato as libro_stato,
@@ -78,18 +69,18 @@ $sql = "
     JOIN libri l ON rp.libro_id = l.id
     JOIN fratelli f ON rp.fratello_id = f.id
     LEFT JOIN fratelli admin ON rp.admin_id = admin.id
-    $where_clause
-    ORDER BY 
-        CASE WHEN rp.stato = 'in_attesa' THEN 0 ELSE 1 END,
-        rp.data_richiesta DESC
 ";
 
-$stmt = $conn->prepare($sql);
-if ($params) {
-    $stmt->bind_param("s", ...$params);
+if ($stato_filter) {
+    $sql .= " WHERE rp.stato = ?";
+    $richieste = getAllResults($sql . " ORDER BY 
+        CASE WHEN rp.stato = 'in_attesa' THEN 0 ELSE 1 END,
+        rp.data_richiesta DESC", [$stato_filter], 's');
+} else {
+    $richieste = getAllResults($sql . " ORDER BY 
+        CASE WHEN rp.stato = 'in_attesa' THEN 0 ELSE 1 END,
+        rp.data_richiesta DESC");
 }
-$stmt->execute();
-$richieste = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Conta richieste per stato
 $count_sql = "
@@ -97,9 +88,9 @@ $count_sql = "
     FROM richieste_prestito
     GROUP BY stato
 ";
-$count_result = $conn->query($count_sql);
+$count_results = getAllResults($count_sql);
 $counts = [];
-while ($row = $count_result->fetch_assoc()) {
+foreach ($count_results as $row) {
     $counts[$row['stato']] = $row['count'];
 }
 ?>
