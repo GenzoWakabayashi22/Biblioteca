@@ -32,12 +32,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $note = $_POST['note'] ?? '';
         
         try {
-            // Usa stored procedure per nuovo prestito
-            $stmt = $db->prepare("CALL sp_nuovo_prestito(?, ?, ?, ?, ?)");
-            $stmt->execute([$libro_id, $fratello_id, $giorni_prestito, $_SESSION['fratello_id'], $note]);
+            $db->beginTransaction();
             
+            // Verifica che il libro sia disponibile
+            $stmt = $db->prepare("SELECT titolo FROM libri WHERE id = ? AND stato = 'disponibile'");
+            $stmt->execute([$libro_id]);
+            $libro = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$libro) {
+                throw new Exception('Libro non trovato o non disponibile');
+            }
+            
+            // Verifica che il fratello esista
+            $stmt = $db->prepare("SELECT nome FROM fratelli WHERE id = ?");
+            $stmt->execute([$fratello_id]);
+            $fratello = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$fratello) {
+                throw new Exception('Fratello non trovato');
+            }
+            
+            // Calcola date
+            $data_prestito = date('Y-m-d');
+            $data_scadenza = date('Y-m-d', strtotime("+{$giorni_prestito} days"));
+            
+            // Aggiorna libro
+            $stmt = $db->prepare("
+                UPDATE libri 
+                SET stato = 'prestato', 
+                    prestato_a_fratello_id = ?, 
+                    data_prestito_corrente = ?, 
+                    data_scadenza_corrente = ?
+                WHERE id = ?
+            ");
+            $stmt->execute([$fratello_id, $data_prestito, $data_scadenza, $libro_id]);
+            
+            $db->commit();
             $_SESSION['success'] = 'Prestito registrato con successo!';
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
+            $db->rollBack();
             $_SESSION['error'] = 'Errore nella registrazione del prestito: ' . $e->getMessage();
         }
         
@@ -51,12 +84,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $note_restituzione = $_POST['note_restituzione'] ?? '';
         
         try {
-            // Usa stored procedure per restituzione
-            $stmt = $db->prepare("CALL sp_restituzione_libro(?, ?, ?, ?)");
-            $stmt->execute([$libro_id, $stato_rientro, $note_restituzione, $_SESSION['fratello_id']]);
+            $db->beginTransaction();
             
+            // Verifica che il libro sia effettivamente in prestito
+            $stmt = $db->prepare("SELECT * FROM libri WHERE id = ? AND stato = 'prestato'");
+            $stmt->execute([$libro_id]);
+            $libro = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$libro) {
+                throw new Exception('Libro non trovato o non in prestito');
+            }
+            
+            // Calcola giorni di prestito
+            $giorni_prestito = 0;
+            if ($libro['data_prestito_corrente']) {
+                $data_prestito = new DateTime($libro['data_prestito_corrente']);
+                $data_restituzione = new DateTime();
+                $giorni_prestito = $data_restituzione->diff($data_prestito)->days;
+            }
+            
+            // Registra nello storico (se esiste la tabella e il libro ha un prestito valido)
+            $check_storico = $db->query("SHOW TABLES LIKE 'storico_prestiti'");
+            if ($check_storico->rowCount() > 0 && $libro['prestato_a_fratello_id']) {
+                $stmt = $db->prepare("
+                    INSERT INTO storico_prestiti 
+                    (libro_id, fratello_id, data_prestito, data_scadenza, data_restituzione, giorni_prestito, note_restituzione, gestito_da) 
+                    VALUES (?, ?, ?, ?, NOW(), ?, ?, ?)
+                ");
+                $stmt->execute([
+                    $libro_id, 
+                    $libro['prestato_a_fratello_id'], 
+                    $libro['data_prestito_corrente'], 
+                    $libro['data_scadenza_corrente'], 
+                    $giorni_prestito, 
+                    $note_restituzione, 
+                    $_SESSION['fratello_id']
+                ]);
+            }
+            
+            // Inserisci automaticamente in libri_letti
+            if ($libro['prestato_a_fratello_id']) {
+                $nota_default = "Letto tramite prestito biblioteca";
+                $stmt_letti = $db->prepare("
+                    INSERT INTO libri_letti (fratello_id, libro_id, data_lettura, note) 
+                    VALUES (?, ?, NOW(), ?)
+                    ON DUPLICATE KEY UPDATE 
+                        data_lettura = NOW(), 
+                        note = IF(
+                            COALESCE(note, '') LIKE CONCAT('%', ?, '%'),
+                            note,
+                            CONCAT(COALESCE(note, ''), ' | ', ?)
+                        )
+                ");
+                $stmt_letti->execute([
+                    $libro['prestato_a_fratello_id'], 
+                    $libro_id, 
+                    $nota_default,
+                    $nota_default,
+                    $nota_default
+                ]);
+            }
+            
+            // Aggiorna lo stato del libro
+            $stmt = $db->prepare("
+                UPDATE libri 
+                SET stato = 'disponibile', 
+                    prestato_a_fratello_id = NULL, 
+                    data_prestito_corrente = NULL, 
+                    data_scadenza_corrente = NULL,
+                    condizioni = ?
+                WHERE id = ?
+            ");
+            $stmt->execute([$stato_rientro, $libro_id]);
+            
+            $db->commit();
             $_SESSION['success'] = 'Restituzione registrata con successo!';
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
+            $db->rollBack();
             $_SESSION['error'] = 'Errore nella restituzione: ' . $e->getMessage();
         }
         
@@ -237,7 +341,7 @@ $storico_recente = $db->query("
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-gray-600">
-                        <i class="fas fa-user-shield mr-1"></i><?php echo htmlspecialchars($_SESSION['nome']); ?>
+                        <i class="fas fa-user-shield mr-1"></i><?php echo htmlspecialchars($_SESSION['nome'] ?? 'Admin'); ?>
                     </span>
                     <a href="../../api/logout.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
                         <i class="fas fa-sign-out-alt mr-2"></i>Esci
