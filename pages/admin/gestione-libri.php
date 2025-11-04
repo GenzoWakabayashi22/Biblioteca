@@ -209,10 +209,6 @@ $stats = [
         </a>
     </nav>
 </div>
-
-                      
-                 
-                </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-white/80">
                         <i class="fas fa-user-shield mr-1"></i><?php echo htmlspecialchars($_SESSION['fratello_nome']); ?>
@@ -575,7 +571,7 @@ $stats = [
             <p class="text-sm">
                 Visualizzando <?php echo count($libri); ?> libri di <?php echo $total_libri; ?> totali
                 <?php if ($search || $filtro_categoria || $filtro_stato): ?>
-                    | <a href="gestione-libri-nolimit.php" class="text-yellow-300 hover:text-yellow-100">Rimuovi filtri</a>
+                    | <a href="gestione-libri.php" class="text-yellow-300 hover:text-yellow-100">Rimuovi filtri</a>
                 <?php endif; ?>
             </p>
         </div>
