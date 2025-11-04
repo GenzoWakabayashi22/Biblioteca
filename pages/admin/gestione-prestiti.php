@@ -12,7 +12,14 @@ if (!in_array($_SESSION['fratello_id'], $admin_ids)) {
     exit;
 }
 
-$db = getDBConnection();
+// Connessione database PDO
+try {
+    $db = new PDO("mysql:host=localhost;dbname=jmvvznbb_tornate_db;charset=utf8mb4", 
+                   'jmvvznbb_tornate_user', 'Puntorosso22');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Errore connessione database: " . $e->getMessage());
+}
 
 // Gestione azioni POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
