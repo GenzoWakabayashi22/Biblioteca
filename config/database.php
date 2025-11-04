@@ -24,13 +24,13 @@ try {
         $db_config['port']
     );
 
-    // Imposta il charset
-    $conn->set_charset($db_config['charset']);
-    
-    // Controlla la connessione
+    // Controlla la connessione PRIMA di fare altre operazioni
     if ($conn->connect_error) {
         throw new Exception("Connessione fallita: " . $conn->connect_error);
     }
+    
+    // Imposta il charset (solo dopo aver verificato la connessione)
+    $conn->set_charset($db_config['charset']);
     
     // Imposta il timezone
     $conn->query("SET time_zone = '+01:00'");
