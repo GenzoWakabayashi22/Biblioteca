@@ -21,16 +21,37 @@ $stmt->execute();
 $result = $stmt->get_result();
 $liste = [];
 while ($row = $result->fetch_assoc()) {
-    // Aggiungi il conteggio dei libri per ogni lista
-    $count_query = "SELECT COUNT(DISTINCT libro_id) as num_libri FROM lista_libri WHERE lista_id = ?";
+    $liste[] = $row;
+}
+
+// Ottimizza: recupera tutti i conteggi in una sola query
+if (!empty($liste)) {
+    $lista_ids = array_column($liste, 'id');
+    $ids_placeholder = implode(',', array_fill(0, count($lista_ids), '?'));
+    
+    $count_query = "
+        SELECT lista_id, COUNT(DISTINCT libro_id) as num_libri
+        FROM lista_libri
+        WHERE lista_id IN ($ids_placeholder)
+        GROUP BY lista_id
+    ";
     $stmt_count = $conn->prepare($count_query);
-    $stmt_count->bind_param("i", $row['id']);
+    $types = str_repeat('i', count($lista_ids));
+    $stmt_count->bind_param($types, ...$lista_ids);
     $stmt_count->execute();
     $count_result = $stmt_count->get_result();
-    $count_data = $count_result->fetch_assoc();
-    $row['num_libri'] = $count_data['num_libri'];
     
-    $liste[] = $row;
+    // Crea un array associativo con i conteggi per lista_id
+    $counts_by_lista = [];
+    while ($count_row = $count_result->fetch_assoc()) {
+        $counts_by_lista[$count_row['lista_id']] = $count_row['num_libri'];
+    }
+    
+    // Aggiungi il conteggio a ciascuna lista
+    foreach ($liste as &$lista) {
+        $lista['num_libri'] = $counts_by_lista[$lista['id']] ?? 0;
+    }
+    unset($lista); // Break the reference
 }
 
 // Se è specificata una lista, recupera i libri
@@ -61,16 +82,37 @@ if (isset($_GET['lista_id'])) {
         $stmt->execute();
         $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
-            // Aggiungi le statistiche delle recensioni per ogni libro
-            $stats_query = "SELECT COALESCE(AVG(valutazione), 0) as voto_medio FROM recensioni_libri WHERE libro_id = ?";
+            $libri_lista[] = $row;
+        }
+        
+        // Ottimizza: recupera tutte le statistiche in una sola query
+        if (!empty($libri_lista)) {
+            $libro_ids = array_column($libri_lista, 'libro_id');
+            $ids_placeholder = implode(',', array_fill(0, count($libro_ids), '?'));
+            
+            $stats_query = "
+                SELECT libro_id, COALESCE(AVG(valutazione), 0) as voto_medio
+                FROM recensioni_libri
+                WHERE libro_id IN ($ids_placeholder)
+                GROUP BY libro_id
+            ";
             $stmt_stats = $conn->prepare($stats_query);
-            $stmt_stats->bind_param("i", $row['libro_id']);
+            $types = str_repeat('i', count($libro_ids));
+            $stmt_stats->bind_param($types, ...$libro_ids);
             $stmt_stats->execute();
             $stats_result = $stmt_stats->get_result();
-            $stats = $stats_result->fetch_assoc();
-            $row['voto_medio'] = $stats['voto_medio'];
             
-            $libri_lista[] = $row;
+            // Crea un array associativo con le statistiche per libro_id
+            $stats_by_libro = [];
+            while ($stat = $stats_result->fetch_assoc()) {
+                $stats_by_libro[$stat['libro_id']] = $stat['voto_medio'];
+            }
+            
+            // Aggiungi le statistiche a ciascun libro
+            foreach ($libri_lista as &$libro) {
+                $libro['voto_medio'] = $stats_by_libro[$libro['libro_id']] ?? 0;
+            }
+            unset($libro); // Break the reference
         }
     }
 }

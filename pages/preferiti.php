@@ -24,22 +24,45 @@ $stmt->execute();
 $result = $stmt->get_result();
 $preferiti = [];
 while ($row = $result->fetch_assoc()) {
-    // Aggiungi le statistiche delle recensioni per ogni libro
+    $preferiti[] = $row;
+}
+
+// Ottimizza: recupera tutte le statistiche in una sola query
+if (!empty($preferiti)) {
+    $libro_ids = array_column($preferiti, 'libro_id');
+    $ids_placeholder = implode(',', array_fill(0, count($libro_ids), '?'));
+    
     $stats_query = "
-        SELECT COALESCE(AVG(valutazione), 0) as voto_medio,
+        SELECT libro_id,
+               COALESCE(AVG(valutazione), 0) as voto_medio,
                COUNT(id) as num_recensioni
         FROM recensioni_libri
-        WHERE libro_id = ?
+        WHERE libro_id IN ($ids_placeholder)
+        GROUP BY libro_id
     ";
     $stmt_stats = $conn->prepare($stats_query);
-    $stmt_stats->bind_param("i", $row['libro_id']);
+    $types = str_repeat('i', count($libro_ids));
+    $stmt_stats->bind_param($types, ...$libro_ids);
     $stmt_stats->execute();
     $stats_result = $stmt_stats->get_result();
-    $stats = $stats_result->fetch_assoc();
-    $row['voto_medio'] = $stats['voto_medio'];
-    $row['num_recensioni'] = $stats['num_recensioni'];
     
-    $preferiti[] = $row;
+    // Crea un array associativo con le statistiche per libro_id
+    $stats_by_libro = [];
+    while ($stat = $stats_result->fetch_assoc()) {
+        $stats_by_libro[$stat['libro_id']] = $stat;
+    }
+    
+    // Aggiungi le statistiche a ciascun libro preferito
+    foreach ($preferiti as &$pref) {
+        if (isset($stats_by_libro[$pref['libro_id']])) {
+            $pref['voto_medio'] = $stats_by_libro[$pref['libro_id']]['voto_medio'];
+            $pref['num_recensioni'] = $stats_by_libro[$pref['libro_id']]['num_recensioni'];
+        } else {
+            $pref['voto_medio'] = 0;
+            $pref['num_recensioni'] = 0;
+        }
+    }
+    unset($pref); // Break the reference
 }
 ?>
 

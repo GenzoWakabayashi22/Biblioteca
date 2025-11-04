@@ -139,24 +139,43 @@ if ($libri_result) {
     }
 }
 
-// Aggiungi statistiche recensioni per ogni libro
-foreach ($libri as &$libro) {
+// Ottimizza: recupera tutte le statistiche in una sola query
+if (!empty($libri)) {
+    $libro_ids = array_column($libri, 'id');
+    $ids_placeholder = implode(',', array_fill(0, count($libro_ids), '?'));
+    
     $stats_query = "
-        SELECT COALESCE(AVG(r.valutazione), 0) as voto_medio,
+        SELECT libro_id,
+               COALESCE(AVG(r.valutazione), 0) as voto_medio,
                COUNT(r.id) as num_recensioni
         FROM recensioni_libri r
-        WHERE r.libro_id = ?
+        WHERE r.libro_id IN ($ids_placeholder)
+        GROUP BY libro_id
     ";
     $stmt_stats = $conn->prepare($stats_query);
-    $stmt_stats->bind_param("i", $libro['id']);
+    $types = str_repeat('i', count($libro_ids));
+    $stmt_stats->bind_param($types, ...$libro_ids);
     $stmt_stats->execute();
     $stats_result = $stmt_stats->get_result();
-    $stats = $stats_result->fetch_assoc();
     
-    $libro['voto_medio'] = $stats['voto_medio'];
-    $libro['num_recensioni'] = $stats['num_recensioni'];
+    // Crea un array associativo con le statistiche per libro_id
+    $stats_by_libro = [];
+    while ($stat = $stats_result->fetch_assoc()) {
+        $stats_by_libro[$stat['libro_id']] = $stat;
+    }
+    
+    // Aggiungi le statistiche a ciascun libro
+    foreach ($libri as &$libro) {
+        if (isset($stats_by_libro[$libro['id']])) {
+            $libro['voto_medio'] = $stats_by_libro[$libro['id']]['voto_medio'];
+            $libro['num_recensioni'] = $stats_by_libro[$libro['id']]['num_recensioni'];
+        } else {
+            $libro['voto_medio'] = 0;
+            $libro['num_recensioni'] = 0;
+        }
+    }
+    unset($libro); // Break the reference
 }
-unset($libro); // Break the reference
 
 // Conta totale libri
 $count_query = "SELECT COUNT(DISTINCT l.id) as total FROM libri l LEFT JOIN categorie_libri c ON l.categoria_id = c.id {$where_sql}";
