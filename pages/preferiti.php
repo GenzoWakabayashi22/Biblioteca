@@ -8,18 +8,14 @@ verificaSessioneAttiva();
 $user_id = $_SESSION['fratello_id'];
 $user_name = $_SESSION['nome'] ?? 'Utente';
 
-// Recupera i preferiti dell'utente
+// Recupera i preferiti dell'utente senza aggregazioni
 $query_preferiti = "
     SELECT p.*, l.titolo, l.autore, l.stato, l.copertina_url, l.descrizione,
-           c.nome as categoria_nome, c.colore as categoria_colore,
-           COALESCE(AVG(r.valutazione), 0) as voto_medio,
-           COUNT(DISTINCT r.id) as num_recensioni
+           c.nome as categoria_nome, c.colore as categoria_colore
     FROM preferiti p
     INNER JOIN libri l ON p.libro_id = l.id
     LEFT JOIN categorie_libri c ON l.categoria_id = c.id
-    LEFT JOIN recensioni_libri r ON l.id = r.libro_id
     WHERE p.fratello_id = ?
-    GROUP BY p.id
     ORDER BY p.data_aggiunta DESC
 ";
 $stmt = $conn->prepare($query_preferiti);
@@ -28,6 +24,21 @@ $stmt->execute();
 $result = $stmt->get_result();
 $preferiti = [];
 while ($row = $result->fetch_assoc()) {
+    // Aggiungi le statistiche delle recensioni per ogni libro
+    $stats_query = "
+        SELECT COALESCE(AVG(valutazione), 0) as voto_medio,
+               COUNT(id) as num_recensioni
+        FROM recensioni_libri
+        WHERE libro_id = ?
+    ";
+    $stmt_stats = $conn->prepare($stats_query);
+    $stmt_stats->bind_param("i", $row['libro_id']);
+    $stmt_stats->execute();
+    $stats_result = $stmt_stats->get_result();
+    $stats = $stats_result->fetch_assoc();
+    $row['voto_medio'] = $stats['voto_medio'];
+    $row['num_recensioni'] = $stats['num_recensioni'];
+    
     $preferiti[] = $row;
 }
 ?>

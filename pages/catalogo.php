@@ -110,18 +110,14 @@ if (!empty($grado_filter)) {
 
 $where_sql = 'WHERE ' . implode(' AND ', $where_conditions);
 
-// Query principale per i libri
+// Query principale per i libri (senza aggregazioni per evitare problemi con GROUP BY)
 $libri_query = "
     SELECT l.*, c.nome as categoria_nome, c.colore as categoria_colore,
-           f.nome as prestato_a_nome,
-           COALESCE(AVG(r.valutazione), 0) as voto_medio,
-           COUNT(DISTINCT r.id) as num_recensioni
+           f.nome as prestato_a_nome
     FROM libri l 
     LEFT JOIN categorie_libri c ON l.categoria_id = c.id
     LEFT JOIN fratelli f ON l.prestato_a_fratello_id = f.id
-    LEFT JOIN recensioni_libri r ON l.id = r.libro_id
     {$where_sql}
-    GROUP BY l.id
     ORDER BY l.titolo ASC
 ";
 
@@ -142,6 +138,25 @@ if ($libri_result) {
         $libri[] = $row;
     }
 }
+
+// Aggiungi statistiche recensioni per ogni libro
+foreach ($libri as &$libro) {
+    $stats_query = "
+        SELECT COALESCE(AVG(r.valutazione), 0) as voto_medio,
+               COUNT(r.id) as num_recensioni
+        FROM recensioni_libri r
+        WHERE r.libro_id = ?
+    ";
+    $stmt_stats = $conn->prepare($stats_query);
+    $stmt_stats->bind_param("i", $libro['id']);
+    $stmt_stats->execute();
+    $stats_result = $stmt_stats->get_result();
+    $stats = $stats_result->fetch_assoc();
+    
+    $libro['voto_medio'] = $stats['voto_medio'];
+    $libro['num_recensioni'] = $stats['num_recensioni'];
+}
+unset($libro); // Break the reference
 
 // Conta totale libri
 $count_query = "SELECT COUNT(DISTINCT l.id) as total FROM libri l LEFT JOIN categorie_libri c ON l.categoria_id = c.id {$where_sql}";

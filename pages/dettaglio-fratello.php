@@ -20,9 +20,23 @@ if (!$fratello_id || !is_numeric($fratello_id)) {
     exit;
 }
 
-// Recupera informazioni del fratello selezionato basate sulla tabella libri_letti
+// Recupera informazioni del fratello selezionato
 $query_fratello = "
-    SELECT f.*, 
+    SELECT f.*
+    FROM fratelli f
+    WHERE f.id = ? AND f.attivo = 1
+";
+
+$fratello_info = getSingleResult($query_fratello, [$fratello_id]);
+
+if (!$fratello_info) {
+    header('Location: statistiche-lettori.php');
+    exit;
+}
+
+// Aggiungi statistiche separatamente per evitare problemi con GROUP BY
+$stats_query = "
+    SELECT 
            COUNT(DISTINCT ll.libro_id) as libri_letti_totali,
            COUNT(DISTINCT l.id) as libri_in_prestito,
            COUNT(DISTINCT r.libro_id) as libri_recensiti,
@@ -32,15 +46,18 @@ $query_fratello = "
     LEFT JOIN libri_letti ll ON f.id = ll.fratello_id
     LEFT JOIN libri l ON f.id = l.prestato_a_fratello_id AND l.stato = 'prestato'
     LEFT JOIN recensioni_libri r ON f.id = r.fratello_id
-    WHERE f.id = ? AND f.attivo = 1
-    GROUP BY f.id
+    WHERE f.id = ?
 ";
 
-$fratello_info = getSingleResult($query_fratello, [$fratello_id]);
+$stats = getSingleResult($stats_query, [$fratello_id]);
 
-if (!$fratello_info) {
-    header('Location: statistiche-lettori.php');
-    exit;
+// Merge stats into fratello_info
+if ($stats) {
+    $fratello_info['libri_letti_totali'] = $stats['libri_letti_totali'];
+    $fratello_info['libri_in_prestito'] = $stats['libri_in_prestito'];
+    $fratello_info['libri_recensiti'] = $stats['libri_recensiti'];
+    $fratello_info['valutazione_media'] = $stats['valutazione_media'];
+    $fratello_info['ultima_lettura'] = $stats['ultima_lettura'];
 }
 
 // Determina se stiamo visualizzando i nostri libri o quelli di un altro fratello

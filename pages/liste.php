@@ -8,13 +8,11 @@ verificaSessioneAttiva();
 $user_id = $_SESSION['fratello_id'];
 $user_name = $_SESSION['nome'] ?? 'Utente';
 
-// Recupera le liste dell'utente
+// Recupera le liste dell'utente con conteggio libri separato
 $query_liste = "
-    SELECT ll.*, COUNT(DISTINCT llb.libro_id) as num_libri
+    SELECT ll.*
     FROM liste_lettura ll
-    LEFT JOIN lista_libri llb ON ll.id = llb.lista_id
     WHERE ll.fratello_id = ?
-    GROUP BY ll.id
     ORDER BY ll.data_modifica DESC
 ";
 $stmt = $conn->prepare($query_liste);
@@ -23,6 +21,15 @@ $stmt->execute();
 $result = $stmt->get_result();
 $liste = [];
 while ($row = $result->fetch_assoc()) {
+    // Aggiungi il conteggio dei libri per ogni lista
+    $count_query = "SELECT COUNT(DISTINCT libro_id) as num_libri FROM lista_libri WHERE lista_id = ?";
+    $stmt_count = $conn->prepare($count_query);
+    $stmt_count->bind_param("i", $row['id']);
+    $stmt_count->execute();
+    $count_result = $stmt_count->get_result();
+    $count_data = $count_result->fetch_assoc();
+    $row['num_libri'] = $count_data['num_libri'];
+    
     $liste[] = $row;
 }
 
@@ -39,17 +46,14 @@ if (isset($_GET['lista_id'])) {
     $lista_selezionata = $stmt->get_result()->fetch_assoc();
     
     if ($lista_selezionata) {
-        // Recupera libri della lista
+        // Recupera libri della lista senza aggregazioni
         $query_libri = "
             SELECT llb.*, l.titolo, l.autore, l.stato, l.copertina_url,
-                   c.nome as categoria_nome, c.colore as categoria_colore,
-                   COALESCE(AVG(r.valutazione), 0) as voto_medio
+                   c.nome as categoria_nome, c.colore as categoria_colore
             FROM lista_libri llb
             INNER JOIN libri l ON llb.libro_id = l.id
             LEFT JOIN categorie_libri c ON l.categoria_id = c.id
-            LEFT JOIN recensioni_libri r ON l.id = r.libro_id
             WHERE llb.lista_id = ?
-            GROUP BY llb.id
             ORDER BY llb.posizione ASC, llb.data_aggiunta DESC
         ";
         $stmt = $conn->prepare($query_libri);
@@ -57,6 +61,15 @@ if (isset($_GET['lista_id'])) {
         $stmt->execute();
         $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
+            // Aggiungi le statistiche delle recensioni per ogni libro
+            $stats_query = "SELECT COALESCE(AVG(valutazione), 0) as voto_medio FROM recensioni_libri WHERE libro_id = ?";
+            $stmt_stats = $conn->prepare($stats_query);
+            $stmt_stats->bind_param("i", $row['libro_id']);
+            $stmt_stats->execute();
+            $stats_result = $stmt_stats->get_result();
+            $stats = $stats_result->fetch_assoc();
+            $row['voto_medio'] = $stats['voto_medio'];
+            
             $libri_lista[] = $row;
         }
     }
