@@ -23,10 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             SET stato = 'approvata', note_admin = ?, data_risposta = NOW(), admin_id = ?
             WHERE id = ? AND stato = 'in_attesa'
         ");
-        if ($stmt->execute([$note_admin, $_SESSION['fratello_id'], $richiesta_id])) {
+        $stmt->bind_param("sii", $note_admin, $_SESSION['fratello_id'], $richiesta_id);
+        
+        if ($stmt->execute()) {
             echo json_encode(['success' => true, 'message' => 'Richiesta approvata con successo']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Errore durante l\'approvazione']);
+            echo json_encode(['success' => false, 'message' => 'Errore durante l\'approvazione: ' . $stmt->error]);
         }
         exit;
     }
@@ -37,10 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             SET stato = 'rifiutata', note_admin = ?, data_risposta = NOW(), admin_id = ?
             WHERE id = ? AND stato = 'in_attesa'
         ");
-        if ($stmt->execute([$note_admin, $_SESSION['fratello_id'], $richiesta_id])) {
+        $stmt->bind_param("sii", $note_admin, $_SESSION['fratello_id'], $richiesta_id);
+        
+        if ($stmt->execute()) {
             echo json_encode(['success' => true, 'message' => 'Richiesta rifiutata con successo']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Errore durante il rifiuto']);
+            echo json_encode(['success' => false, 'message' => 'Errore durante il rifiuto: ' . $stmt->error]);
         }
         exit;
     }
