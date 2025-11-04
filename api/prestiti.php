@@ -86,6 +86,14 @@ function handlePut($action, $input) {
             }
             restituisciLibro($input);
             break;
+        case 'prolunga':
+            if (!$is_admin) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'message' => 'Accesso negato - Solo admin possono prolungare i prestiti']);
+                return;
+            }
+            prolungaPrestito($input);
+            break;
         default:
             http_response_code(400);
             echo json_encode(['success' => false, 'message' => 'Azione PUT non valida: ' . $action]);
@@ -378,6 +386,70 @@ function nuovoPrestito($input) {
     } catch (Exception $e) {
         $conn->rollback();
         error_log("Errore nuovo prestito: " . $e->getMessage());
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+function prolungaPrestito($input) {
+    global $conn, $user_id;
+    
+    $libro_id = $input['libro_id'] ?? 0;
+    $giorni = $input['giorni'] ?? 15;
+    
+    if (!$libro_id) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'ID libro richiesto']);
+        return;
+    }
+    
+    if ($giorni < 1 || $giorni > 90) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Numero di giorni non valido (min 1, max 90)']);
+        return;
+    }
+    
+    try {
+        // Verifica che il libro sia in prestito
+        $stmt = $conn->prepare("
+            SELECT id, data_scadenza_corrente, prestato_a_fratello_id 
+            FROM libri 
+            WHERE id = ? AND stato = 'prestato'
+        ");
+        $stmt->bind_param("i", $libro_id);
+        $stmt->execute();
+        $libro = $stmt->get_result()->fetch_assoc();
+        
+        if (!$libro) {
+            throw new Exception('Libro non trovato o non in prestito');
+        }
+        
+        // Calcola nuova data scadenza
+        $nuova_scadenza = date('Y-m-d', strtotime($libro['data_scadenza_corrente'] . " +{$giorni} days"));
+        
+        // Aggiorna libro
+        $stmt = $conn->prepare("
+            UPDATE libri 
+            SET data_scadenza_corrente = ?
+            WHERE id = ?
+        ");
+        $stmt->bind_param("si", $nuova_scadenza, $libro_id);
+        
+        if (!$stmt->execute()) {
+            throw new Exception('Errore durante il prolungamento del prestito');
+        }
+        
+        // Log dell'operazione
+        error_log("Prestito prolungato: Libro ID $libro_id, +$giorni giorni, nuova scadenza: $nuova_scadenza, da admin ID $user_id");
+        
+        echo json_encode([
+            'success' => true, 
+            'message' => "Prestito prolungato di {$giorni} giorni",
+            'nuova_scadenza' => date('d/m/Y', strtotime($nuova_scadenza))
+        ]);
+        
+    } catch (Exception $e) {
+        error_log("Errore prolungamento prestito: " . $e->getMessage());
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }

@@ -144,6 +144,13 @@ $stmt_letto->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
 $stmt_letto->execute();
 $libro_letto = $stmt_letto->get_result()->fetch_assoc();
 
+// Verifica se il libro è già nei preferiti
+$preferito_query = "SELECT * FROM preferiti WHERE fratello_id = ? AND libro_id = ?";
+$stmt_pref = $conn->prepare($preferito_query);
+$stmt_pref->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
+$stmt_pref->execute();
+$is_preferito = $stmt_pref->get_result()->num_rows > 0;
+
 // Gestione form recensione
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] == 'aggiungi_recensione') {
@@ -700,7 +707,8 @@ if ($is_admin) {
                 
                 <div class="space-y-3">
                     <?php if ($libro['stato'] == 'disponibile'): ?>
-                        <button class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg transition">
+                        <button onclick="richiediPrestito(<?= $libro['id'] ?>)" 
+                                class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg transition">
                             📖 Richiedi Prestito
                         </button>
                     <?php elseif ($libro['stato'] == 'prestato'): ?>
@@ -710,11 +718,20 @@ if ($is_admin) {
                         </div>
                     <?php endif; ?>
                     
-                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition">
-                        ⭐ Aggiungi ai Preferiti
-                    </button>
+                    <?php if ($is_preferito): ?>
+                        <button id="btn-preferiti" onclick="rimuoviDaiPreferiti(<?= $libro['id'] ?>)" 
+                                class="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition">
+                            ⭐ Nei Preferiti
+                        </button>
+                    <?php else: ?>
+                        <button id="btn-preferiti" onclick="aggiungiAiPreferiti(<?= $libro['id'] ?>)" 
+                                class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition">
+                            ⭐ Aggiungi ai Preferiti
+                        </button>
+                    <?php endif; ?>
                     
-                    <button class="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition">
+                    <button onclick="mostraModalListe(<?= $libro['id'] ?>)" 
+                            class="w-full bg-purple-500 hover:bg-purple-600 text-white px-4 py-3 rounded-lg transition">
                         📋 Aggiungi alla Lista
                     </button>
                 </div>
@@ -805,7 +822,81 @@ if ($is_admin) {
         </div>
     </div>
 
+    <!-- Modal per Aggiungi alla Lista -->
+    <div id="modalListe" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-gray-900">📋 Aggiungi alla Lista</h3>
+                    <button onclick="closeModalListe()" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div id="liste-container" class="space-y-3 mb-4 max-h-96 overflow-y-auto">
+                    <!-- Liste verranno caricate dinamicamente -->
+                </div>
+                
+                <div class="border-t pt-4">
+                    <button onclick="mostraFormNuovaLista()" class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg transition">
+                        ➕ Crea Nuova Lista
+                    </button>
+                </div>
+                
+                <!-- Form per creare nuova lista -->
+                <div id="form-nuova-lista" class="hidden mt-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nome Lista *</label>
+                            <input type="text" id="nome-lista" placeholder="es. Libri da leggere, Esoterici..." 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Descrizione</label>
+                            <textarea id="descrizione-lista" rows="2" placeholder="Descrizione opzionale..." 
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Icona</label>
+                                <select id="icona-lista" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                    <option value="📚">📚 Libri</option>
+                                    <option value="🔮">🔮 Esoterici</option>
+                                    <option value="⭐">⭐ Preferiti</option>
+                                    <option value="📖">📖 Da leggere</option>
+                                    <option value="✨">✨ Speciali</option>
+                                    <option value="🎯">🎯 Obiettivi</option>
+                                    <option value="🏛️">🏛️ Massonici</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Colore</label>
+                                <input type="color" id="colore-lista" value="#6366f1" 
+                                       class="w-full h-10 border border-gray-300 rounded-lg">
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="privata-lista" class="mr-2 w-4 h-4 text-purple-600 border-gray-300 rounded">
+                            <label for="privata-lista" class="text-sm text-gray-700">Lista privata (solo tu puoi vederla)</label>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="creaEAggiungiLista()" class="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+                                💾 Crea e Aggiungi
+                            </button>
+                            <button onclick="nascondiFormNuovaLista()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                                ❌ Annulla
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Variabile globale per l'ID del libro corrente
+        let currentBookId = <?= $libro['id'] ?>;
+        
         // Funzioni per toggle form
         function toggleRecensioneForm() {
             const form = document.getElementById('recensione-form');
@@ -816,6 +907,270 @@ if ($is_admin) {
             const form = document.getElementById('letto-form');
             form.classList.toggle('hidden');
         }
+        
+        // Funzione per richiedere prestito
+        async function richiediPrestito(libroId) {
+            if (!confirm('Vuoi richiedere il prestito di questo libro?\n\nUn amministratore esaminerà la tua richiesta.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('../api/prestiti.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'richiedi_prestito',
+                        libro_id: libroId,
+                        giorni_richiesti: 30
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ ' + data.message);
+                    location.reload();
+                } else {
+                    alert('❌ ' + (data.message || 'Errore nella richiesta'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Errore di connessione');
+            }
+        }
+        
+        // Funzione per aggiungere ai preferiti
+        async function aggiungiAiPreferiti(libroId) {
+            try {
+                const response = await fetch('../api/preferiti.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        libro_id: libroId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('⭐ ' + data.message);
+                    // Cambia il pulsante in "Rimuovi dai preferiti"
+                    const btn = document.getElementById('btn-preferiti');
+                    btn.textContent = '⭐ Nei Preferiti';
+                    btn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    btn.classList.add('bg-gray-500', 'hover:bg-gray-600');
+                    btn.onclick = () => rimuoviDaiPreferiti(libroId);
+                } else {
+                    alert('❌ ' + (data.message || 'Errore nell\'aggiunta ai preferiti'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Errore di connessione');
+            }
+        }
+        
+        // Funzione per rimuovere dai preferiti
+        async function rimuoviDaiPreferiti(libroId) {
+            try {
+                const response = await fetch('../api/preferiti.php', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        libro_id: libroId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ ' + data.message);
+                    // Ripristina il pulsante
+                    const btn = document.getElementById('btn-preferiti');
+                    btn.textContent = '⭐ Aggiungi ai Preferiti';
+                    btn.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                    btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                    btn.onclick = () => aggiungiAiPreferiti(libroId);
+                } else {
+                    alert('❌ ' + (data.message || 'Errore nella rimozione dai preferiti'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Errore di connessione');
+            }
+        }
+        
+        // Funzione per mostrare modal liste
+        async function mostraModalListe(libroId) {
+            currentBookId = libroId;
+            document.getElementById('modalListe').classList.remove('hidden');
+            await caricaListe();
+        }
+        
+        // Funzione per chiudere modal liste
+        function closeModalListe() {
+            document.getElementById('modalListe').classList.add('hidden');
+            nascondiFormNuovaLista();
+        }
+        
+        // Funzione per caricare le liste
+        async function caricaListe() {
+            try {
+                const response = await fetch('../api/liste.php');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const container = document.getElementById('liste-container');
+                    
+                    if (data.liste.length === 0) {
+                        container.innerHTML = '<p class="text-gray-500 text-center py-4">Non hai ancora creato nessuna lista. Crea la tua prima lista!</p>';
+                    } else {
+                        container.innerHTML = data.liste.map(lista => `
+                            <button onclick="aggiungiALista(${lista.id}, '${lista.nome.replace(/'/g, "\\'")}')" 
+                                    class="w-full text-left p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-2xl">${lista.icona}</span>
+                                        <div>
+                                            <div class="font-medium text-gray-900">${lista.nome}</div>
+                                            <div class="text-sm text-gray-500">${lista.num_libri} libri</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-green-600">➕</span>
+                                </div>
+                            </button>
+                        `).join('');
+                    }
+                } else {
+                    alert('❌ Errore nel caricamento delle liste');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Errore di connessione');
+            }
+        }
+        
+        // Funzione per aggiungere a una lista esistente
+        async function aggiungiALista(listaId, nomeLista) {
+            try {
+                const response = await fetch('../api/liste.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'aggiungi_libro',
+                        lista_id: listaId,
+                        libro_id: currentBookId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('📋 ' + data.message);
+                    closeModalListe();
+                } else {
+                    alert('❌ ' + (data.message || 'Errore nell\'aggiunta alla lista'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Errore di connessione');
+            }
+        }
+        
+        // Funzione per mostrare form nuova lista
+        function mostraFormNuovaLista() {
+            document.getElementById('form-nuova-lista').classList.remove('hidden');
+        }
+        
+        // Funzione per nascondere form nuova lista
+        function nascondiFormNuovaLista() {
+            document.getElementById('form-nuova-lista').classList.add('hidden');
+            document.getElementById('nome-lista').value = '';
+            document.getElementById('descrizione-lista').value = '';
+        }
+        
+        // Funzione per creare nuova lista e aggiungere il libro
+        async function creaEAggiungiLista() {
+            const nome = document.getElementById('nome-lista').value.trim();
+            const descrizione = document.getElementById('descrizione-lista').value.trim();
+            const icona = document.getElementById('icona-lista').value;
+            const colore = document.getElementById('colore-lista').value;
+            const privata = document.getElementById('privata-lista').checked;
+            
+            if (!nome) {
+                alert('❌ Inserisci un nome per la lista');
+                return;
+            }
+            
+            try {
+                // Prima crea la lista
+                const responseCreate = await fetch('../api/liste.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'crea_lista',
+                        nome: nome,
+                        descrizione: descrizione,
+                        icona: icona,
+                        colore: colore,
+                        privata: privata
+                    })
+                });
+                
+                const dataCreate = await responseCreate.json();
+                
+                if (dataCreate.success) {
+                    // Poi aggiungi il libro alla lista
+                    const responseAdd = await fetch('../api/liste.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            action: 'aggiungi_libro',
+                            lista_id: dataCreate.lista_id,
+                            libro_id: currentBookId
+                        })
+                    });
+                    
+                    const dataAdd = await responseAdd.json();
+                    
+                    if (dataAdd.success) {
+                        alert('✅ Lista creata e libro aggiunto!');
+                        closeModalListe();
+                    } else {
+                        alert('⚠️ Lista creata ma errore nell\'aggiunta del libro: ' + dataAdd.message);
+                        closeModalListe();
+                    }
+                } else {
+                    alert('❌ ' + (dataCreate.message || 'Errore nella creazione della lista'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Errore di connessione');
+            }
+        }
+        
+        // Chiudi modal cliccando fuori
+        document.getElementById('modalListe').addEventListener('click', function(e) {
+            if (e.target === this) closeModalListe();
+        });
+        
+        // Chiudi modal con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !document.getElementById('modalListe').classList.contains('hidden')) {
+                closeModalListe();
+            }
+        });
 
         // Funzione per confermare eliminazione recensione
         function confermaEliminazioneRecensione(nomeUtente, titoloRecensione) {

@@ -220,6 +220,9 @@ $storico_recente = $db->query("
                         <a href="gestione-libri.php" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100">
                             <i class="fas fa-cogs mr-2"></i>Gestione Libri
                         </a>
+                        <a href="richieste-prestito.php" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                            <i class="fas fa-clipboard-list mr-2"></i>Richieste
+                        </a>
                         <span class="px-3 py-2 rounded-md text-sm font-medium bg-primary text-white">
                             <i class="fas fa-exchange-alt mr-2"></i>Prestiti
                         </span>

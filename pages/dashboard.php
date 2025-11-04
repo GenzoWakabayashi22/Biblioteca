@@ -149,6 +149,10 @@ $top_fratelli_lettori = getAllResults("
     ORDER BY libri_letti DESC, f.nome ASC
     LIMIT 3
 ");
+
+// Statistiche personali per preferiti e liste
+$num_preferiti = $conn->query("SELECT COUNT(*) as count FROM preferiti WHERE fratello_id = " . $user['id'])->fetch_assoc()['count'];
+$num_liste = $conn->query("SELECT COUNT(*) as count FROM liste_lettura WHERE fratello_id = " . $user['id'])->fetch_assoc()['count'];
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -194,6 +198,12 @@ $top_fratelli_lettori = getAllResults("
                         <a href="catalogo.php" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10">
                             📖 Catalogo
                         </a>
+                        <a href="preferiti.php" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10">
+                            ⭐ Preferiti
+                        </a>
+                        <a href="liste.php" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10">
+                            📋 Liste
+                        </a>
                         <?php if ($is_admin): ?>
                             <a href="admin/gestione-libri.php" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10">
                                 ⚙️ Gestione
@@ -217,7 +227,7 @@ $top_fratelli_lettori = getAllResults("
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Statistiche principali -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
             <!-- Totale libri -->
             <div class="bg-white rounded-xl shadow-lg p-6 text-center">
                 <div class="text-4xl mb-2">📚</div>
@@ -234,6 +244,22 @@ $top_fratelli_lettori = getAllResults("
                 <h3 class="text-3xl font-bold text-gray-800"><?php echo count($miei_prestiti); ?></h3>
                 <p class="text-gray-600">Miei Prestiti</p>
                 <p class="text-sm text-gray-500 mt-1">Libri attualmente in lettura</p>
+            </div>
+
+            <!-- Preferiti -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition cursor-pointer" onclick="location.href='preferiti.php'">
+                <div class="text-4xl mb-2">⭐</div>
+                <h3 class="text-3xl font-bold text-gray-800"><?php echo $num_preferiti; ?></h3>
+                <p class="text-gray-600">Preferiti</p>
+                <p class="text-sm text-gray-500 mt-1">Libri salvati</p>
+            </div>
+
+            <!-- Liste personali -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition cursor-pointer" onclick="location.href='liste.php'">
+                <div class="text-4xl mb-2">📋</div>
+                <h3 class="text-3xl font-bold text-gray-800"><?php echo $num_liste; ?></h3>
+                <p class="text-gray-600">Liste</p>
+                <p class="text-sm text-gray-500 mt-1">Liste personali</p>
             </div>
 
             <!-- Fratelli lettori -->
