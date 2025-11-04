@@ -41,9 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         if (!empty($copertina_url) && !filter_var($copertina_url, FILTER_VALIDATE_URL)) {
             $message = 'URL non valido!';
         } else {
+            // Se l'URL è vuoto, impostalo a NULL invece di stringa vuota
+            $copertina_value = empty($copertina_url) ? null : $copertina_url;
             $update_query = "UPDATE libri SET copertina_url = ? WHERE id = ?";
             $stmt = $conn->prepare($update_query);
-            $stmt->bind_param("si", $copertina_url, $libro_id);
+            $stmt->bind_param("si", $copertina_value, $libro_id);
             
             if ($stmt->execute()) {
                 $message = 'Copertina aggiornata con successo!';

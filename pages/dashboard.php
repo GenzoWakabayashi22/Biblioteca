@@ -405,7 +405,7 @@ $top_fratelli_lettori = getAllResults("
                     
                 <!-- Link per vedere tutti i libri letti -->
 <div class="mt-4 text-center">
-    <a href="libri-letti.php" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+    <a href="dettaglio-fratello.php?fratello_id=<?= $user['id'] ?>" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
         📚 Vedi tutti i libri letti →
     </a>
 </div>

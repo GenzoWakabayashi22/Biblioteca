@@ -1,14 +1,9 @@
 <?php
-// Fix sessione per cartella admin
-ini_set('session.cookie_path', '/');
 session_start();
+require_once '../../config/database.php';
 
-// Connessione database
-$conn = new mysqli('localhost', 'jmvvznbb_tornate_user', 'Puntorosso22', 'jmvvznbb_tornate_db');
-if ($conn->connect_error) {
-    die("Errore connessione: " . $conn->connect_error);
-}
-$conn->set_charset('utf8mb4');
+// Verifica sessione
+verificaSessioneAttiva();
 
 // Verifica admin
 $admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca, Emiliano, Francesco
