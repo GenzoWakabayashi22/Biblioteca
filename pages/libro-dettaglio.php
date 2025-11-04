@@ -144,6 +144,13 @@ $stmt_letto->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
 $stmt_letto->execute();
 $libro_letto = $stmt_letto->get_result()->fetch_assoc();
 
+// Verifica se il libro è già nei preferiti
+$preferito_query = "SELECT * FROM preferiti WHERE fratello_id = ? AND libro_id = ?";
+$stmt_pref = $conn->prepare($preferito_query);
+$stmt_pref->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
+$stmt_pref->execute();
+$is_preferito = $stmt_pref->get_result()->num_rows > 0;
+
 // Gestione form recensione
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] == 'aggiungi_recensione') {
@@ -711,10 +718,17 @@ if ($is_admin) {
                         </div>
                     <?php endif; ?>
                     
-                    <button id="btn-preferiti" onclick="aggiungiAiPreferiti(<?= $libro['id'] ?>)" 
-                            class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition">
-                        ⭐ Aggiungi ai Preferiti
-                    </button>
+                    <?php if ($is_preferito): ?>
+                        <button id="btn-preferiti" onclick="rimuoviDaiPreferiti(<?= $libro['id'] ?>)" 
+                                class="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition">
+                            ⭐ Nei Preferiti
+                        </button>
+                    <?php else: ?>
+                        <button id="btn-preferiti" onclick="aggiungiAiPreferiti(<?= $libro['id'] ?>)" 
+                                class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition">
+                            ⭐ Aggiungi ai Preferiti
+                        </button>
+                    <?php endif; ?>
                     
                     <button onclick="mostraModalListe(<?= $libro['id'] ?>)" 
                             class="w-full bg-purple-500 hover:bg-purple-600 text-white px-4 py-3 rounded-lg transition">
