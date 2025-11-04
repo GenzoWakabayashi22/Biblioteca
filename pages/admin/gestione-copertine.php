@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once '../../config/database.php';
+
+// Verifica sessione
+verificaSessioneAttiva();
 
 // Connessione database diretta
 $db_config = [
@@ -18,9 +22,8 @@ if ($conn->connect_error) {
 $conn->set_charset('utf8mb4');
 
 // Verifica autenticazione admin
-$user_logged = isset($_SESSION['fratello_id']) && !empty($_SESSION['fratello_id']);
 $admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
-$is_admin = $user_logged && in_array($_SESSION['fratello_id'], $admin_ids);
+$is_admin = in_array($_SESSION['fratello_id'], $admin_ids);
 
 if (!$is_admin) {
     header('Location: ../dashboard.php');

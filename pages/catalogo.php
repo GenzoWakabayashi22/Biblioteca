@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once '../config/database.php';
+
+// Verifica sessione
+verificaSessioneAttiva();
 
 // Connessione database diretta
 $db_config = [
@@ -16,13 +20,6 @@ if ($conn->connect_error) {
 }
 
 $conn->set_charset('utf8mb4');
-
-// Verifica autenticazione
-$user_logged = isset($_SESSION['fratello_id']) && !empty($_SESSION['fratello_id']);
-if (!$user_logged) {
-    header('Location: ../index.php');
-    exit;
-}
 
 // Funzione corretta per mostrare le stelle
 function mostraStelle($voto_medio, $dimensione = 'text-xs') {

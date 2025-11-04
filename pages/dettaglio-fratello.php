@@ -2,21 +2,8 @@
 session_start();
 require_once '../config/database.php';
 
-// Funzioni di debug
-function debugQuery($query, $params) {
-    error_log("Query: " . $query);
-    error_log("Params: " . print_r($params, true));
-}
-
-// Verifica autenticazione
-if (!isset($_SESSION['fratello_id'])) {
-    header('Location: ../index.php');
-    exit;
-}
-
-// Debug: log dei dati della sessione
-error_log("Dettaglio fratello - Session ID: " . $_SESSION['fratello_id']);
-error_log("Fratello richiesto: " . ($_GET['fratello_id'] ?? 'non specificato'));
+// Verifica sessione
+verificaSessioneAttiva();
 
 // Dati utente corrente
 $user = [
@@ -49,11 +36,7 @@ $query_fratello = "
     GROUP BY f.id
 ";
 
-debugQuery($query_fratello, [$fratello_id]);
 $fratello_info = getSingleResult($query_fratello, [$fratello_id]);
-
-// Debug del risultato
-error_log("Fratello info: " . print_r($fratello_info, true));
 
 if (!$fratello_info) {
     header('Location: statistiche-lettori.php');
@@ -63,44 +46,42 @@ if (!$fratello_info) {
 // Determina se stiamo visualizzando i nostri libri o quelli di un altro fratello
 $is_my_profile = ($fratello_id == $user['id']);
 
-// Recupera tutti i libri letti dal fratello dalla tabella libri_letti
+// Query ottimizzata per i libri letti
 $query_libri = "
     SELECT 
         l.id, l.titolo, l.autore, l.isbn, l.anno_pubblicazione, l.pagine as numero_pagine,
         l.copertina_url,
+        l.voto_medio as voto_medio_libro,
+        l.num_recensioni as num_recensioni_libro,
         c.nome as categoria_nome, c.colore as categoria_colore,
         ll.data_lettura, ll.note as note_personali,
         
-        -- Recensione del fratello su questo libro
-        r.valutazione, r.titolo as recensione_titolo, r.contenuto as recensione_contenuto, 
-        r.consigliato, r.created_at as data_recensione,
+        -- Recensione del fratello (subquery per evitare GROUP BY pesante)
+        (SELECT valutazione FROM recensioni_libri WHERE libro_id = l.id AND fratello_id = ? LIMIT 1) as valutazione,
+        (SELECT titolo FROM recensioni_libri WHERE libro_id = l.id AND fratello_id = ? LIMIT 1) as recensione_titolo,
+        (SELECT contenuto FROM recensioni_libri WHERE libro_id = l.id AND fratello_id = ? LIMIT 1) as recensione_contenuto,
+        (SELECT consigliato FROM recensioni_libri WHERE libro_id = l.id AND fratello_id = ? LIMIT 1) as consigliato,
+        (SELECT created_at FROM recensioni_libri WHERE libro_id = l.id AND fratello_id = ? LIMIT 1) as data_recensione,
         
-        -- Statistiche generali del libro
-        COALESCE(AVG(r_all.valutazione), 0) as voto_medio_libro,
-        COUNT(DISTINCT r_all.id) as num_recensioni_libro,
-        
-        -- Info se attualmente in prestito
-        CASE WHEN l.prestato_a_fratello_id = ? 
-        THEN 'prestato' ELSE 'disponibile' END as stato_attuale,
-        l.data_prestito_corrente, l.data_scadenza_corrente
+        -- Stato attuale del libro
+        CASE 
+            WHEN l.stato = 'prestato' AND l.prestato_a_fratello_id = ? THEN 'prestato' 
+            ELSE l.stato 
+        END as stato_attuale,
+        l.data_prestito_corrente, 
+        l.data_scadenza_corrente
         
     FROM libri_letti ll
     INNER JOIN libri l ON ll.libro_id = l.id
     LEFT JOIN categorie_libri c ON l.categoria_id = c.id
-    LEFT JOIN recensioni_libri r ON l.id = r.libro_id AND r.fratello_id = ?
-    LEFT JOIN recensioni_libri r_all ON l.id = r_all.libro_id
-    
+        
     WHERE ll.fratello_id = ?
-    GROUP BY l.id, ll.data_lettura, ll.note
     ORDER BY ll.data_lettura DESC
 ";
 
-debugQuery($query_libri, [$fratello_id, $fratello_id, $fratello_id]);
-$libri_letti = getAllResults($query_libri, [$fratello_id, $fratello_id, $fratello_id]);
-
-// Debug del risultato
-error_log("Libri letti count: " . count($libri_letti));
-error_log("Libri letti: " . print_r($libri_letti, true));
+// Esegui query con parametri ripetuti
+$fratello_id_params = array_fill(0, 7, $fratello_id);
+$libri_letti = getAllResults($query_libri, $fratello_id_params, str_repeat('i', 7));
 
 // Funzione per determinare l'icona del grado
 function getGradoIcon($grado) {

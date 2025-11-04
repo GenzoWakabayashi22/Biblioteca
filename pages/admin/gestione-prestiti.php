@@ -2,11 +2,8 @@
 session_start();
 require_once '../../config/database.php';
 
-// Verifica autenticazione e permessi admin
-if (!isset($_SESSION['fratello_id'])) {
-    header('Location: ../../index.php');
-    exit;
-}
+// Verifica sessione
+verificaSessioneAttiva();
 
 // Lista admin autorizzati
 $admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
