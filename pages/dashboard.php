@@ -151,8 +151,11 @@ $top_fratelli_lettori = getAllResults("
 ");
 
 // Statistiche personali per preferiti e liste
-$num_preferiti = $conn->query("SELECT COUNT(*) as count FROM preferiti WHERE fratello_id = " . $user['id'])->fetch_assoc()['count'];
-$num_liste = $conn->query("SELECT COUNT(*) as count FROM liste_lettura WHERE fratello_id = " . $user['id'])->fetch_assoc()['count'];
+$preferiti_result = getSingleResult("SELECT COUNT(*) as count FROM preferiti WHERE fratello_id = ?", [$user['id']], 'i');
+$num_preferiti = $preferiti_result ? $preferiti_result['count'] : 0;
+
+$liste_result = getSingleResult("SELECT COUNT(*) as count FROM liste_lettura WHERE fratello_id = ?", [$user['id']], 'i');
+$num_liste = $liste_result ? $liste_result['count'] : 0;
 ?>
 <!DOCTYPE html>
 <html lang="it">
