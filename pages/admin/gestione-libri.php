@@ -8,6 +8,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once '../../config/database.php';
+
+// Verifica sessione
+verificaSessioneAttiva();
+
 // Connessione database
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=jmvvznbb_tornate_db;charset=utf8mb4", 

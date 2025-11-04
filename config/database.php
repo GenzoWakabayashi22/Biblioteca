@@ -141,6 +141,30 @@ function closeDatabaseConnection() {
     }
 }
 
+/**
+ * Verifica che la sessione sia attiva e non scaduta
+ * Timeout: 24 ore (86400 secondi)
+ */
+function verificaSessioneAttiva() {
+    // Verifica autenticazione
+    if (!isset($_SESSION['fratello_id'])) {
+        header('Location: ' . (strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../../index.php' : '../index.php'));
+        exit;
+    }
+    
+    // Verifica timeout sessione (24 ore)
+    if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 86400)) {
+        session_destroy();
+        header('Location: ' . (strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../../index.php?error=session_expired' : '../index.php?error=session_expired'));
+        exit;
+    }
+    
+    // Aggiorna timestamp ultima attività
+    $_SESSION['last_activity'] = time();
+    
+    return true;
+}
+
 // Registra la funzione di chiusura da eseguire alla fine dello script
 register_shutdown_function('closeDatabaseConnection');
 

@@ -1,6 +1,10 @@
 <?php
 // admin/richieste-prestito.php
 session_start();
+require_once '../../config/database.php';
+
+// Verifica sessione
+verificaSessioneAttiva();
 
 // Connessione database
 $conn = new mysqli('localhost', 'jmvvznbb_tornate_user', 'Puntorosso22', 'jmvvznbb_tornate_db');

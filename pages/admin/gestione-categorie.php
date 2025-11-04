@@ -1,6 +1,10 @@
 <?php
 // admin/gestione-categorie.php
 session_start();
+require_once '../../config/database.php';
+
+// Verifica sessione
+verificaSessioneAttiva();
 
 // Connessione database
 $db_config = [
@@ -17,12 +21,6 @@ if ($conn->connect_error) {
 }
 
 $conn->set_charset('utf8mb4');
-
-// Verifica autenticazione
-if (!isset($_SESSION['fratello_id']) || empty($_SESSION['fratello_id'])) {
-    header('Location: ../index.php');
-    exit;
-}
 
 // Verifica permessi admin
 $admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti

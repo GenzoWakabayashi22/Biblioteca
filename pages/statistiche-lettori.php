@@ -2,11 +2,8 @@
 session_start();
 require_once '../config/database.php';
 
-// Verifica autenticazione
-if (!isset($_SESSION['fratello_id'])) {
-    header('Location: ../index.php');
-    exit;
-}
+// Verifica sessione
+verificaSessioneAttiva();
 
 // Dati utente corrente
 $user = [
