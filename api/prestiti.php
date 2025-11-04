@@ -260,6 +260,20 @@ function richieciPrestito($input) {
             )
         ");
         
+        // **NUOVO**: Verifica se ci sono già richieste in attesa per questo libro
+        $stmt_check_richieste = $conn->prepare("
+            SELECT COUNT(*) as count_richieste
+            FROM richieste_prestito 
+            WHERE libro_id = ? AND stato = 'in_attesa'
+        ");
+        $stmt_check_richieste->bind_param("i", $libro_id);
+        $stmt_check_richieste->execute();
+        $richieste_attive = $stmt_check_richieste->get_result()->fetch_assoc();
+
+        if ($richieste_attive['count_richieste'] > 0) {
+            throw new Exception('C\'è già una richiesta in attesa per questo libro. Sarai avvisato quando sarà disponibile.');
+        }
+        
         // Verifica se non ha già una richiesta in sospeso per questo libro
         $stmt = $conn->prepare("
             SELECT COUNT(*) as count 
