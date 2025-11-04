@@ -30,10 +30,14 @@ try {
     }
     
     // Imposta il charset (solo dopo aver verificato la connessione)
-    $conn->set_charset($db_config['charset']);
+    if (!$conn->set_charset($db_config['charset'])) {
+        throw new Exception("Errore impostazione charset: " . $conn->error);
+    }
     
     // Imposta il timezone
-    $conn->query("SET time_zone = '+01:00'");
+    if (!$conn->query("SET time_zone = '+01:00'")) {
+        throw new Exception("Errore impostazione timezone: " . $conn->error);
+    }
     
 } catch (Exception $e) {
     // Log dell'errore (in produzione salvare su file)
