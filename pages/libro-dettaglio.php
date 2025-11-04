@@ -706,18 +706,6 @@ if ($is_admin) {
                 <h3 class="text-lg font-bold text-gray-800 mb-4">⚡ Azioni Rapide</h3>
                 
                 <div class="space-y-3">
-                    <?php if ($libro['stato'] == 'disponibile'): ?>
-                        <button onclick="richiediPrestito(<?= $libro['id'] ?>)" 
-                                class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg transition">
-                            📖 Richiedi Prestito
-                        </button>
-                    <?php elseif ($libro['stato'] == 'prestato'): ?>
-                        <div class="w-full bg-orange-100 border border-orange-300 text-orange-700 px-4 py-3 rounded-lg">
-                            <div class="text-sm font-medium">📘 Prestato</div>
-                            <div class="text-xs">Attualmente non disponibile</div>
-                        </div>
-                    <?php endif; ?>
-                    
                     <?php if ($is_preferito): ?>
                         <button id="btn-preferiti" onclick="rimuoviDaiPreferiti(<?= $libro['id'] ?>)" 
                                 class="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition">
@@ -906,39 +894,6 @@ if ($is_admin) {
         function toggleLettoForm() {
             const form = document.getElementById('letto-form');
             form.classList.toggle('hidden');
-        }
-        
-        // Funzione per richiedere prestito
-        async function richiediPrestito(libroId) {
-            if (!confirm('Vuoi richiedere il prestito di questo libro?\n\nUn amministratore esaminerà la tua richiesta.')) {
-                return;
-            }
-            
-            try {
-                const response = await fetch('../api/prestiti.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'richiedi_prestito',
-                        libro_id: libroId,
-                        giorni_richiesti: 30
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    alert('✅ ' + data.message);
-                    location.reload();
-                } else {
-                    alert('❌ ' + (data.message || 'Errore nella richiesta'));
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('❌ Errore di connessione');
-            }
         }
         
         // Funzione per aggiungere ai preferiti

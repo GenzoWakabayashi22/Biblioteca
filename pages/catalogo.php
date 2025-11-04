@@ -197,28 +197,7 @@ $total_libri = $total_result['total'];
                 <a href="dashboard.php" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition">
                     🏠 Dashboard
                 </a>
-                <a href="prestiti.php" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition">
-                    📖 I Miei Prestiti
-                </a>
                 <?php if ($is_admin): ?>
-                    <!-- NUOVO LINK per Admin: Richieste Prestito -->
-                    <a href="admin/richieste-prestito.php" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition relative">
-                        📋 Richieste
-                        <?php
-                        // Badge notifica
-                        $richieste_query = "SELECT COUNT(*) as count FROM richieste_prestito WHERE stato = 'in_attesa'";
-                        $richieste_result = $conn->query($richieste_query);
-                        if ($richieste_result) {
-                            $count_attesa = $richieste_result->fetch_assoc()['count'] ?? 0;
-                            if ($count_attesa > 0):
-                        ?>
-                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full"><?= $count_attesa ?></span>
-                        <?php 
-                            endif;
-                        }
-                        ?>
-                    </a>
-                    
                     <a href="admin/gestione-libri.php" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition">
                         ➕ Aggiungi Libro
                     </a>
@@ -378,25 +357,6 @@ $total_libri = $total_result['total'];
                            class="bg-primary hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-xs transition flex-1 text-center font-medium">
                             📖 Dettagli
                         </a>
-                        
-                        <?php if ($libro['stato'] == 'disponibile'): ?>
-                            <?php if ($is_admin): ?>
-                                <button onclick="prestaLibro(<?= $libro['id'] ?>)" 
-                                        class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-xs transition font-medium">
-                                    ✋ Presta
-                                </button>
-                            <?php else: ?>
-                                <button onclick="prenotaLibro(<?= $libro['id'] ?>)" 
-                                        class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg text-xs transition font-medium">
-                                    📅 Prenota
-                                </button>
-                            <?php endif; ?>
-                        <?php elseif ($libro['stato'] == 'prestato' && $is_admin): ?>
-                            <button onclick="restituisciLibro(<?= $libro['id'] ?>)" 
-                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-xs transition font-medium">
-                                ↩️ Restituisci
-                            </button>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -416,122 +376,6 @@ $total_libri = $total_result['total'];
   <?php endif; ?>
 
     <script>
-        // FIX: Percorso corretto per l'API
-        function prenotaLibro(libroId) {
-            const cardElement = document.querySelector(`[data-libro-id="${libroId}"]`);
-            const titolo = cardElement ? cardElement.querySelector('h3').textContent : 'questo libro';
-            
-            if (confirm(`Vuoi richiedere in prestito "${titolo}"?\n\nUn amministratore esaminerà la tua richiesta.`)) {
-                // Mostra loading
-                const button = document.querySelector(`[onclick="prenotaLibro(${libroId})"]`);
-                const originalText = button.innerHTML;
-                button.innerHTML = '⏳ Invio...';
-                button.disabled = true;
-                
-                fetch('../api/prestiti.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'richiedi_prestito',
-                        libro_id: libroId,
-                        giorni_richiesti: 30,
-                        note: ''
-                    })
-                })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Response data:', data);
-                    
-                    if (data.success) {
-                        alert('✅ ' + data.message);
-                        // Aggiorna il pulsante per mostrare che è stata fatta la richiesta
-                        button.innerHTML = '✅ Richiesta Inviata';
-                        button.className = button.className.replace('bg-orange-500 hover:bg-orange-600', 'bg-green-500 cursor-not-allowed');
-                        button.onclick = null;
-                    } else {
-                        alert('❌ ' + data.message);
-                        // Ripristina il pulsante
-                        button.innerHTML = originalText;
-                        button.disabled = false;
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    alert('❌ Errore di connessione. Riprova più tardi.');
-                    // Ripristina il pulsante
-                    button.innerHTML = originalText;
-                    button.disabled = false;
-                });
-            }
-        }
-
-        function prestaLibro(libroId) {
-            const fratelloId = prompt('Inserisci l\'ID del fratello:');
-            if (fratelloId && !isNaN(fratelloId)) {
-                fetch('../api/prestiti.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'nuovo_prestito',
-                        libro_id: libroId,
-                        fratello_id: parseInt(fratelloId),
-                        giorni_prestito: 30,
-                        note: 'Prestito diretto da catalogo'
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('✅ ' + data.message);
-                        location.reload();
-                    } else {
-                        alert('❌ ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    alert('❌ Errore di connessione');
-                    console.error('Error:', error);
-                });
-            }
-        }
-
-        function restituisciLibro(libroId) {
-            if (confirm('Confermi la restituzione del libro?')) {
-                fetch('../api/prestiti.php', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'restituisci',
-                        libro_id: libroId,
-                        stato_rientro: 'buono',
-                        note_restituzione: 'Restituzione da catalogo'
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('✅ ' + data.message);
-                        location.reload();
-                    } else {
-                        alert('❌ ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    alert('❌ Errore di connessione');
-                    console.error('Error:', error);
-                });
-            }
-        }
-
         // Lazy loading per prestazioni migliori
         if ('IntersectionObserver' in window) {
             const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -555,8 +399,6 @@ $total_libri = $total_result['total'];
         // Debug info
         console.log('📚 Catalogo caricato con', <?= count($libri) ?>, 'libri');
         console.log('🎨 Copertine in formato VERTICALE corretto!');
-        console.log('✅ Sistema richieste prestito attivo');
-        console.log('🔧 Percorso API: ../api/prestiti.php');
         console.log('🌐 URL corrente:', window.location.href);
         console.log('👤 Utente ID:', <?= $_SESSION['fratello_id'] ?? 'null' ?>);
         console.log('⚡ Admin:', <?= $is_admin ? 'true' : 'false' ?>);

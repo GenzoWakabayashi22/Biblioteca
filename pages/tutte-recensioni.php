@@ -460,10 +460,6 @@ function mostraStelle($voto, $dimensione = 'text-base') {
                     <div class="text-2xl mb-2">✅</div>
                     <p class="font-medium">Libri Disponibili</p>
                 </a>
-                <a href="prestiti.php" class="bg-white/20 hover:bg-white/30 text-white rounded-lg p-4 text-center transition-all">
-                    <div class="text-2xl mb-2">📚</div>
-                    <p class="font-medium">I Miei Libri</p>
-                </a>
             </div>
         </div>
     </div>

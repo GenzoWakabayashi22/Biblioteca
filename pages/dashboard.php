@@ -289,9 +289,6 @@ $num_liste = $liste_result ? $liste_result['count'] : 0;
                             <a href="catalogo.php" class="block text-indigo-600 hover:text-indigo-800 font-medium">
                                 📖 Sfoglia il catalogo
                             </a>
-                            <a href="prestiti.php" class="block text-blue-600 hover:text-blue-800 font-medium">
-                                📋 Visualizza i miei prestiti
-                            </a>
                         </div>
                     </div>
                 <?php else: ?>
@@ -303,7 +300,7 @@ $num_liste = $liste_result ? $liste_result['count'] : 0;
                                         <h3 class="font-semibold text-gray-800 hover:text-indigo-600">
                                             <a href="libro-dettaglio.php?id=<?php echo $prestito['id']; ?>">
                                                 <?php echo htmlspecialchars($prestito['titolo']); ?>
-                                            </a>
+                            </a>
                                         </h3>
                                         <p class="text-gray-600 text-sm"><?php echo htmlspecialchars($prestito['autore']); ?></p>
                                         <div class="flex items-center space-x-4 mt-2 text-sm">
@@ -326,13 +323,7 @@ $num_liste = $liste_result ? $liste_result['count'] : 0;
                                 </div>
                             </div>
                         <?php endforeach; ?>
-                        
-                        <!-- Link per vedere tutti i prestiti -->
-                        <div class="mt-4 pt-4 border-t border-gray-200 text-center">
-                            <a href="prestiti.php" class="text-blue-600 hover:text-blue-800 font-medium">
-                                📋 Visualizza tutti i miei prestiti →
-                            </a>
-                        </div>
+                    </div>
                     </div>
                 <?php endif; ?>
             </div>
@@ -681,35 +672,6 @@ $num_liste = $liste_result ? $liste_result['count'] : 0;
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
                 <!-- CARD: Richieste Prestito -->
-                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-orange-100 p-3 rounded-full">
-                            <span class="text-2xl">📋</span>
-                        </div>
-                        <?php
-                        // Conta richieste in attesa
-                        $richieste_attesa = getSingleResult("SELECT COUNT(*) as count FROM richieste_prestito WHERE stato = 'in_attesa'");
-                        $count_attesa = $richieste_attesa['count'] ?? 0;
-                        ?>
-                        <?php if ($count_attesa > 0): ?>
-                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full"><?php echo $count_attesa; ?></span>
-                        <?php endif; ?>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Richieste Prestito</h3>
-                    <p class="text-gray-600 text-sm mb-4">
-                        Gestisci le richieste di prestito dei fratelli
-                        <?php if ($count_attesa > 0): ?>
-                            <br><strong class="text-orange-600"><?php echo $count_attesa; ?> in attesa di approvazione</strong>
-                        <?php endif; ?>
-                    </p>
-                    <a href="admin/richieste-prestito.php" 
-                       class="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium">
-                        <span class="mr-1">📋</span>
-                        Gestisci Richieste
-                        <span class="ml-1">→</span>
-                    </a>
-                </div>
-                
                 <!-- CARD: Gestione Libri -->
                 <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
                     <div class="flex items-center justify-between mb-4">
@@ -723,23 +685,6 @@ $num_liste = $liste_result ? $liste_result['count'] : 0;
                        class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
                         <span class="mr-1">📚</span>
                         Vai alla Gestione
-                        <span class="ml-1">→</span>
-                    </a>
-                </div>
-                
-                <!-- CARD: Gestione Prestiti -->
-                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-green-100 p-3 rounded-full">
-                            <span class="text-2xl">📖</span>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Gestione Prestiti</h3>
-                    <p class="text-gray-600 text-sm mb-4">Gestisci prestiti attivi e scadenze</p>
-                    <a href="admin/gestione-prestiti.php" 
-                       class="inline-flex items-center text-green-600 hover:text-green-700 font-medium">
-                        <span class="mr-1">📖</span>
-                        Gestisci Prestiti
                         <span class="ml-1">→</span>
                     </a>
                 </div>
@@ -765,15 +710,7 @@ $num_liste = $liste_result ? $liste_result['count'] : 0;
                         <div class="text-2xl mb-2">⚙️</div>
                         <p class="font-medium">Gestisci Libri</p>
                     </a>
-                    <a href="admin/gestione-prestiti.php" class="bg-white/20 hover:bg-white/30 text-white rounded-lg p-4 text-center transition-all">
-                        <div class="text-2xl mb-2">📋</div>
-                        <p class="font-medium">Gestisci Prestiti</p>
-                    </a>
                 <?php else: ?>
-                    <a href="prestiti.php" class="bg-white/20 hover:bg-white/30 text-white rounded-lg p-4 text-center transition-all">
-                        <div class="text-2xl mb-2">📚</div>
-                        <p class="font-medium">I Miei Libri</p>
-                    </a>
                     <a href="catalogo.php?novita=1" class="bg-white/20 hover:bg-white/30 text-white rounded-lg p-4 text-center transition-all">
                         <div class="text-2xl mb-2">🆕</div>
                         <p class="font-medium">Novità</p>
