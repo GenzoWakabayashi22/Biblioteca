@@ -8,18 +8,14 @@ verificaSessioneAttiva();
 $user_id = $_SESSION['fratello_id'];
 $user_name = $_SESSION['nome'] ?? 'Utente';
 
-// Recupera i preferiti dell'utente
+// Recupera i preferiti dell'utente senza aggregazioni
 $query_preferiti = "
     SELECT p.*, l.titolo, l.autore, l.stato, l.copertina_url, l.descrizione,
-           c.nome as categoria_nome, c.colore as categoria_colore,
-           COALESCE(AVG(r.valutazione), 0) as voto_medio,
-           COUNT(DISTINCT r.id) as num_recensioni
+           c.nome as categoria_nome, c.colore as categoria_colore
     FROM preferiti p
     INNER JOIN libri l ON p.libro_id = l.id
     LEFT JOIN categorie_libri c ON l.categoria_id = c.id
-    LEFT JOIN recensioni_libri r ON l.id = r.libro_id
     WHERE p.fratello_id = ?
-    GROUP BY p.id
     ORDER BY p.data_aggiunta DESC
 ";
 $stmt = $conn->prepare($query_preferiti);
@@ -29,6 +25,44 @@ $result = $stmt->get_result();
 $preferiti = [];
 while ($row = $result->fetch_assoc()) {
     $preferiti[] = $row;
+}
+
+// Ottimizza: recupera tutte le statistiche in una sola query
+if (!empty($preferiti)) {
+    $libro_ids = array_column($preferiti, 'libro_id');
+    $ids_placeholder = implode(',', array_fill(0, count($libro_ids), '?'));
+    
+    $stats_query = "
+        SELECT libro_id,
+               COALESCE(AVG(valutazione), 0) as voto_medio,
+               COUNT(id) as num_recensioni
+        FROM recensioni_libri
+        WHERE libro_id IN ($ids_placeholder)
+        GROUP BY libro_id
+    ";
+    $stmt_stats = $conn->prepare($stats_query);
+    $types = str_repeat('i', count($libro_ids));
+    $stmt_stats->bind_param($types, ...$libro_ids);
+    $stmt_stats->execute();
+    $stats_result = $stmt_stats->get_result();
+    
+    // Crea un array associativo con le statistiche per libro_id
+    $stats_by_libro = [];
+    while ($stat = $stats_result->fetch_assoc()) {
+        $stats_by_libro[$stat['libro_id']] = $stat;
+    }
+    
+    // Aggiungi le statistiche a ciascun libro preferito
+    foreach ($preferiti as &$pref) {
+        if (isset($stats_by_libro[$pref['libro_id']])) {
+            $pref['voto_medio'] = $stats_by_libro[$pref['libro_id']]['voto_medio'];
+            $pref['num_recensioni'] = $stats_by_libro[$pref['libro_id']]['num_recensioni'];
+        } else {
+            $pref['voto_medio'] = 0;
+            $pref['num_recensioni'] = 0;
+        }
+    }
+    unset($pref); // Break the reference
 }
 ?>
 

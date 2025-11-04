@@ -8,13 +8,11 @@ verificaSessioneAttiva();
 $user_id = $_SESSION['fratello_id'];
 $user_name = $_SESSION['nome'] ?? 'Utente';
 
-// Recupera le liste dell'utente
+// Recupera le liste dell'utente con conteggio libri separato
 $query_liste = "
-    SELECT ll.*, COUNT(DISTINCT llb.libro_id) as num_libri
+    SELECT ll.*
     FROM liste_lettura ll
-    LEFT JOIN lista_libri llb ON ll.id = llb.lista_id
     WHERE ll.fratello_id = ?
-    GROUP BY ll.id
     ORDER BY ll.data_modifica DESC
 ";
 $stmt = $conn->prepare($query_liste);
@@ -24,6 +22,36 @@ $result = $stmt->get_result();
 $liste = [];
 while ($row = $result->fetch_assoc()) {
     $liste[] = $row;
+}
+
+// Ottimizza: recupera tutti i conteggi in una sola query
+if (!empty($liste)) {
+    $lista_ids = array_column($liste, 'id');
+    $ids_placeholder = implode(',', array_fill(0, count($lista_ids), '?'));
+    
+    $count_query = "
+        SELECT lista_id, COUNT(DISTINCT libro_id) as num_libri
+        FROM lista_libri
+        WHERE lista_id IN ($ids_placeholder)
+        GROUP BY lista_id
+    ";
+    $stmt_count = $conn->prepare($count_query);
+    $types = str_repeat('i', count($lista_ids));
+    $stmt_count->bind_param($types, ...$lista_ids);
+    $stmt_count->execute();
+    $count_result = $stmt_count->get_result();
+    
+    // Crea un array associativo con i conteggi per lista_id
+    $counts_by_lista = [];
+    while ($count_row = $count_result->fetch_assoc()) {
+        $counts_by_lista[$count_row['lista_id']] = $count_row['num_libri'];
+    }
+    
+    // Aggiungi il conteggio a ciascuna lista
+    foreach ($liste as &$lista) {
+        $lista['num_libri'] = $counts_by_lista[$lista['id']] ?? 0;
+    }
+    unset($lista); // Break the reference
 }
 
 // Se è specificata una lista, recupera i libri
@@ -39,17 +67,14 @@ if (isset($_GET['lista_id'])) {
     $lista_selezionata = $stmt->get_result()->fetch_assoc();
     
     if ($lista_selezionata) {
-        // Recupera libri della lista
+        // Recupera libri della lista senza aggregazioni
         $query_libri = "
             SELECT llb.*, l.titolo, l.autore, l.stato, l.copertina_url,
-                   c.nome as categoria_nome, c.colore as categoria_colore,
-                   COALESCE(AVG(r.valutazione), 0) as voto_medio
+                   c.nome as categoria_nome, c.colore as categoria_colore
             FROM lista_libri llb
             INNER JOIN libri l ON llb.libro_id = l.id
             LEFT JOIN categorie_libri c ON l.categoria_id = c.id
-            LEFT JOIN recensioni_libri r ON l.id = r.libro_id
             WHERE llb.lista_id = ?
-            GROUP BY llb.id
             ORDER BY llb.posizione ASC, llb.data_aggiunta DESC
         ";
         $stmt = $conn->prepare($query_libri);
@@ -58,6 +83,36 @@ if (isset($_GET['lista_id'])) {
         $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
             $libri_lista[] = $row;
+        }
+        
+        // Ottimizza: recupera tutte le statistiche in una sola query
+        if (!empty($libri_lista)) {
+            $libro_ids = array_column($libri_lista, 'libro_id');
+            $ids_placeholder = implode(',', array_fill(0, count($libro_ids), '?'));
+            
+            $stats_query = "
+                SELECT libro_id, COALESCE(AVG(valutazione), 0) as voto_medio
+                FROM recensioni_libri
+                WHERE libro_id IN ($ids_placeholder)
+                GROUP BY libro_id
+            ";
+            $stmt_stats = $conn->prepare($stats_query);
+            $types = str_repeat('i', count($libro_ids));
+            $stmt_stats->bind_param($types, ...$libro_ids);
+            $stmt_stats->execute();
+            $stats_result = $stmt_stats->get_result();
+            
+            // Crea un array associativo con le statistiche per libro_id
+            $stats_by_libro = [];
+            while ($stat = $stats_result->fetch_assoc()) {
+                $stats_by_libro[$stat['libro_id']] = $stat['voto_medio'];
+            }
+            
+            // Aggiungi le statistiche a ciascun libro
+            foreach ($libri_lista as &$libro) {
+                $libro['voto_medio'] = $stats_by_libro[$libro['libro_id']] ?? 0;
+            }
+            unset($libro); // Break the reference
         }
     }
 }

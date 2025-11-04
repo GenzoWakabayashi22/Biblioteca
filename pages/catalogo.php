@@ -110,18 +110,14 @@ if (!empty($grado_filter)) {
 
 $where_sql = 'WHERE ' . implode(' AND ', $where_conditions);
 
-// Query principale per i libri
+// Query principale per i libri (senza aggregazioni per evitare problemi con GROUP BY)
 $libri_query = "
     SELECT l.*, c.nome as categoria_nome, c.colore as categoria_colore,
-           f.nome as prestato_a_nome,
-           COALESCE(AVG(r.valutazione), 0) as voto_medio,
-           COUNT(DISTINCT r.id) as num_recensioni
+           f.nome as prestato_a_nome
     FROM libri l 
     LEFT JOIN categorie_libri c ON l.categoria_id = c.id
     LEFT JOIN fratelli f ON l.prestato_a_fratello_id = f.id
-    LEFT JOIN recensioni_libri r ON l.id = r.libro_id
     {$where_sql}
-    GROUP BY l.id
     ORDER BY l.titolo ASC
 ";
 
@@ -141,6 +137,44 @@ if ($libri_result) {
     while ($row = $libri_result->fetch_assoc()) {
         $libri[] = $row;
     }
+}
+
+// Ottimizza: recupera tutte le statistiche in una sola query
+if (!empty($libri)) {
+    $libro_ids = array_column($libri, 'id');
+    $ids_placeholder = implode(',', array_fill(0, count($libro_ids), '?'));
+    
+    $stats_query = "
+        SELECT libro_id,
+               COALESCE(AVG(r.valutazione), 0) as voto_medio,
+               COUNT(r.id) as num_recensioni
+        FROM recensioni_libri r
+        WHERE r.libro_id IN ($ids_placeholder)
+        GROUP BY libro_id
+    ";
+    $stmt_stats = $conn->prepare($stats_query);
+    $types = str_repeat('i', count($libro_ids));
+    $stmt_stats->bind_param($types, ...$libro_ids);
+    $stmt_stats->execute();
+    $stats_result = $stmt_stats->get_result();
+    
+    // Crea un array associativo con le statistiche per libro_id
+    $stats_by_libro = [];
+    while ($stat = $stats_result->fetch_assoc()) {
+        $stats_by_libro[$stat['libro_id']] = $stat;
+    }
+    
+    // Aggiungi le statistiche a ciascun libro
+    foreach ($libri as &$libro) {
+        if (isset($stats_by_libro[$libro['id']])) {
+            $libro['voto_medio'] = $stats_by_libro[$libro['id']]['voto_medio'];
+            $libro['num_recensioni'] = $stats_by_libro[$libro['id']]['num_recensioni'];
+        } else {
+            $libro['voto_medio'] = 0;
+            $libro['num_recensioni'] = 0;
+        }
+    }
+    unset($libro); // Break the reference
 }
 
 // Conta totale libri

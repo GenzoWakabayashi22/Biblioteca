@@ -79,7 +79,7 @@ $libri_piu_recensiti = getAllResults("
     SELECT l.id, l.titolo, l.autore, COUNT(r.id) as num_recensioni
     FROM libri l 
     INNER JOIN recensioni_libri r ON l.id = r.libro_id
-    GROUP BY l.id
+    GROUP BY l.id, l.titolo, l.autore
     ORDER BY num_recensioni DESC
     LIMIT 5
 ");

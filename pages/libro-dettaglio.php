@@ -65,21 +65,18 @@ function mostraStelle($voto, $classe = '') {
 }
 
 // Recupera dati completi del libro
+// First get the book data
 $libro_query = "
     SELECT l.*, c.nome as categoria_nome, c.colore as categoria_colore,
            f_prestato.nome as prestato_a_nome, f_prestato.telefono as prestato_telefono,
            f_proprietario.nome as proprietario_nome,
-           f_aggiunto.nome as aggiunto_da_nome,
-           COALESCE(AVG(r.valutazione), 0) as voto_medio,
-           COUNT(DISTINCT r.id) as num_recensioni
+           f_aggiunto.nome as aggiunto_da_nome
     FROM libri l 
     LEFT JOIN categorie_libri c ON l.categoria_id = c.id
     LEFT JOIN fratelli f_prestato ON l.prestato_a_fratello_id = f_prestato.id
     LEFT JOIN fratelli f_proprietario ON l.proprietario_fratello_id = f_proprietario.id
     LEFT JOIN fratelli f_aggiunto ON l.aggiunto_da = f_aggiunto.id
-    LEFT JOIN recensioni_libri r ON l.id = r.libro_id
     WHERE l.id = ?
-    GROUP BY l.id
 ";
 
 $stmt = $conn->prepare($libro_query);
@@ -87,6 +84,25 @@ $stmt->bind_param("i", $libro_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $libro = $result->fetch_assoc();
+
+// Then get the review statistics separately
+if ($libro) {
+    $stats_query = "
+        SELECT COALESCE(AVG(r.valutazione), 0) as voto_medio,
+               COUNT(r.id) as num_recensioni
+        FROM recensioni_libri r
+        WHERE r.libro_id = ?
+    ";
+    $stmt_stats = $conn->prepare($stats_query);
+    $stmt_stats->bind_param("i", $libro_id);
+    $stmt_stats->execute();
+    $stats_result = $stmt_stats->get_result();
+    $stats = $stats_result->fetch_assoc();
+    
+    // Merge the statistics into the libro array
+    $libro['voto_medio'] = $stats['voto_medio'];
+    $libro['num_recensioni'] = $stats['num_recensioni'];
+}
 
 if (!$libro) {
     header('Location: catalogo.php?error=libro_non_trovato');
