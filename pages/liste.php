@@ -8,6 +8,39 @@ verificaSessioneAttiva();
 $user_id = $_SESSION['fratello_id'];
 $user_name = $_SESSION['nome'] ?? 'Utente';
 
+// Crea tabelle se non esistono
+$conn->query("
+    CREATE TABLE IF NOT EXISTS liste_lettura (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        fratello_id INT NOT NULL,
+        nome VARCHAR(255) NOT NULL,
+        descrizione TEXT,
+        icona VARCHAR(50) DEFAULT '📚',
+        colore VARCHAR(7) DEFAULT '#6366f1',
+        privata BOOLEAN DEFAULT FALSE,
+        data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        data_modifica TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (fratello_id) REFERENCES fratelli(id) ON DELETE CASCADE,
+        INDEX idx_fratello (fratello_id)
+    )
+");
+
+$conn->query("
+    CREATE TABLE IF NOT EXISTS lista_libri (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        lista_id INT NOT NULL,
+        libro_id INT NOT NULL,
+        note TEXT,
+        posizione INT DEFAULT 0,
+        data_aggiunta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY unq_lista_libro (lista_id, libro_id),
+        FOREIGN KEY (lista_id) REFERENCES liste_lettura(id) ON DELETE CASCADE,
+        FOREIGN KEY (libro_id) REFERENCES libri(id) ON DELETE CASCADE,
+        INDEX idx_lista (lista_id),
+        INDEX idx_libro (libro_id)
+    )
+");
+
 // Recupera le liste dell'utente con conteggio libri separato
 $query_liste = "
     SELECT ll.*
