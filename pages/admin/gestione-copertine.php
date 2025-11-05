@@ -22,8 +22,7 @@ if ($conn->connect_error) {
 $conn->set_charset('utf8mb4');
 
 // Verifica autenticazione admin
-$admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
-$is_admin = in_array($_SESSION['fratello_id'], $admin_ids);
+$is_admin = in_array($_SESSION['fratello_id'], ADMIN_IDS);
 
 if (!$is_admin) {
     header('Location: ../dashboard.php');

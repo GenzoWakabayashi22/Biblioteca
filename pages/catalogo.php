@@ -51,8 +51,7 @@ function mostraStelle($voto_medio, $dimensione = 'text-xs') {
 }
 
 // Admin check
-$admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
-$is_admin = in_array($_SESSION['fratello_id'], $admin_ids);
+$is_admin = in_array($_SESSION['fratello_id'], ADMIN_IDS);
 
 // Recupera dati utente
 $user_query = "SELECT nome, grado FROM fratelli WHERE id = ?";

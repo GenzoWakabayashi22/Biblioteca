@@ -24,9 +24,8 @@ if (!isset($_SESSION['fratello_id'])) {
 $db = getDBConnection();
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Lista admin autorizzati per operazioni CRUD
-$admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
-$is_admin = in_array($_SESSION['fratello_id'], $admin_ids);
+// Verifica se l'utente è admin (usa ADMIN_IDS da config)
+$is_admin = in_array($_SESSION['fratello_id'], ADMIN_IDS);
 
 try {
     switch ($method) {

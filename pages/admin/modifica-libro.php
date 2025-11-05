@@ -6,8 +6,7 @@ require_once '../../config/database.php';
 verificaSessioneAttiva();
 
 // Verifica admin
-$admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca, Emiliano, Francesco
-$is_admin = isset($_SESSION['fratello_id']) && in_array($_SESSION['fratello_id'], $admin_ids);
+$is_admin = isset($_SESSION['fratello_id']) && in_array($_SESSION['fratello_id'], ADMIN_IDS);
 
 if (!$is_admin) {
     header('Location: ../dashboard.php');
@@ -37,9 +36,13 @@ if (isset($_GET['debug_db'])) {
         echo "</tr>";
     }
     echo "</table>";
-    
+
     echo "<h2>DATI LIBRO CORRENTE:</h2>";
-    $libro_debug = $conn->query("SELECT * FROM libri WHERE id = $libro_id")->fetch_assoc();
+    // Usa prepared statement per sicurezza
+    $stmt_debug = $conn->prepare("SELECT * FROM libri WHERE id = ?");
+    $stmt_debug->bind_param("i", $libro_id);
+    $stmt_debug->execute();
+    $libro_debug = $stmt_debug->get_result()->fetch_assoc();
     echo "<pre>" . print_r($libro_debug, true) . "</pre>";
     exit;
 }

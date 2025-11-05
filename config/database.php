@@ -14,6 +14,10 @@ $db_config = [
     'port' => 3306
 ];
 
+// IDs degli amministratori del sistema
+// Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
+define('ADMIN_IDS', [16, 9, 12, 11]);
+
 // Connessione al database
 try {
     $conn = new mysqli(

@@ -344,16 +344,16 @@ if (isset($_GET['lista_id'])) {
                         <span class="text-2xl">×</span>
                     </button>
                 </div>
-                
+
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Nome Lista *</label>
-                        <input type="text" id="nome-lista" placeholder="es. Libri da leggere, Esoterici..." 
+                        <input type="text" id="nome-lista" placeholder="es. Libri da leggere, Esoterici..."
                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Descrizione</label>
-                        <textarea id="descrizione-lista" rows="3" placeholder="Descrizione opzionale..." 
+                        <textarea id="descrizione-lista" rows="3" placeholder="Descrizione opzionale..."
                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"></textarea>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
@@ -373,7 +373,7 @@ if (isset($_GET['lista_id'])) {
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Colore</label>
-                            <input type="color" id="colore-lista" value="#6366f1" 
+                            <input type="color" id="colore-lista" value="#6366f1"
                                    class="w-full h-10 border border-gray-300 rounded-lg">
                         </div>
                     </div>
@@ -386,6 +386,67 @@ if (isset($_GET['lista_id'])) {
                             💾 Crea Lista
                         </button>
                         <button onclick="closeModalNuovaLista()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg">
+                            ❌ Annulla
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form Modifica Lista -->
+    <div id="modalModificaLista" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-gray-900">✏️ Modifica Lista</h3>
+                    <button onclick="closeModalModificaLista()" class="text-gray-400 hover:text-gray-600">
+                        <span class="text-2xl">×</span>
+                    </button>
+                </div>
+
+                <div class="space-y-4">
+                    <input type="hidden" id="modifica-lista-id">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nome Lista *</label>
+                        <input type="text" id="modifica-nome-lista" placeholder="es. Libri da leggere, Esoterici..."
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Descrizione</label>
+                        <textarea id="modifica-descrizione-lista" rows="3" placeholder="Descrizione opzionale..."
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Icona</label>
+                            <select id="modifica-icona-lista" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                <option value="📚">📚 Libri</option>
+                                <option value="🔮">🔮 Esoterici</option>
+                                <option value="⭐">⭐ Preferiti</option>
+                                <option value="📖">📖 Da leggere</option>
+                                <option value="✨">✨ Speciali</option>
+                                <option value="🎯">🎯 Obiettivi</option>
+                                <option value="🏛️">🏛️ Massonici</option>
+                                <option value="🔑">🔑 Simbolici</option>
+                                <option value="📜">📜 Storici</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Colore</label>
+                            <input type="color" id="modifica-colore-lista" value="#6366f1"
+                                   class="w-full h-10 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="modifica-privata-lista" class="mr-2 w-4 h-4 text-purple-600 border-gray-300 rounded">
+                        <label for="modifica-privata-lista" class="text-sm text-gray-700">🔒 Lista privata (solo tu puoi vederla)</label>
+                    </div>
+                    <div class="flex space-x-2 pt-4">
+                        <button onclick="salvaModificaLista()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg">
+                            💾 Salva Modifiche
+                        </button>
+                        <button onclick="closeModalModificaLista()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg">
                             ❌ Annulla
                         </button>
                     </div>
@@ -510,20 +571,93 @@ if (isset($_GET['lista_id'])) {
             }
         }
 
-        function modificaLista(listaId) {
-            alert('Funzionalità di modifica in arrivo!');
-            // TODO: Implementare modal di modifica
+        async function modificaLista(listaId) {
+            // Recupera i dati della lista corrente
+            const lista = <?= $lista_selezionata ? json_encode($lista_selezionata) : 'null' ?>;
+
+            if (!lista || lista.id != listaId) {
+                alert('❌ Errore: dati lista non disponibili. Ricarica la pagina.');
+                return;
+            }
+
+            // Popola il form di modifica
+            document.getElementById('modifica-lista-id').value = lista.id;
+            document.getElementById('modifica-nome-lista').value = lista.nome;
+            document.getElementById('modifica-descrizione-lista').value = lista.descrizione || '';
+            document.getElementById('modifica-icona-lista').value = lista.icona;
+            document.getElementById('modifica-colore-lista').value = lista.colore;
+            document.getElementById('modifica-privata-lista').checked = lista.privata == '1';
+
+            // Mostra il modal
+            document.getElementById('modalModificaLista').classList.remove('hidden');
         }
 
-        // Close modal on outside click
+        function closeModalModificaLista() {
+            document.getElementById('modalModificaLista').classList.add('hidden');
+        }
+
+        async function salvaModificaLista() {
+            const listaId = document.getElementById('modifica-lista-id').value;
+            const nome = document.getElementById('modifica-nome-lista').value.trim();
+            const descrizione = document.getElementById('modifica-descrizione-lista').value.trim();
+            const icona = document.getElementById('modifica-icona-lista').value;
+            const colore = document.getElementById('modifica-colore-lista').value;
+            const privata = document.getElementById('modifica-privata-lista').checked;
+
+            if (!nome) {
+                alert('❌ Inserisci un nome per la lista');
+                return;
+            }
+
+            try {
+                const response = await fetch('../api/liste.php', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'modifica_lista',
+                        lista_id: parseInt(listaId),
+                        nome: nome,
+                        descrizione: descrizione,
+                        icona: icona,
+                        colore: colore,
+                        privata: privata
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ ' + data.message);
+                    location.reload();
+                } else {
+                    alert('❌ ' + (data.message || 'Errore nella modifica della lista'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Errore di connessione');
+            }
+        }
+
+        // Close modals on outside click
         document.getElementById('modalNuovaLista').addEventListener('click', function(e) {
             if (e.target === this) closeModalNuovaLista();
         });
 
-        // Close modal on ESC
+        document.getElementById('modalModificaLista').addEventListener('click', function(e) {
+            if (e.target === this) closeModalModificaLista();
+        });
+
+        // Close modals on ESC
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !document.getElementById('modalNuovaLista').classList.contains('hidden')) {
-                closeModalNuovaLista();
+            if (e.key === 'Escape') {
+                if (!document.getElementById('modalNuovaLista').classList.contains('hidden')) {
+                    closeModalNuovaLista();
+                }
+                if (!document.getElementById('modalModificaLista').classList.contains('hidden')) {
+                    closeModalModificaLista();
+                }
             }
         });
     </script>
