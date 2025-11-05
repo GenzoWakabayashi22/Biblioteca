@@ -61,8 +61,9 @@ if (empty($db_config['username']) || empty($db_config['password']) || empty($db_
     die("Errore di configurazione database. Contatta l'amministratore.");
 }
 
-// IDs degli amministratori del sistema da variabili d'ambiente
+// IDs degli amministratori del sistema da variabili d'ambiente (DEPRECATED - usa isAdmin())
 // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
+// Mantenuto per backward compatibility, ma preferire isAdmin()
 $admin_ids_str = $_ENV['ADMIN_IDS'] ?? '16,9,12,11';
 $admin_ids_array = array_map('intval', explode(',', $admin_ids_str));
 define('ADMIN_IDS', $admin_ids_array);
@@ -231,6 +232,45 @@ function getDBConnection() {
 }
 
 /**
+ * Configura Security Headers HTTP per protezione XSS, clickjacking, etc.
+ */
+function configureSecurityHeaders() {
+    // Previene clickjacking attacks
+    header('X-Frame-Options: DENY');
+
+    // Previene MIME type sniffing
+    header('X-Content-Type-Options: nosniff');
+
+    // Attiva protezione XSS browser
+    header('X-XSS-Protection: 1; mode=block');
+
+    // Referrer policy - non inviare referrer a domini esterni
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+
+    // Permissions Policy (ex Feature-Policy) - limita API browser
+    header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+
+    // Content Security Policy (CSP) - Molto importante!
+    $csp = [
+        "default-src 'self'",
+        "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com", // Tailwind CDN
+        "style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com",
+        "img-src 'self' data: https:",
+        "font-src 'self' data:",
+        "connect-src 'self'",
+        "frame-ancestors 'none'",
+        "base-uri 'self'",
+        "form-action 'self'"
+    ];
+    header('Content-Security-Policy: ' . implode('; ', $csp));
+
+    // Strict Transport Security (HTTPS only) - solo se su HTTPS
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
+    }
+}
+
+/**
  * Configura headers CORS sicuri basati su whitelist
  */
 function configureCORS() {
@@ -260,6 +300,159 @@ function configureCORS() {
         http_response_code(200);
         exit;
     }
+}
+
+/**
+ * Genera token CSRF sicuro per protezione form
+ */
+function generateCSRFToken() {
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+/**
+ * Valida token CSRF da richiesta POST
+ * @return bool True se token valido, False altrimenti
+ */
+function validateCSRFToken($token = null) {
+    // Prendi token da POST se non passato come parametro
+    if ($token === null) {
+        $token = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+    }
+
+    // Verifica che esista token in sessione
+    if (!isset($_SESSION['csrf_token'])) {
+        error_log("CSRF: Token sessione non trovato");
+        return false;
+    }
+
+    // Verifica che token corrisponda (timing-safe comparison)
+    if (!hash_equals($_SESSION['csrf_token'], $token)) {
+        error_log("CSRF: Token non valido - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Rigenera token CSRF (usare dopo operazioni sensibili)
+ */
+function regenerateCSRFToken() {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    return $_SESSION['csrf_token'];
+}
+
+/**
+ * Middleware CSRF per API - blocca richieste senza token valido
+ */
+function requireCSRFToken() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' ||
+        $_SERVER['REQUEST_METHOD'] === 'PUT' ||
+        $_SERVER['REQUEST_METHOD'] === 'DELETE') {
+
+        if (!validateCSRFToken()) {
+            http_response_code(403);
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success' => false,
+                'message' => 'Token CSRF non valido o mancante',
+                'error_code' => 'CSRF_VALIDATION_FAILED'
+            ]);
+            exit;
+        }
+    }
+}
+
+/**
+ * Verifica se l'utente corrente è admin (da database role)
+ * @return bool True se admin, False altrimenti
+ */
+function isAdmin() {
+    global $conn;
+
+    if (!isset($_SESSION['fratello_id'])) {
+        return false;
+    }
+
+    // Check cache in sessione
+    if (isset($_SESSION['_role_cache'])) {
+        return $_SESSION['_role_cache'] === 'admin';
+    }
+
+    // Query database per role
+    $stmt = $conn->prepare("SELECT role FROM fratelli WHERE id = ?");
+    $stmt->bind_param('i', $_SESSION['fratello_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+
+    // Cache in sessione
+    $_SESSION['_role_cache'] = $row['role'] ?? 'user';
+
+    return ($_SESSION['_role_cache'] === 'admin');
+}
+
+/**
+ * Verifica se l'utente corrente è guest
+ * @return bool True se guest, False altrimenti
+ */
+function isGuest() {
+    global $conn;
+
+    if (!isset($_SESSION['fratello_id'])) {
+        return false;
+    }
+
+    // Check cache in sessione
+    if (isset($_SESSION['_role_cache'])) {
+        return $_SESSION['_role_cache'] === 'guest';
+    }
+
+    // Query database per role
+    $stmt = $conn->prepare("SELECT role FROM fratelli WHERE id = ?");
+    $stmt->bind_param('i', $_SESSION['fratello_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+
+    // Cache in sessione
+    $_SESSION['_role_cache'] = $row['role'] ?? 'user';
+
+    return ($_SESSION['_role_cache'] === 'guest');
+}
+
+/**
+ * Ottiene ruolo utente corrente
+ * @return string 'admin', 'user', 'guest', o null se non autenticato
+ */
+function getUserRole() {
+    global $conn;
+
+    if (!isset($_SESSION['fratello_id'])) {
+        return null;
+    }
+
+    // Check cache
+    if (isset($_SESSION['_role_cache'])) {
+        return $_SESSION['_role_cache'];
+    }
+
+    // Query database
+    $stmt = $conn->prepare("SELECT role FROM fratelli WHERE id = ?");
+    $stmt->bind_param('i', $_SESSION['fratello_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+
+    $_SESSION['_role_cache'] = $row['role'] ?? 'user';
+
+    return $_SESSION['_role_cache'];
 }
 
 /**
