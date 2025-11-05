@@ -21,6 +21,7 @@ try {
 
 // Headers CORS e JSON
 header('Content-Type: application/json');
+configureSecurityHeaders(); // Security headers
 configureCORS(); // Configura CORS sicuro da whitelist
 
 // Verifica autenticazione
@@ -30,6 +31,9 @@ if (!isset($_SESSION['fratello_id'])) {
     echo json_encode(['success' => false, 'message' => 'Non autenticato']);
     exit;
 }
+
+// CSRF Protection per metodi modificativi
+requireCSRFToken();
 
 $user_id = $_SESSION['fratello_id'];
 error_log("User ID autenticato: " . $user_id);

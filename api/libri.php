@@ -4,6 +4,7 @@ require_once '../config/database.php';
 
 // Headers per API REST
 header('Content-Type: application/json');
+configureSecurityHeaders(); // Security headers
 configureCORS(); // Configura CORS sicuro da whitelist
 
 // Verifica autenticazione
@@ -12,6 +13,9 @@ if (!isset($_SESSION['fratello_id'])) {
     echo json_encode(['success' => false, 'message' => 'Non autenticato']);
     exit;
 }
+
+// CSRF Protection per metodi modificativi
+requireCSRFToken();
 
 $db = getDBConnection();
 $method = $_SERVER['REQUEST_METHOD'];

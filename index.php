@@ -10,6 +10,12 @@ session_start();
 // Include la configurazione del database
 require_once 'config/database.php';
 
+// Configura Security Headers
+configureSecurityHeaders();
+
+// Genera token CSRF per il form di login
+$csrf_token = generateCSRFToken();
+
 // Verifica se l'utente è già loggato
 if (isset($_SESSION['fratello_id'])) {
     header('Location: pages/dashboard.php');
@@ -55,6 +61,23 @@ if (isset($_GET['logout'])) {
             break;
         case 'credenziali_vuote':
             $message = 'Inserisci nome e password';
+            $message_type = 'error';
+            break;
+        case 'rate_limit':
+            $retry_after = isset($_GET['retry_after']) ? (int)$_GET['retry_after'] : 3600;
+            $minutes = ceil($retry_after / 60);
+            $message = sprintf(
+                '⚠️ Troppi tentativi di login falliti. Account temporaneamente bloccato. Riprova tra %d minuti.',
+                $minutes
+            );
+            $message_type = 'error';
+            break;
+        case 'csrf_invalid':
+            $message = '🛡️ Token di sicurezza non valido. Ricarica la pagina e riprova.';
+            $message_type = 'error';
+            break;
+        case 'session_expired':
+            $message = '⏱️ Sessione scaduta per inattività. Effettua nuovamente il login.';
             $message_type = 'error';
             break;
         default:
@@ -103,6 +126,9 @@ if (isset($_GET['logout'])) {
 
         <!-- Form Login -->
         <form action="api/login.php" method="POST" class="space-y-6">
+            <!-- CSRF Token Protection -->
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
+
             <div>
                 <h2 class="text-lg font-semibold text-center mb-4">
                     👥 Accesso Biblioteca

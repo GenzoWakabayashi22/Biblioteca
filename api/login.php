@@ -9,10 +9,32 @@ session_start();
 
 // Include la configurazione del database
 require_once '../config/database.php';
+require_once '../config/rate_limiter.php';
 
 // Gestisce sia POST che GET per test
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
+    // Rate Limiting: Verifica se IP è bloccato
+    $rate_limit_check = checkRateLimit('login');
+    if ($rate_limit_check !== null) {
+        error_log(sprintf(
+            "RATE LIMIT: Login bloccato per IP %s - Retry after: %d secondi",
+            $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            $rate_limit_check['retry_after']
+        ));
+
+        header('Location: ../index.php?error=rate_limit&retry_after=' . $rate_limit_check['retry_after']);
+        exit;
+    }
+
+    // CSRF Protection: Valida token prima di processare
+    if (!validateCSRFToken()) {
+        error_log("CSRF: Tentativo login con token non valido - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+        recordRateLimitFailure('login'); // Conta anche attacchi CSRF come tentativi
+        header('Location: ../index.php?error=csrf_invalid');
+        exit;
+    }
+
     // Legge i dati dal form o JSON
     if (isset($_POST['fratello_nome']) && isset($_POST['password'])) {
         // Dati da form HTML
@@ -37,11 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     try {
-        // Recupera i dati del fratello dal nome (include password_hash)
-        $query = "SELECT id, nome, grado, cariche_fisse, email, telefono, attivo, password_hash FROM fratelli WHERE nome = ? AND attivo = 1";
+        // Recupera i dati del fratello dal nome (include password_hash e role)
+        $query = "SELECT id, nome, grado, cariche_fisse, email, telefono, attivo, password_hash, role FROM fratelli WHERE nome = ? AND attivo = 1";
         $fratello = getSingleResult($query, [$fratello_nome], 's');
 
         if (!$fratello) {
+            // Rate limiting: registra anche tentativi con username inesistente
+            recordRateLimitFailure('login');
+
             header('Location: ../index.php?error=fratello_non_trovato');
             exit;
         }
@@ -78,26 +103,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Log del tentativo di accesso fallito
             error_log("Tentativo di login fallito per fratello: {$fratello['nome']}");
 
-            // Rate limiting: incrementa contatore tentativi falliti
-            // TODO: implementare rate limiting con Redis o file-based
+            // Rate limiting: registra tentativo fallito
+            recordRateLimitFailure('login');
 
             header('Location: ../index.php?error=password_errata');
             exit;
         }
         
-        // Determina i permessi dell'utente
-        $admin_names = [
-            'Paolo Giulio Gazzano',
-            'Luca Guiducci', 
-            'Emiliano Menicucci',
-            'Francesco Ropresti'
-        ];
-        
-        $is_admin = in_array($fratello['nome'], $admin_names) && $fratello['nome'] !== 'Ospite';
-        $is_guest = ($fratello['nome'] === 'Ospite');
+        // Determina i permessi dell'utente dal database role
+        $user_role = $fratello['role'] ?? 'user';
+        $is_admin = ($user_role === 'admin');
+        $is_guest = ($user_role === 'guest');
 
         // SICUREZZA: Rigenera session ID per prevenire session fixation attacks
         session_regenerate_id(true);
+
+        // Rate Limiting: Reset dopo login successo
+        resetRateLimit('login');
 
         // Crea la sessione
         $_SESSION['fratello_id'] = $fratello['id'];
@@ -108,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['fratello_telefono'] = $fratello['telefono'];
         $_SESSION['is_admin'] = $is_admin;
         $_SESSION['is_guest'] = $is_guest;
+        $_SESSION['_role_cache'] = $user_role; // Cache role per performance
         $_SESSION['login_time'] = time();
         $_SESSION['last_activity'] = time();
         
