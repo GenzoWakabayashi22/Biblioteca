@@ -4,6 +4,14 @@
  * Esegui questo file UNA SOLA VOLTA dal browser
  */
 
+// Aumenta timeout
+set_time_limit(300); // 5 minuti
+ini_set('max_execution_time', 300);
+
+// Output progressivo
+ob_implicit_flush(true);
+ob_end_flush();
+
 session_start();
 require_once 'config/database.php';
 
@@ -12,37 +20,63 @@ if (!isset($_SESSION['fratello_id']) || !in_array($_SESSION['fratello_id'], ADMI
     die("❌ Accesso negato. Solo amministratori possono eseguire questo script.");
 }
 
+echo "<html><head><meta charset='UTF-8'></head><body>";
 echo "<h1>🔧 Fix Colonne Tabelle Liste</h1>";
 echo "<hr>";
+flush();
 
 $errori = [];
 $successi = [];
 
 // 1. Verifica e aggiungi data_modifica a liste_lettura
 echo "<h2>1. Verifica colonna data_modifica in liste_lettura</h2>";
+flush();
 
 $check_query = "SHOW COLUMNS FROM liste_lettura LIKE 'data_modifica'";
 $result = $conn->query($check_query);
 
 if ($result->num_rows == 0) {
-    echo "⚠️ Colonna 'data_modifica' NON ESISTE - Aggiunta in corso...<br>";
+    echo "⚠️ Colonna 'data_modifica' NON ESISTE<br>";
+    echo "📝 Query da eseguire: <code>ALTER TABLE liste_lettura ADD COLUMN data_modifica TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</code><br>";
+    echo "🔄 Esecuzione in corso (può richiedere alcuni secondi)...<br>";
+    flush();
 
-    $alter_query = "
-        ALTER TABLE liste_lettura
-        ADD COLUMN data_modifica TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        AFTER data_creazione
-    ";
+    try {
+        $alter_query = "ALTER TABLE liste_lettura ADD COLUMN data_modifica TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP";
 
-    if ($conn->query($alter_query)) {
-        echo "✅ Colonna 'data_modifica' aggiunta con successo!<br>";
-        $successi[] = "Aggiunta colonna data_modifica a liste_lettura";
-    } else {
-        echo "❌ ERRORE: " . $conn->error . "<br>";
-        $errori[] = "Errore aggiunta data_modifica: " . $conn->error;
+        echo "⏳ Invio query al database...<br>";
+        flush();
+
+        $start = microtime(true);
+        $result_alter = $conn->query($alter_query);
+        $elapsed = round(microtime(true) - $start, 2);
+
+        if ($result_alter) {
+            echo "✅ <strong>Colonna 'data_modifica' aggiunta con successo!</strong> (in {$elapsed} secondi)<br>";
+            $successi[] = "Aggiunta colonna data_modifica a liste_lettura";
+        } else {
+            echo "❌ <strong>ERRORE SQL:</strong> " . htmlspecialchars($conn->error) . "<br>";
+            echo "📋 <strong>Errno:</strong> " . $conn->errno . "<br>";
+            $errori[] = "Errore aggiunta data_modifica: " . $conn->error;
+
+            // Mostra query alternativa manuale
+            echo "<div style='background: #fff3cd; padding: 10px; margin: 10px 0; border: 1px solid #ffc107;'>";
+            echo "<strong>⚠️ Soluzione Manuale:</strong><br>";
+            echo "Esegui questa query tramite phpMyAdmin o console MySQL:<br>";
+            echo "<code style='background: #f8f9fa; padding: 5px; display: block; margin: 5px 0;'>";
+            echo "ALTER TABLE liste_lettura ADD COLUMN data_modifica TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;";
+            echo "</code>";
+            echo "</div>";
+        }
+    } catch (Exception $e) {
+        echo "❌ <strong>EXCEPTION:</strong> " . htmlspecialchars($e->getMessage()) . "<br>";
+        $errori[] = "Exception: " . $e->getMessage();
     }
+    flush();
 } else {
     echo "✅ Colonna 'data_modifica' già presente<br>";
     $successi[] = "Colonna data_modifica già esistente";
+    flush();
 }
 
 // 2. Verifica altre colonne di liste_lettura
@@ -170,5 +204,34 @@ echo "<li>Dopo aver verificato che tutto funziona, <strong>ELIMINA questo file</
 echo "</ol>";
 
 echo "<hr>";
+
+// SOLUZIONE MANUALE se lo script non funziona
+if (count($errori) > 0 || !isset($successi[0]) || strpos($successi[0], 'già esistente') === false) {
+    echo "<div style='background: #f8d7da; padding: 20px; margin: 20px 0; border: 2px solid #dc3545; border-radius: 5px;'>";
+    echo "<h2 style='color: #dc3545;'>🔧 SOLUZIONE MANUALE</h2>";
+    echo "<p><strong>Se lo script si è bloccato o ha dato errori</strong>, esegui questa query SQL manualmente:</p>";
+    echo "<div style='background: #fff; padding: 15px; border: 1px solid #ddd; margin: 10px 0;'>";
+    echo "<h3>Via phpMyAdmin:</h3>";
+    echo "<ol>";
+    echo "<li>Accedi al tuo pannello di hosting (cPanel, Plesk, etc.)</li>";
+    echo "<li>Apri <strong>phpMyAdmin</strong></li>";
+    echo "<li>Seleziona il database <code>jmvvznbb_tornate_db</code></li>";
+    echo "<li>Vai su <strong>SQL</strong> (tab in alto)</li>";
+    echo "<li>Incolla questa query e clicca <strong>Esegui</strong>:</li>";
+    echo "</ol>";
+    echo "<pre style='background: #f5f5f5; padding: 10px; overflow-x: auto;'><code>";
+    echo "ALTER TABLE liste_lettura\n";
+    echo "ADD COLUMN data_modifica TIMESTAMP\n";
+    echo "DEFAULT CURRENT_TIMESTAMP\n";
+    echo "ON UPDATE CURRENT_TIMESTAMP;";
+    echo "</code></pre>";
+    echo "<p><strong>⚠️ IMPORTANTE:</strong> Copia la query esattamente come mostrata sopra!</p>";
+    echo "</div>";
+    echo "</div>";
+}
+
+echo "<hr>";
 echo "<p><small>Eseguito il " . date('Y-m-d H:i:s') . "</small></p>";
+echo "</body></html>";
+flush();
 ?>
