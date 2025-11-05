@@ -4,21 +4,19 @@ Questa guida spiega come risolvere l'errore HTTP 500 e configurare correttamente
 
 ## Problema: HTTP 500 al Login
 
-Se ricevi l'errore "HTTP ERROR 500" quando provi ad effettuare il login su `https://biblioteca.loggiakilwinning.com/api/login.php`, significa che il file `.env` con le credenziali del database non è configurato correttamente.
+Se ricevi l'errore "HTTP ERROR 500" quando provi ad effettuare il login, significa che il file `.env` con le credenziali del database non è configurato correttamente.
 
 ## Soluzione Passo-Passo
 
 ### 1. Connetti al Server via SSH
 
 ```bash
-ssh tuoutente@biblioteca.loggiakilwinning.com
+ssh tuoutente@tuoserver.com
 ```
 
 ### 2. Naviga nella Directory del Progetto
 
 ```bash
-cd /home/jmvvznbb/biblioteca
-# oppure
 cd /path/to/biblioteca
 ```
 
@@ -50,12 +48,12 @@ Modifica il file `.env` con le credenziali corrette:
 ```env
 DB_HOST=localhost
 DB_PORT=3306
-DB_USERNAME=jmvvznbb_tornate
-DB_PASSWORD=la_tua_password_qui
-DB_DATABASE=jmvvznbb_tornate_db
+DB_USERNAME=your_db_username
+DB_PASSWORD=your_secure_password
+DB_DATABASE=your_database_name
 ```
 
-**Nota**: Sostituisci `la_tua_password_qui` con la password corretta del database.
+**Nota**: Sostituisci `your_db_username`, `your_secure_password` e `your_database_name` con le credenziali corrette del tuo database.
 
 ### 6. Imposta i Permessi Corretti
 
@@ -78,12 +76,7 @@ Questo script verifica:
 
 ### 8. Testa il Login
 
-Apri il browser e vai a:
-```
-https://biblioteca.loggiakilwinning.com
-```
-
-Prova ad effettuare il login. L'errore HTTP 500 dovrebbe essere risolto.
+Apri il browser e vai all'URL del tuo sistema Biblioteca e prova ad effettuare il login. L'errore HTTP 500 dovrebbe essere risolto.
 
 ## Risoluzione Problemi Comuni
 
@@ -93,18 +86,18 @@ Se dopo aver configurato `.env` vedi ancora errori:
 
 1. **Verifica le credenziali**:
    ```bash
-   mysql -u jmvvznbb_tornate -p jmvvznbb_tornate_db
+   mysql -u your_db_username -p your_database_name
    ```
    Inserisci la password quando richiesto. Se non riesci a connetterti, le credenziali sono errate.
 
 2. **Verifica che il database esista**:
    ```bash
-   mysql -u root -p -e "SHOW DATABASES LIKE 'jmvvznbb_tornate_db';"
+   mysql -u root -p -e "SHOW DATABASES LIKE 'your_database_name';"
    ```
 
 3. **Verifica i permessi dell'utente**:
    ```bash
-   mysql -u root -p -e "SHOW GRANTS FOR 'jmvvznbb_tornate'@'localhost';"
+   mysql -u root -p -e "SHOW GRANTS FOR 'your_db_username'@'localhost';"
    ```
 
 ### Errore: "Tabelle mancanti"
@@ -129,19 +122,19 @@ Se ci sono problemi di permessi:
 
 ```bash
 # Imposta proprietario corretto
-chown -R tuoutente:tuoutente /home/jmvvznbb/biblioteca
+chown -R yourusername:yourusername /path/to/biblioteca
 
 # Imposta permessi directory
-find /home/jmvvznbb/biblioteca -type d -exec chmod 755 {} \;
+find /path/to/biblioteca -type d -exec chmod 755 {} \;
 
 # Imposta permessi file
-find /home/jmvvznbb/biblioteca -type f -exec chmod 644 {} \;
+find /path/to/biblioteca -type f -exec chmod 644 {} \;
 
 # Permessi speciali per .env
-chmod 600 /home/jmvvznbb/biblioteca/.env
+chmod 600 /path/to/biblioteca/.env
 
 # Permessi esecuzione per PHP scripts
-chmod 755 /home/jmvvznbb/biblioteca/setup.php
+chmod 755 /path/to/biblioteca/setup.php
 ```
 
 ### Log degli Errori
@@ -150,7 +143,7 @@ Per diagnosticare problemi, controlla i log:
 
 ```bash
 # Log dell'applicazione
-tail -f /home/jmvvznbb/biblioteca/error_log
+tail -f /path/to/biblioteca/error_log
 
 # Log del server web
 tail -f /var/log/apache2/error.log

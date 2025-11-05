@@ -3,8 +3,7 @@
 ################################################################################
 
 PROBLEMA:
-Errore HTTP 500 quando si cerca di fare login su:
-https://biblioteca.loggiakilwinning.com/api/login.php
+Errore HTTP 500 quando si cerca di fare login
 
 CAUSA:
 File .env mancante o non configurato correttamente
@@ -13,7 +12,7 @@ SOLUZIONE RAPIDA:
 ################################################################################
 
 1. Connetti al server e vai nella directory del progetto:
-   $ cd /home/jmvvznbb/biblioteca
+   $ cd /path/to/biblioteca
 
 2. Crea il file .env dalle credenziali del database:
    $ cp .env.example .env
@@ -21,9 +20,9 @@ SOLUZIONE RAPIDA:
 
 3. Modifica queste righe con le credenziali corrette:
    DB_HOST=localhost
-   DB_USERNAME=jmvvznbb_tornate
-   DB_PASSWORD=LA_TUA_PASSWORD_QUI
-   DB_DATABASE=jmvvznbb_tornate_db
+   DB_USERNAME=your_db_username
+   DB_PASSWORD=your_secure_password
+   DB_DATABASE=your_database_name
 
 4. Salva (Ctrl+O, Enter) ed esci (Ctrl+X)
 
@@ -33,13 +32,12 @@ SOLUZIONE RAPIDA:
 6. Verifica configurazione:
    $ php setup.php
 
-7. Testa il login nel browser:
-   https://biblioteca.loggiakilwinning.com
+7. Testa il login nel browser
 
 ################################################################################
 
 VERIFICA CREDENZIALI DATABASE:
-$ mysql -u jmvvznbb_tornate -p jmvvznbb_tornate_db
+$ mysql -u your_db_username -p your_database_name
 
 Se questo fallisce, le credenziali sono errate.
 Recupera le credenziali corrette dal pannello di controllo hosting.
