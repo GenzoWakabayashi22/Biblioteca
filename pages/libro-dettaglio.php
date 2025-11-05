@@ -5,6 +5,22 @@ require_once '../config/database.php';
 // Verifica autenticazione
 verificaSessioneAttiva();
 
+// Connessione database diretta (fix HTTP 500 error)
+$db_config = [
+    'host' => 'localhost',
+    'username' => 'jmvvznbb_tornate_user',
+    'password' => 'Puntorosso22',
+    'database' => 'jmvvznbb_tornate_db'
+];
+
+$conn = new mysqli($db_config['host'], $db_config['username'], $db_config['password'], $db_config['database']);
+
+if ($conn->connect_error) {
+    die("Errore connessione: " . $conn->connect_error);
+}
+
+$conn->set_charset('utf8mb4');
+
 // Admin check
 $admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
 $is_admin = in_array($_SESSION['fratello_id'], $admin_ids);
@@ -121,25 +137,19 @@ $mia_recensione_result = $stmt_mia->get_result();
 $mia_recensione = $mia_recensione_result->fetch_assoc();
 
 // Verifica se l'utente ha letto il libro (tabella libri_letti)
-$conn->query("
-    CREATE TABLE IF NOT EXISTS libri_letti (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        fratello_id INT NOT NULL,
-        libro_id INT NOT NULL,
-        data_lettura DATE NOT NULL,
-        note TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE KEY unq_fratello_libro (fratello_id, libro_id),
-        FOREIGN KEY (fratello_id) REFERENCES fratelli(id) ON DELETE CASCADE,
-        FOREIGN KEY (libro_id) REFERENCES libri(id) ON DELETE CASCADE
-    )
-");
+// NOTA: La tabella libri_letti deve essere creata manualmente dal DBA se non esiste
+// CREATE TABLE IF NOT EXISTS rimosso per evitare problemi di permessi in produzione
 
 $libro_letto_query = "SELECT * FROM libri_letti WHERE fratello_id = ? AND libro_id = ?";
 $stmt_letto = $conn->prepare($libro_letto_query);
-$stmt_letto->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
-$stmt_letto->execute();
-$libro_letto = $stmt_letto->get_result()->fetch_assoc();
+if ($stmt_letto) {
+    $stmt_letto->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
+    $stmt_letto->execute();
+    $libro_letto = $stmt_letto->get_result()->fetch_assoc();
+} else {
+    // Tabella potrebbe non esistere ancora
+    $libro_letto = null;
+}
 
 // Verifica se il libro è già nei preferiti
 $preferito_query = "SELECT * FROM preferiti WHERE fratello_id = ? AND libro_id = ?";
