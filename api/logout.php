@@ -72,6 +72,6 @@ if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
 }
 
 // Redirect alla pagina di login con messaggio di conferma
-header("Location: {$redirect_url}?logout=success");
+header("Location: {$redirect_url}?logout=1");
 exit;
 ?>

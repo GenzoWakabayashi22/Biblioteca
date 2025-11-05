@@ -275,23 +275,23 @@ function configureSecurityHeaders() {
     // Attiva protezione XSS browser
     header('X-XSS-Protection: 1; mode=block');
 
-    // Referrer policy - non inviare referrer a domini esterni
-    header('Referrer-Policy: strict-origin-when-cross-origin');
+    // Referrer policy - non inviare referrer (requisito di sicurezza)
+    header('Referrer-Policy: no-referrer');
 
     // Permissions Policy (ex Feature-Policy) - limita API browser
     header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
 
     // Content Security Policy (CSP) - Molto importante!
+    // Compatibile con Tailwind CDN e inline scripts/styles usati dall'applicazione
     $csp = [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com", // Tailwind CDN
-        "style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com",
-        "img-src 'self' data: https:",
-        "font-src 'self' data:",
+        "script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'", // Tailwind CDN + inline scripts
+        "style-src 'self' 'unsafe-inline'", // Inline styles necessari
+        "img-src 'self' data:",
         "connect-src 'self'",
+        "form-action 'self'",
         "frame-ancestors 'none'",
-        "base-uri 'self'",
-        "form-action 'self'"
+        "base-uri 'none'"
     ];
     header('Content-Security-Policy: ' . implode('; ', $csp));
 
@@ -366,6 +366,14 @@ function validateCSRFToken($token = null) {
     }
 
     return true;
+}
+
+/**
+ * Alias per validateCSRFToken per compatibilità con codice legacy
+ * @return bool True se token valido, False altrimenti
+ */
+function verifyCSRFToken($token = null) {
+    return validateCSRFToken($token);
 }
 
 /**
@@ -511,6 +519,20 @@ function verificaSessioneAttiva() {
     $_SESSION['last_activity'] = time();
     
     return true;
+}
+
+/**
+ * Funzione helper per ottenere la connessione mysqli globale
+ * @return mysqli Connessione database attiva
+ */
+function db() {
+    global $conn;
+    
+    if (!$conn || !$conn->ping()) {
+        throw new Exception("Connessione database non disponibile");
+    }
+    
+    return $conn;
 }
 
 // Registra la funzione di chiusura da eseguire alla fine dello script
