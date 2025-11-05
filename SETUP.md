@@ -114,6 +114,24 @@ Le password sono hashate al primo login.
 
 ## 🔧 Troubleshooting
 
+### Errore: "Errore di configurazione. Contatta l'amministratore."
+
+**Causa:** Il file `.env` non è presente nel sistema.
+
+**Soluzione:**
+```bash
+# Copia il template
+cp .env.example .env
+
+# Proteggi il file
+chmod 600 .env
+
+# Verifica configurazione
+php setup.php
+```
+
+Vedi `CONFIGURAZIONE_RISOLTO.md` per documentazione completa del problema e della soluzione.
+
 ### Errore: "File .env non trovato"
 
 ```bash
