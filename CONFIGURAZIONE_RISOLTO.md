@@ -22,9 +22,9 @@ Il file `.env` contiene le configurazioni essenziali per il funzionamento del si
 
 - **Credenziali Database:**
   - DB_HOST=localhost
-  - DB_USERNAME=jmvvznbb_tornate_user
-  - DB_PASSWORD=Puntorosso22
-  - DB_DATABASE=jmvvznbb_tornate_db
+  - DB_USERNAME=your_database_user
+  - DB_PASSWORD=your_database_password
+  - DB_DATABASE=your_database_name
   
 - **Configurazioni Sicurezza:**
   - SESSION_TIMEOUT=1800 (30 minuti)
@@ -213,7 +213,7 @@ nano .env
 2. Controlla credenziali in `.env`
 3. Testa connessione manualmente:
 ```bash
-mysql -h localhost -u jmvvznbb_tornate_user -p jmvvznbb_tornate_db
+mysql -h localhost -u your_db_user -p your_database_name
 ```
 
 ## Riferimenti
