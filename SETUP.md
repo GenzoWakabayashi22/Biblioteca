@@ -111,7 +111,7 @@ Se il database esiste ma mancano tabelle (recensioni, richieste_prestito, etc.):
 
 2. **Importa lo schema**:
    ```bash
-   mysql -u jmvvznbb_tornate -p jmvvznbb_tornate_db < schema.sql
+   mysql -u your_db_username -p your_database_name < schema.sql
    ```
 
 3. **Oppure crea le tabelle mancanti manualmente** seguendo la struttura necessaria.

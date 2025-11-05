@@ -32,8 +32,15 @@ class RateLimiter {
             $created = mkdir($this->storage_path, 0700, true);
             if (!$created) {
                 // Fallback a sys_get_temp_dir() se non riesce a creare la directory
-                error_log("WARNING: Impossibile creare directory rate limit in {$this->storage_path}, uso system temp");
-                $this->storage_path = sys_get_temp_dir();
+                $temp_dir = sys_get_temp_dir();
+                if (is_writable($temp_dir)) {
+                    error_log("WARNING: Impossibile creare directory rate limit in {$this->storage_path}, uso system temp: {$temp_dir}");
+                    $this->storage_path = $temp_dir;
+                } else {
+                    // Se anche temp non è scrivibile, disabilita rate limiting
+                    error_log("ERROR: Impossibile creare directory rate limit e temp non scrivibile. Rate limiting disabilitato.");
+                    $this->storage_path = null;
+                }
             }
         }
     }
@@ -79,6 +86,9 @@ class RateLimiter {
      * File path per storage dati rate limiting
      */
     private function getFilePath() {
+        if ($this->storage_path === null) {
+            return null;
+        }
         $identifier = $this->getIdentifier();
         return $this->storage_path . '/' . $identifier . '.json';
     }
@@ -88,6 +98,11 @@ class RateLimiter {
      */
     private function loadData() {
         $file = $this->getFilePath();
+        
+        // Se rate limiting è disabilitato, ritorna dati vuoti
+        if ($file === null) {
+            return ['attempts' => [], 'locked_until' => 0];
+        }
 
         if (!file_exists($file)) {
             return ['attempts' => [], 'locked_until' => 0];
@@ -107,6 +122,12 @@ class RateLimiter {
      */
     private function saveData($data) {
         $file = $this->getFilePath();
+        
+        // Se rate limiting è disabilitato, non salvare
+        if ($file === null) {
+            return;
+        }
+        
         $json = json_encode($data);
         @file_put_contents($file, $json, LOCK_EX);
     }
