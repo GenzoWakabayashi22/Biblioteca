@@ -1,28 +1,9 @@
 <?php
 session_start();
-
-// Connessione database diretta
-$db_config = [
-    'host' => 'localhost',
-    'username' => 'jmvvznbb_tornate_user', 
-    'password' => 'Puntorosso22',
-    'database' => 'jmvvznbb_tornate_db'
-];
-
-$conn = new mysqli($db_config['host'], $db_config['username'], $db_config['password'], $db_config['database']);
-
-if ($conn->connect_error) {
-    die("Errore connessione: " . $conn->connect_error);
-}
-
-$conn->set_charset('utf8mb4');
+require_once '../config/database.php';
 
 // Verifica autenticazione
-$user_logged = isset($_SESSION['fratello_id']) && !empty($_SESSION['fratello_id']);
-if (!$user_logged) {
-    header('Location: ../index.php');
-    exit;
-}
+verificaSessioneAttiva();
 
 // Admin check
 $admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
