@@ -108,8 +108,9 @@ class RateLimiter {
             return ['attempts' => [], 'locked_until' => 0];
         }
 
-        $content = @file_get_contents($file);
+        $content = file_get_contents($file);
         if ($content === false) {
+            error_log("Rate Limiter: Impossibile leggere file rate limit: {$file}");
             return ['attempts' => [], 'locked_until' => 0];
         }
 
@@ -129,7 +130,10 @@ class RateLimiter {
         }
         
         $json = json_encode($data);
-        @file_put_contents($file, $json, LOCK_EX);
+        $result = file_put_contents($file, $json, LOCK_EX);
+        if ($result === false) {
+            error_log("Rate Limiter: Impossibile salvare file rate limit: {$file}");
+        }
     }
 
     /**
@@ -228,8 +232,12 @@ class RateLimiter {
 
         foreach ($files as $file) {
             if ($now - filemtime($file) > $older_than_seconds) {
-                @unlink($file);
-                $deleted++;
+                $result = unlink($file);
+                if ($result) {
+                    $deleted++;
+                } else {
+                    error_log("Rate Limiter: Impossibile eliminare file vecchio: {$file}");
+                }
             }
         }
 
