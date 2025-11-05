@@ -29,7 +29,11 @@ class RateLimiter {
 
         // Crea directory se non esiste
         if (!file_exists($this->storage_path)) {
-            mkdir($this->storage_path, 0700, true);
+            if (!@mkdir($this->storage_path, 0700, true)) {
+                // Fallback a sys_get_temp_dir() se non riesce a creare la directory
+                error_log("WARNING: Impossibile creare directory rate limit in {$this->storage_path}, uso system temp");
+                $this->storage_path = sys_get_temp_dir();
+            }
         }
     }
 
