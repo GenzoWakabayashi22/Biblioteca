@@ -7,9 +7,34 @@
 /**
  * Carica variabili d'ambiente da file .env
  */
-function loadEnv($path = __DIR__ . '/../.env') {
+function loadEnv($path = null) {
+    // Trova il path corretto per .env
+    if ($path === null) {
+        // Prova diverse posizioni
+        $possible_paths = [
+            __DIR__ . '/../.env',
+            dirname(__DIR__) . '/.env',
+            $_SERVER['DOCUMENT_ROOT'] . '/.env',
+            realpath(__DIR__ . '/..') . '/.env'
+        ];
+
+        foreach ($possible_paths as $try_path) {
+            if (file_exists($try_path)) {
+                $path = $try_path;
+                break;
+            }
+        }
+    }
+
     if (!file_exists($path)) {
-        throw new Exception("File .env non trovato. Copia .env.example in .env e configura le credenziali.");
+        // Se .env non esiste, usa .env.example come fallback (solo per sviluppo)
+        $example_path = dirname($path) . '/.env.example';
+        if (file_exists($example_path)) {
+            error_log("WARNING: .env non trovato, uso .env.example come fallback. CREARE .env IN PRODUZIONE!");
+            $path = $example_path;
+        } else {
+            throw new Exception("File .env non trovato in nessuna posizione. Path cercati: " . implode(', ', $possible_paths ?? []));
+        }
     }
 
     $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -42,7 +67,13 @@ try {
     loadEnv();
 } catch (Exception $e) {
     error_log("ERRORE CRITICO: " . $e->getMessage());
-    die("Errore di configurazione. Contatta l'amministratore.");
+
+    // Mostra messaggio più dettagliato in sviluppo
+    if (ini_get('display_errors')) {
+        die("<h1>Errore Configurazione Database</h1><p>" . htmlspecialchars($e->getMessage()) . "</p><p>Esegui: <code>cp .env.example .env</code> e configura le credenziali.</p>");
+    } else {
+        die("Errore di configurazione. Contatta l'amministratore.");
+    }
 }
 
 // Configurazione database da variabili d'ambiente
