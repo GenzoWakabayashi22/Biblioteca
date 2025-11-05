@@ -4,15 +4,7 @@ require_once '../config/database.php';
 
 // Headers per API REST
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
-
-// Gestione preflight OPTIONS
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
+configureCORS(); // Configura CORS sicuro da whitelist
 
 // Verifica autenticazione
 if (!isset($_SESSION['fratello_id'])) {
@@ -141,15 +133,26 @@ function getLibriLista($db) {
     $stato = $_GET['stato'] ?? '';
     $grado = $_GET['grado'] ?? '';
     $search = $_GET['search'] ?? '';
-    $sort = $_GET['sort'] ?? 'titolo';
-    $order = $_GET['order'] ?? 'ASC';
-    
-    // Validazione sort
-    $allowed_sorts = ['titolo', 'autore', 'anno_pubblicazione', 'volte_prestato', 'created_at'];
-    if (!in_array($sort, $allowed_sorts)) $sort = 'titolo';
-    
-    $allowed_orders = ['ASC', 'DESC'];
-    if (!in_array($order, $allowed_orders)) $order = 'ASC';
+    $sort_input = $_GET['sort'] ?? 'titolo';
+    $order_input = $_GET['order'] ?? 'ASC';
+
+    // Mapping sicuro per ORDER BY (previene SQL injection)
+    $sort_mapping = [
+        'titolo' => 'l.titolo',
+        'autore' => 'l.autore',
+        'anno_pubblicazione' => 'l.anno_pubblicazione',
+        'volte_prestato' => 'l.volte_prestato',
+        'created_at' => 'l.created_at'
+    ];
+
+    $order_mapping = [
+        'ASC' => 'ASC',
+        'DESC' => 'DESC'
+    ];
+
+    // Usa default sicuri se input non valido
+    $sort = $sort_mapping[$sort_input] ?? $sort_mapping['titolo'];
+    $order = $order_mapping[strtoupper($order_input)] ?? 'ASC';
     
     // Costruzione WHERE
     $where_conditions = ["1=1"];
@@ -188,7 +191,7 @@ function getLibriLista($db) {
         LEFT JOIN categorie_libri c ON l.categoria_id = c.id
         LEFT JOIN fratelli f ON l.prestato_a_fratello_id = f.id
         WHERE $where_clause
-        ORDER BY l.$sort $order
+        ORDER BY $sort $order
         LIMIT ? OFFSET ?
     ";
     

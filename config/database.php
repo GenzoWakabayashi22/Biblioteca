@@ -4,19 +4,68 @@
  * R∴ L∴ Kilwinning
  */
 
-// Configurazione database
+/**
+ * Carica variabili d'ambiente da file .env
+ */
+function loadEnv($path = __DIR__ . '/../.env') {
+    if (!file_exists($path)) {
+        throw new Exception("File .env non trovato. Copia .env.example in .env e configura le credenziali.");
+    }
+
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        // Ignora commenti
+        if (strpos(trim($line), '#') === 0) {
+            continue;
+        }
+
+        // Parse linea
+        if (strpos($line, '=') !== false) {
+            list($key, $value) = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+
+            // Rimuovi virgolette se presenti
+            $value = trim($value, '"\'');
+
+            // Imposta variabile d'ambiente
+            if (!array_key_exists($key, $_ENV)) {
+                $_ENV[$key] = $value;
+                putenv("$key=$value");
+            }
+        }
+    }
+}
+
+// Carica variabili d'ambiente
+try {
+    loadEnv();
+} catch (Exception $e) {
+    error_log("ERRORE CRITICO: " . $e->getMessage());
+    die("Errore di configurazione. Contatta l'amministratore.");
+}
+
+// Configurazione database da variabili d'ambiente
 $db_config = [
-    'host' => 'localhost',
-    'username' => 'jmvvznbb_tornate_user',
-    'password' => 'Puntorosso22',
-    'database' => 'jmvvznbb_tornate_db',
-    'charset' => 'utf8mb4',
-    'port' => 3306
+    'host' => $_ENV['DB_HOST'] ?? 'localhost',
+    'username' => $_ENV['DB_USERNAME'] ?? '',
+    'password' => $_ENV['DB_PASSWORD'] ?? '',
+    'database' => $_ENV['DB_DATABASE'] ?? '',
+    'charset' => $_ENV['DB_CHARSET'] ?? 'utf8mb4',
+    'port' => (int)($_ENV['DB_PORT'] ?? 3306)
 ];
 
-// IDs degli amministratori del sistema
+// Verifica che le credenziali siano state caricate
+if (empty($db_config['username']) || empty($db_config['password']) || empty($db_config['database'])) {
+    error_log("ERRORE CRITICO: Credenziali database non configurate nel file .env");
+    die("Errore di configurazione database. Contatta l'amministratore.");
+}
+
+// IDs degli amministratori del sistema da variabili d'ambiente
 // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
-define('ADMIN_IDS', [16, 9, 12, 11]);
+$admin_ids_str = $_ENV['ADMIN_IDS'] ?? '16,9,12,11';
+$admin_ids_array = array_map('intval', explode(',', $admin_ids_str));
+define('ADMIN_IDS', $admin_ids_array);
 
 // Connessione al database
 try {
@@ -146,8 +195,76 @@ function closeDatabaseConnection() {
 }
 
 /**
+ * Restituisce connessione PDO per API che lo richiedono
+ * (alcune API usano PDO invece di MySQLi)
+ */
+function getDBConnection() {
+    static $pdo = null;
+
+    if ($pdo === null) {
+        global $db_config;
+
+        $dsn = sprintf(
+            "mysql:host=%s;port=%d;dbname=%s;charset=%s",
+            $db_config['host'],
+            $db_config['port'],
+            $db_config['database'],
+            $db_config['charset']
+        );
+
+        try {
+            $pdo = new PDO($dsn, $db_config['username'], $db_config['password'], [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]);
+
+            // Imposta timezone
+            $pdo->exec("SET time_zone = '+01:00'");
+        } catch (PDOException $e) {
+            error_log("Errore connessione PDO: " . $e->getMessage());
+            throw new Exception("Errore connessione database");
+        }
+    }
+
+    return $pdo;
+}
+
+/**
+ * Configura headers CORS sicuri basati su whitelist
+ */
+function configureCORS() {
+    $allowed_origins_str = $_ENV['CORS_ALLOWED_ORIGINS'] ?? '';
+    $allowed_origins = array_filter(array_map('trim', explode(',', $allowed_origins_str)));
+
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+    // Verifica se l'origin è nella whitelist
+    if (!empty($origin) && in_array($origin, $allowed_origins)) {
+        header("Access-Control-Allow-Origin: $origin");
+        header('Access-Control-Allow-Credentials: true');
+    } elseif (in_array('*', $allowed_origins)) {
+        // Solo se esplicitamente configurato (dev only)
+        header('Access-Control-Allow-Origin: *');
+    } else {
+        // Nessun CORS header se origin non autorizzato
+        // Questo blocca richieste da domini non autorizzati
+    }
+
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization');
+    header('Access-Control-Max-Age: 86400'); // Cache preflight per 24 ore
+
+    // Gestione preflight OPTIONS
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        http_response_code(200);
+        exit;
+    }
+}
+
+/**
  * Verifica che la sessione sia attiva e non scaduta
- * Timeout: 24 ore (86400 secondi)
+ * Timeout configurabile da .env (default: 1800 secondi = 30 minuti)
  */
 function verificaSessioneAttiva() {
     // Verifica autenticazione
@@ -155,14 +272,17 @@ function verificaSessioneAttiva() {
         header('Location: ' . (strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../../index.php' : '../index.php'));
         exit;
     }
-    
-    // Verifica timeout sessione (24 ore)
-    if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 86400)) {
+
+    // Timeout sessione da .env (default 30 minuti se non configurato)
+    $session_timeout = (int)($_ENV['SESSION_TIMEOUT'] ?? 1800);
+
+    // Verifica timeout sessione
+    if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $session_timeout)) {
         session_destroy();
         header('Location: ' . (strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../../index.php?error=session_expired' : '../index.php?error=session_expired'));
         exit;
     }
-    
+
     // Aggiorna timestamp ultima attività
     $_SESSION['last_activity'] = time();
     
