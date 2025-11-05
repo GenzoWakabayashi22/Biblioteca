@@ -10,20 +10,7 @@ session_start();
 require_once '../config/database.php';
 
 // Verifica autenticazione
-if (!isset($_SESSION['fratello_id'])) {
-    header('Location: ../index.php');
-    exit;
-}
-
-// Verifica timeout sessione (24 ore)
-if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 86400)) {
-    session_destroy();
-    header('Location: ../index.php');
-    exit;
-}
-
-// Aggiorna timestamp ultima attività
-$_SESSION['last_activity'] = time();
+verificaSessioneAttiva();
 
 // Dati utente corrente
 $user = [

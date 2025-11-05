@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../config/database.php';
 
 // Headers CORS e JSON
 header('Content-Type: application/json');
@@ -10,15 +11,6 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
-
-// Connessione database
-$conn = new mysqli('localhost', 'jmvvznbb_tornate_user', 'Puntorosso22', 'jmvvznbb_tornate_db');
-if ($conn->connect_error) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Errore connessione database']);
-    exit;
-}
-$conn->set_charset('utf8mb4');
 
 // Verifica autenticazione
 if (!isset($_SESSION['fratello_id'])) {
