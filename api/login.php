@@ -37,33 +37,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     try {
-        // Recupera i dati del fratello dal nome
-        $query = "SELECT id, nome, grado, cariche_fisse, email, telefono, attivo FROM fratelli WHERE nome = ? AND attivo = 1";
+        // Recupera i dati del fratello dal nome (include password_hash)
+        $query = "SELECT id, nome, grado, cariche_fisse, email, telefono, attivo, password_hash FROM fratelli WHERE nome = ? AND attivo = 1";
         $fratello = getSingleResult($query, [$fratello_nome], 's');
-        
+
         if (!$fratello) {
             header('Location: ../index.php?error=fratello_non_trovato');
             exit;
         }
-        
-        // Verifica password
+
+        // Verifica password usando password_verify() (sicuro contro timing attacks)
         $password_verificata = false;
-        
-        // Caso speciale per utente Ospite
-        if ($fratello['nome'] === 'Ospite' && $password === 'Ospite25') {
-            $password_verificata = true;
+
+        if (!empty($fratello['password_hash'])) {
+            // Sistema moderno con password_hash
+            $password_verificata = password_verify($password, $fratello['password_hash']);
         } else {
-            // Per fratelli normali: costruisce la password attesa (Nome + 25)
-            $nome_parts = explode(' ', $fratello['nome']);
-            $primo_nome = $nome_parts[0];
-            $password_attesa = $primo_nome . '25';
-            $password_verificata = ($password === $password_attesa);
+            // Fallback per password non ancora migrate (solo temporaneo)
+            // RIMUOVERE DOPO MIGRAZIONE COMPLETATA
+            if ($fratello['nome'] === 'Ospite' && $password === 'Ospite25') {
+                $password_verificata = true;
+            } else {
+                $nome_parts = explode(' ', $fratello['nome']);
+                $primo_nome = $nome_parts[0];
+                $password_attesa = $primo_nome . '25';
+                $password_verificata = ($password === $password_attesa);
+            }
+
+            // Se password corretta, genera hash e aggiorna DB
+            if ($password_verificata) {
+                $new_hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+                $update_stmt = $conn->prepare("UPDATE fratelli SET password_hash = ? WHERE id = ?");
+                $update_stmt->bind_param('si', $new_hash, $fratello['id']);
+                $update_stmt->execute();
+                error_log("Password hashata automaticamente per fratello: {$fratello['nome']}");
+            }
         }
-        
+
         if (!$password_verificata) {
             // Log del tentativo di accesso fallito
             error_log("Tentativo di login fallito per fratello: {$fratello['nome']}");
-            
+
+            // Rate limiting: incrementa contatore tentativi falliti
+            // TODO: implementare rate limiting con Redis o file-based
+
             header('Location: ../index.php?error=password_errata');
             exit;
         }
@@ -78,7 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $is_admin = in_array($fratello['nome'], $admin_names) && $fratello['nome'] !== 'Ospite';
         $is_guest = ($fratello['nome'] === 'Ospite');
-        
+
+        // SICUREZZA: Rigenera session ID per prevenire session fixation attacks
+        session_regenerate_id(true);
+
         // Crea la sessione
         $_SESSION['fratello_id'] = $fratello['id'];
         $_SESSION['fratello_nome'] = $fratello['nome'];

@@ -5,21 +5,8 @@ require_once '../config/database.php';
 // Verifica autenticazione
 verificaSessioneAttiva();
 
-// Connessione database diretta (fix HTTP 500 error)
-$db_config = [
-    'host' => 'localhost',
-    'username' => 'jmvvznbb_tornate_user',
-    'password' => 'Puntorosso22',
-    'database' => 'jmvvznbb_tornate_db'
-];
-
-$conn = new mysqli($db_config['host'], $db_config['username'], $db_config['password'], $db_config['database']);
-
-if ($conn->connect_error) {
-    die("Errore connessione: " . $conn->connect_error);
-}
-
-$conn->set_charset('utf8mb4');
+// La connessione $conn è già disponibile da config/database.php
+// Non è più necessario ricreare la connessione qui
 
 // Admin check
 $is_admin = in_array($_SESSION['fratello_id'], ADMIN_IDS);

@@ -1,0 +1,29 @@
+# Environment variables con credenziali sensibili
+.env
+
+# File di sistema
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+error_log
+debug.log
+
+# Cache
+cache/
+tmp/
+temp/
+
+# Upload temporanei
+uploads/temp/
+
+# Backup
+*.bak
+*.backup
+*.sql.gz

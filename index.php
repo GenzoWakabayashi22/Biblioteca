@@ -173,10 +173,9 @@ if (isset($_GET['logout'])) {
             <p class="text-xs text-blue-600 mb-2">
                 Puoi accedere come ospite per esplorare il nostro catalogo di libri e leggere le recensioni.
             </p>
-            <div class="text-xs text-blue-500">
-                <strong>Username:</strong> Ospite<br>
-                <strong>Password:</strong> Ospite25
-            </div>
+            <p class="text-xs text-blue-700 font-medium">
+                Per le credenziali di accesso ospite, contatta l'amministratore del sistema.
+            </p>
         </div>
 
         <!-- Link Indietro -->
