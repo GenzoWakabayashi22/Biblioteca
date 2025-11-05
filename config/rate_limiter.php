@@ -29,7 +29,22 @@ class RateLimiter {
 
         // Crea directory se non esiste
         if (!file_exists($this->storage_path)) {
-            mkdir($this->storage_path, 0700, true);
+            $created = mkdir($this->storage_path, 0700, true);
+            if (!$created) {
+                // Fallback a sys_get_temp_dir() se non riesce a creare la directory
+                $temp_dir = sys_get_temp_dir();
+                if (is_writable($temp_dir)) {
+                    // TODO: Considera di creare subdirectory in temp per evitare conflitti
+                    error_log("WARNING: Impossibile creare directory rate limit in {$this->storage_path}, uso system temp: {$temp_dir}");
+                    $this->storage_path = $temp_dir;
+                } else {
+                    // Se anche temp non è scrivibile, disabilita rate limiting
+                    // NOTA SICUREZZA: Questo rimuove protezione brute force. Monitorare i log.
+                    // TODO: Implementare fallback in-memory per mantenere protezione base
+                    error_log("ERROR: Impossibile creare directory rate limit e temp non scrivibile. Rate limiting disabilitato.");
+                    $this->storage_path = null;
+                }
+            }
         }
     }
 
@@ -74,6 +89,9 @@ class RateLimiter {
      * File path per storage dati rate limiting
      */
     private function getFilePath() {
+        if ($this->storage_path === null) {
+            return null;
+        }
         $identifier = $this->getIdentifier();
         return $this->storage_path . '/' . $identifier . '.json';
     }
@@ -83,13 +101,19 @@ class RateLimiter {
      */
     private function loadData() {
         $file = $this->getFilePath();
+        
+        // Se rate limiting è disabilitato, ritorna dati vuoti
+        if ($file === null) {
+            return ['attempts' => [], 'locked_until' => 0];
+        }
 
         if (!file_exists($file)) {
             return ['attempts' => [], 'locked_until' => 0];
         }
 
-        $content = @file_get_contents($file);
+        $content = file_get_contents($file);
         if ($content === false) {
+            error_log("Rate Limiter: Impossibile leggere file rate limit: {$file}");
             return ['attempts' => [], 'locked_until' => 0];
         }
 
@@ -102,8 +126,17 @@ class RateLimiter {
      */
     private function saveData($data) {
         $file = $this->getFilePath();
+        
+        // Se rate limiting è disabilitato, non salvare
+        if ($file === null) {
+            return;
+        }
+        
         $json = json_encode($data);
-        @file_put_contents($file, $json, LOCK_EX);
+        $result = file_put_contents($file, $json, LOCK_EX);
+        if ($result === false) {
+            error_log("Rate Limiter: Impossibile salvare file rate limit: {$file}");
+        }
     }
 
     /**
@@ -202,8 +235,12 @@ class RateLimiter {
 
         foreach ($files as $file) {
             if ($now - filemtime($file) > $older_than_seconds) {
-                @unlink($file);
-                $deleted++;
+                $result = unlink($file);
+                if ($result) {
+                    $deleted++;
+                } else {
+                    error_log("Rate Limiter: Impossibile eliminare file vecchio: {$file}");
+                }
             }
         }
 
