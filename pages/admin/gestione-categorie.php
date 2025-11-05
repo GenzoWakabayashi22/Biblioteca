@@ -23,8 +23,7 @@ if ($conn->connect_error) {
 $conn->set_charset('utf8mb4');
 
 // Verifica permessi admin
-$admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
-if (!in_array($_SESSION['fratello_id'], $admin_ids)) {
+if (!in_array($_SESSION['fratello_id'], ADMIN_IDS)) {
     header('Location: ../dashboard.php?error=no_permissions');
     exit;
 }
