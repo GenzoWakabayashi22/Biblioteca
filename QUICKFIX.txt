@@ -1,0 +1,53 @@
+################################################################################
+# GUIDA RAPIDA - Risoluzione HTTP 500 al Login
+################################################################################
+
+PROBLEMA:
+Errore HTTP 500 quando si cerca di fare login su:
+https://biblioteca.loggiakilwinning.com/api/login.php
+
+CAUSA:
+File .env mancante o non configurato correttamente
+
+SOLUZIONE RAPIDA:
+################################################################################
+
+1. Connetti al server e vai nella directory del progetto:
+   $ cd /home/jmvvznbb/biblioteca
+
+2. Crea il file .env dalle credenziali del database:
+   $ cp .env.example .env
+   $ nano .env
+
+3. Modifica queste righe con le credenziali corrette:
+   DB_HOST=localhost
+   DB_USERNAME=jmvvznbb_tornate
+   DB_PASSWORD=LA_TUA_PASSWORD_QUI
+   DB_DATABASE=jmvvznbb_tornate_db
+
+4. Salva (Ctrl+O, Enter) ed esci (Ctrl+X)
+
+5. Imposta permessi corretti:
+   $ chmod 600 .env
+
+6. Verifica configurazione:
+   $ php setup.php
+
+7. Testa il login nel browser:
+   https://biblioteca.loggiakilwinning.com
+
+################################################################################
+
+VERIFICA CREDENZIALI DATABASE:
+$ mysql -u jmvvznbb_tornate -p jmvvznbb_tornate_db
+
+Se questo fallisce, le credenziali sono errate.
+Recupera le credenziali corrette dal pannello di controllo hosting.
+
+################################################################################
+
+DOCUMENTAZIONE COMPLETA:
+- Setup dettagliato: SETUP.md
+- README generale: README.md
+
+################################################################################
