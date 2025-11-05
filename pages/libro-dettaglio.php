@@ -140,23 +140,45 @@ $mia_recensione = $mia_recensione_result->fetch_assoc();
 // NOTA: La tabella libri_letti deve essere creata manualmente dal DBA se non esiste
 // CREATE TABLE IF NOT EXISTS rimosso per evitare problemi di permessi in produzione
 
-$libro_letto_query = "SELECT * FROM libri_letti WHERE fratello_id = ? AND libro_id = ?";
-$stmt_letto = $conn->prepare($libro_letto_query);
-if ($stmt_letto) {
-    $stmt_letto->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
-    $stmt_letto->execute();
-    $libro_letto = $stmt_letto->get_result()->fetch_assoc();
-} else {
-    // Tabella potrebbe non esistere ancora
+$libro_letto = null;
+try {
+    $libro_letto_query = "SELECT * FROM libri_letti WHERE fratello_id = ? AND libro_id = ?";
+    $stmt_letto = $conn->prepare($libro_letto_query);
+    if ($stmt_letto) {
+        $stmt_letto->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
+        if ($stmt_letto->execute()) {
+            $result_letto = $stmt_letto->get_result();
+            if ($result_letto) {
+                $libro_letto = $result_letto->fetch_assoc();
+            }
+        }
+        $stmt_letto->close();
+    }
+} catch (Exception $e) {
+    // Tabella potrebbe non esistere ancora - log dell'errore
+    error_log("Errore query libri_letti per libro_id=$libro_id: " . $e->getMessage());
     $libro_letto = null;
 }
 
 // Verifica se il libro è già nei preferiti
-$preferito_query = "SELECT * FROM preferiti WHERE fratello_id = ? AND libro_id = ?";
-$stmt_pref = $conn->prepare($preferito_query);
-$stmt_pref->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
-$stmt_pref->execute();
-$is_preferito = $stmt_pref->get_result()->num_rows > 0;
+$is_preferito = false;
+try {
+    $preferito_query = "SELECT * FROM preferiti WHERE fratello_id = ? AND libro_id = ?";
+    $stmt_pref = $conn->prepare($preferito_query);
+    if ($stmt_pref) {
+        $stmt_pref->bind_param("ii", $_SESSION['fratello_id'], $libro_id);
+        if ($stmt_pref->execute()) {
+            $result_pref = $stmt_pref->get_result();
+            if ($result_pref) {
+                $is_preferito = $result_pref->num_rows > 0;
+            }
+        }
+        $stmt_pref->close();
+    }
+} catch (Exception $e) {
+    error_log("Errore query preferiti per libro_id=$libro_id: " . $e->getMessage());
+    $is_preferito = false;
+}
 
 // Gestione form recensione
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
@@ -194,23 +216,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
     } elseif ($_POST['action'] == 'segna_come_letto') {
         $data_lettura = $_POST['data_lettura'] ?? date('Y-m-d');
         $note_lettura = trim($_POST['note_lettura'] ?? '');
-        
-        if ($libro_letto) {
-            // Aggiorna
-            $update_letto = "UPDATE libri_letti SET data_lettura = ?, note = ? WHERE fratello_id = ? AND libro_id = ?";
-            $stmt_up = $conn->prepare($update_letto);
-            $stmt_up->bind_param("ssii", $data_lettura, $note_lettura, $_SESSION['fratello_id'], $libro_id);
-            $stmt_up->execute();
-        } else {
-            // Inserisci
-            $insert_letto = "INSERT INTO libri_letti (fratello_id, libro_id, data_lettura, note) VALUES (?, ?, ?, ?)";
-            $stmt_in = $conn->prepare($insert_letto);
-            $stmt_in->bind_param("iiss", $_SESSION['fratello_id'], $libro_id, $data_lettura, $note_lettura);
-            $stmt_in->execute();
+
+        try {
+            if ($libro_letto) {
+                // Aggiorna
+                $update_letto = "UPDATE libri_letti SET data_lettura = ?, note = ? WHERE fratello_id = ? AND libro_id = ?";
+                $stmt_up = $conn->prepare($update_letto);
+                if ($stmt_up) {
+                    $stmt_up->bind_param("ssii", $data_lettura, $note_lettura, $_SESSION['fratello_id'], $libro_id);
+                    if (!$stmt_up->execute()) {
+                        throw new Exception("Errore nell'aggiornamento: " . $stmt_up->error);
+                    }
+                    $stmt_up->close();
+                }
+            } else {
+                // Inserisci
+                $insert_letto = "INSERT INTO libri_letti (fratello_id, libro_id, data_lettura, note) VALUES (?, ?, ?, ?)";
+                $stmt_in = $conn->prepare($insert_letto);
+                if ($stmt_in) {
+                    $stmt_in->bind_param("iiss", $_SESSION['fratello_id'], $libro_id, $data_lettura, $note_lettura);
+                    if (!$stmt_in->execute()) {
+                        throw new Exception("Errore nell'inserimento: " . $stmt_in->error);
+                    }
+                    $stmt_in->close();
+                }
+            }
+
+            header("Location: libro-dettaglio.php?id={$libro_id}&libro_letto_salvato=1");
+            exit;
+        } catch (Exception $e) {
+            error_log("Errore segna_come_letto per libro_id=$libro_id: " . $e->getMessage());
+            $error = "Errore nel salvataggio della lettura. Riprova o contatta l'amministratore.";
         }
-        
-        header("Location: libro-dettaglio.php?id={$libro_id}&libro_letto_salvato=1");
-        exit;
     } elseif ($_POST['action'] == 'elimina_recensione' && $is_admin) {
         // NUOVA FUNZIONALITÀ: Eliminazione recensioni per admin
         $recensione_id = (int)$_POST['recensione_id'];
