@@ -33,7 +33,15 @@ function loadEnv($path = null) {
             error_log("WARNING: .env non trovato, uso .env.example come fallback. CREARE .env IN PRODUZIONE!");
             $path = $example_path;
         } else {
-            throw new Exception("File .env non trovato in nessuna posizione. Path cercati: " . implode(', ', $possible_paths ?? []));
+            $paths_tried = implode("\n   - ", $possible_paths ?? []);
+            throw new Exception(
+                "File .env non trovato.\n\n" .
+                "Path cercati:\n   - " . $paths_tried . "\n\n" .
+                "Per risolvere:\n" .
+                "1. Copia il file .env.example in .env: cp .env.example .env\n" .
+                "2. Modifica .env con le credenziali del database\n" .
+                "3. Oppure esegui: php setup.php\n"
+            );
         }
     }
 
