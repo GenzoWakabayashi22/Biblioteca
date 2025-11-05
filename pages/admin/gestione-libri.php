@@ -22,13 +22,11 @@ try {
     die("Errore connessione database: " . $e->getMessage());
 }
 
-// Simula sessione admin per debug
-if (!isset($_SESSION['fratello_id'])) {
-    $_SESSION['fratello_id'] = 16;
-    $_SESSION['fratello_nome'] = 'Paolo Giulio Gazzano (Debug)';
-    $debug_mode = true;
-} else {
-    $debug_mode = false;
+// Verifica che l'utente sia un amministratore
+$admin_ids = [16, 9, 12, 11]; // Paolo Gazzano, Luca Guiducci, Emiliano Menicucci, Francesco Ropresti
+if (!isset($_SESSION['fratello_id']) || !in_array($_SESSION['fratello_id'], $admin_ids)) {
+    header('Location: ../dashboard.php?error=unauthorized');
+    exit;
 }
 
 // Gestione azioni POST
@@ -176,13 +174,6 @@ $stats = [
 </head>
 
 <body class="text-gray-800">
-    <?php if ($debug_mode): ?>
-    <!-- Banner debug -->
-    <div class="bg-green-500 text-white px-4 py-2 text-center font-bold">
-        ✅ MODALITÀ COMPATIBILITÀ - Query LIMIT senza placeholder
-    </div>
-    <?php endif; ?>
-
     <!-- Header Admin -->
     <div class="bg-white/10 backdrop-blur-md border-b border-white/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -575,17 +566,6 @@ $stats = [
                 <?php endif; ?>
             </p>
         </div>
-
-        <!-- Debug info -->
-        <?php if ($debug_mode): ?>
-        <div class="mt-8 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
-            <h3 class="font-bold">✅ Modalità Compatibilità MariaDB</h3>
-            <p><strong>Query SQL:</strong> <code>LIMIT <?php echo $offset; ?>, <?php echo $per_page; ?></code> (valori diretti)</p>
-            <p><strong>Risultati:</strong> <?php echo count($libri); ?> libri trovati su <?php echo $total_libri; ?> totali</p>
-            <p><strong>Paginazione:</strong> Pagina <?php echo $page; ?> di <?php echo $total_pages; ?></p>
-            <p><strong>Status:</strong> Nessun placeholder in LIMIT, massima compatibilità</p>
-        </div>
-        <?php endif; ?>
     </div>
 
     <script>
