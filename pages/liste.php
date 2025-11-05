@@ -506,38 +506,48 @@ if (isset($_GET['lista_id'])) {
             const colore = document.getElementById('colore-lista').value;
             const privata = document.getElementById('privata-lista').checked;
 
+            console.log('📝 Tentativo creazione lista da liste.php:', { nome, descrizione, icona, colore, privata });
+
             if (!nome) {
                 alert('❌ Inserisci un nome per la lista');
                 return;
             }
 
             try {
+                const requestData = {
+                    action: 'crea_lista',
+                    nome: nome,
+                    descrizione: descrizione,
+                    icona: icona,
+                    colore: colore,
+                    privata: privata
+                };
+                console.log('📤 Dati inviati all\'API:', requestData);
+
                 const response = await fetch('../api/liste.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        action: 'crea_lista',
-                        nome: nome,
-                        descrizione: descrizione,
-                        icona: icona,
-                        colore: colore,
-                        privata: privata
-                    })
+                    body: JSON.stringify(requestData)
                 });
 
+                console.log('📡 Response status:', response.status);
                 const data = await response.json();
+                console.log('📦 Response data:', data);
 
                 if (data.success) {
+                    console.log('✅ Lista creata con successo! ID:', data.lista_id);
                     alert('✅ ' + data.message);
                     location.reload();
                 } else {
+                    console.error('❌ Errore API:', data.message);
                     alert('❌ ' + (data.message || 'Errore nella creazione della lista'));
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('❌ Errore di connessione');
+                console.error('❌ Errore completo:', error);
+                console.error('Stack trace:', error.stack);
+                alert('❌ Errore di connessione: ' + error.message);
             }
         }
 

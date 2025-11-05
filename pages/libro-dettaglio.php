@@ -312,6 +312,7 @@ if ($is_admin) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($libro['titolo']) ?> - Biblioteca R∴ L∴ Kilwinning</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -1018,18 +1019,23 @@ if ($is_admin) {
         
         // Funzione per caricare le liste
         async function caricaListe() {
+            console.log('🔄 Caricamento liste...');
             try {
                 const response = await fetch('../api/liste.php');
+                console.log('📡 Response status:', response.status);
                 const data = await response.json();
-                
+                console.log('📦 Dati ricevuti:', data);
+
                 if (data.success) {
                     const container = document.getElementById('liste-container');
-                    
+
                     if (data.liste.length === 0) {
+                        console.log('ℹ️ Nessuna lista trovata');
                         container.innerHTML = '<p class="text-gray-500 text-center py-4">Non hai ancora creato nessuna lista. Crea la tua prima lista!</p>';
                     } else {
+                        console.log('✅ Trovate', data.liste.length, 'liste');
                         container.innerHTML = data.liste.map(lista => `
-                            <button onclick="aggiungiALista(${lista.id}, '${lista.nome.replace(/'/g, "\\'")}')" 
+                            <button onclick="aggiungiALista(${lista.id}, '${lista.nome.replace(/'/g, "\\'")}')"
                                     class="w-full text-left p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center space-x-3">
@@ -1045,11 +1051,12 @@ if ($is_admin) {
                         `).join('');
                     }
                 } else {
-                    alert('❌ Errore nel caricamento delle liste');
+                    console.error('❌ Errore API:', data.message);
+                    alert('❌ Errore nel caricamento delle liste: ' + (data.message || 'Errore sconosciuto'));
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('❌ Errore di connessione');
+                console.error('❌ Errore caricamento liste:', error);
+                alert('❌ Errore di connessione: ' + error.message);
             }
         }
         
@@ -1101,60 +1108,80 @@ if ($is_admin) {
             const icona = document.getElementById('icona-lista').value;
             const colore = document.getElementById('colore-lista').value;
             const privata = document.getElementById('privata-lista').checked;
-            
+
+            console.log('📝 Tentativo creazione lista:', { nome, descrizione, icona, colore, privata });
+
             if (!nome) {
                 alert('❌ Inserisci un nome per la lista');
                 return;
             }
-            
+
             try {
                 // Prima crea la lista
+                console.log('🔄 Step 1: Creazione lista...');
+                const requestData = {
+                    action: 'crea_lista',
+                    nome: nome,
+                    descrizione: descrizione,
+                    icona: icona,
+                    colore: colore,
+                    privata: privata
+                };
+                console.log('📤 Dati inviati:', requestData);
+
                 const responseCreate = await fetch('../api/liste.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        action: 'crea_lista',
-                        nome: nome,
-                        descrizione: descrizione,
-                        icona: icona,
-                        colore: colore,
-                        privata: privata
-                    })
+                    body: JSON.stringify(requestData)
                 });
-                
+
+                console.log('📡 Response status (create):', responseCreate.status);
                 const dataCreate = await responseCreate.json();
-                
+                console.log('📦 Response data (create):', dataCreate);
+
                 if (dataCreate.success) {
+                    console.log('✅ Lista creata con ID:', dataCreate.lista_id);
+
                     // Poi aggiungi il libro alla lista
+                    console.log('🔄 Step 2: Aggiunta libro alla lista...');
+                    const addRequestData = {
+                        action: 'aggiungi_libro',
+                        lista_id: dataCreate.lista_id,
+                        libro_id: currentBookId
+                    };
+                    console.log('📤 Dati inviati:', addRequestData);
+
                     const responseAdd = await fetch('../api/liste.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({
-                            action: 'aggiungi_libro',
-                            lista_id: dataCreate.lista_id,
-                            libro_id: currentBookId
-                        })
+                        body: JSON.stringify(addRequestData)
                     });
-                    
+
+                    console.log('📡 Response status (add):', responseAdd.status);
                     const dataAdd = await responseAdd.json();
-                    
+                    console.log('📦 Response data (add):', dataAdd);
+
                     if (dataAdd.success) {
+                        console.log('✅ Libro aggiunto alla lista con successo!');
                         alert('✅ Lista creata e libro aggiunto!');
                         closeModalListe();
                     } else {
+                        console.warn('⚠️ Lista creata ma errore aggiunta libro:', dataAdd.message);
                         alert('⚠️ Lista creata ma errore nell\'aggiunta del libro: ' + dataAdd.message);
                         closeModalListe();
                     }
                 } else {
+                    console.error('❌ Errore creazione lista:', dataCreate.message);
                     alert('❌ ' + (dataCreate.message || 'Errore nella creazione della lista'));
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('❌ Errore di connessione');
+                console.error('❌ Errore completo:', error);
+                console.error('Stack trace:', error.stack);
+                alert('❌ Errore di connessione: ' + error.message);
             }
         }
         
