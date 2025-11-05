@@ -34,10 +34,13 @@ class RateLimiter {
                 // Fallback a sys_get_temp_dir() se non riesce a creare la directory
                 $temp_dir = sys_get_temp_dir();
                 if (is_writable($temp_dir)) {
+                    // TODO: Considera di creare subdirectory in temp per evitare conflitti
                     error_log("WARNING: Impossibile creare directory rate limit in {$this->storage_path}, uso system temp: {$temp_dir}");
                     $this->storage_path = $temp_dir;
                 } else {
                     // Se anche temp non è scrivibile, disabilita rate limiting
+                    // NOTA SICUREZZA: Questo rimuove protezione brute force. Monitorare i log.
+                    // TODO: Implementare fallback in-memory per mantenere protezione base
                     error_log("ERROR: Impossibile creare directory rate limit e temp non scrivibile. Rate limiting disabilitato.");
                     $this->storage_path = null;
                 }
