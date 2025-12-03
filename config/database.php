@@ -290,10 +290,10 @@ function configureSecurityHeaders() {
     header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
 
     // Content Security Policy (CSP) - Molto importante!
-    // Compatibile con Tailwind CDN, jwt-decode CDN e inline scripts/styles usati dall'applicazione
+    // Compatibile con Tailwind CDN e inline scripts/styles usati dall'applicazione
     $csp = [
         "default-src 'self'",
-        "script-src 'self' https://cdn.tailwindcss.com https://cdn.jsdelivr.net 'unsafe-inline'", // Tailwind CDN + jwt-decode CDN + inline scripts
+        "script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'", // Tailwind CDN + inline scripts
         "style-src 'self' 'unsafe-inline'", // Inline styles necessari
         "img-src 'self' data:",
         "connect-src 'self'",

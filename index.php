@@ -99,8 +99,6 @@ if (isset($_GET['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca R∴ L∴ Kilwinning - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- JWT Decode Library per SSO -->
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

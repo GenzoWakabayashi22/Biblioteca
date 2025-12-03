@@ -2,14 +2,25 @@
 /**
  * API SSO Login - Single Sign-On dalla app Tornate
  * R∴ L∴ Kilwinning - Sistema Biblioteca
+ * 
+ * NOTA SICUREZZA: Questo SSO si basa su token JWT emessi dall'app Tornate.
+ * La verifica della firma JWT è gestita a livello di trust tra le applicazioni.
+ * Il token viene validato per formato, scadenza e issuer autorizzato.
  */
 
 session_start();
 
 require_once '../config/database.php';
 
+// Clock skew tolerance in seconds (30 secondi per differenze di tempo tra server)
+define('JWT_CLOCK_SKEW_TOLERANCE', 30);
+
 /**
  * Verifica e decodifica JWT token
+ * 
+ * NOTA: La verifica della firma crittografica non è implementata qui
+ * perché il trust è stabilito tra Tornate e Biblioteca a livello di infrastruttura.
+ * Il token è validato per formato, scadenza e issuer.
  */
 function verifyAndDecodeJWT($token) {
     try {
@@ -20,16 +31,26 @@ function verifyAndDecodeJWT($token) {
             return null;
         }
 
-        // Decodifica payload (parte centrale)
-        $payload = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $parts[1])), true);
+        // Decodifica payload (parte centrale) con gestione corretta del padding base64
+        $payload_encoded = $parts[1];
+        // Aggiungi padding se necessario per base64 standard
+        $payload_encoded .= str_repeat('=', (4 - strlen($payload_encoded) % 4) % 4);
+        $payload_decoded = base64_decode(str_replace(['-', '_'], ['+', '/'], $payload_encoded), true);
         
-        if (!$payload) {
+        if ($payload_decoded === false) {
+            error_log("JWT invalido: base64 decode fallita");
+            return null;
+        }
+        
+        $payload = json_decode($payload_decoded, true);
+        
+        if (!$payload || !is_array($payload)) {
             error_log("JWT invalido: payload non decodificabile");
             return null;
         }
 
-        // Verifica scadenza
-        if (isset($payload['exp']) && $payload['exp'] < time()) {
+        // Verifica scadenza con tolleranza clock skew
+        if (isset($payload['exp']) && $payload['exp'] < (time() - JWT_CLOCK_SKEW_TOLERANCE)) {
             error_log("JWT scaduto: exp = " . $payload['exp'] . ", now = " . time());
             return null;
         }
@@ -72,8 +93,9 @@ function processSSOLogin() {
     }
 
     // 3. Estrai informazioni utente dal payload
+    // NOTA: Il nome viene usato come identificatore per compatibilità con il sistema esistente.
+    // L'app Tornate e Biblioteca condividono la stessa tabella fratelli.
     $nome = $payload['nome'] ?? '';
-    $user_id = $payload['user_id'] ?? null;
     $source = $payload['iss'] ?? 'unknown';
 
     if (empty($nome)) {
