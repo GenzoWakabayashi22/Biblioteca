@@ -1,4 +1,4 @@
-<?php
+<? php
 /**
  * Pagina Login - Sistema Biblioteca
  * R∴ L∴ Kilwinning
@@ -8,7 +8,7 @@
 session_start();
 
 // Include la configurazione del database
-require_once 'config/database.php';
+require_once 'config/database. php';
 
 // Configura Security Headers
 configureSecurityHeaders();
@@ -22,8 +22,8 @@ if (isset($_SESSION['fratello_id'])) {
     exit;
 }
 
-// Verifica se c'è un tentativo di login SSO
-if (isset($_GET['sso_token'])) {
+// ✅ FIX: Verifica se c'è un tentativo di login SSO con il parametro corretto 'sso'
+if (isset($_GET['sso'])) {
     require_once 'api/sso_login.php';
     exit; // SSO login gestisce tutto (redirect o errore)
 }
@@ -70,7 +70,7 @@ if (isset($_GET['logout'])) {
             $message_type = 'error';
             break;
         case 'rate_limit':
-            $retry_after = isset($_GET['retry_after']) ? (int)$_GET['retry_after'] : 3600;
+            $retry_after = isset($_GET['retry_after']) ?  (int)$_GET['retry_after'] : 3600;
             $minutes = ceil($retry_after / 60);
             $message = sprintf(
                 '⚠️ Troppi tentativi di login falliti. Account temporaneamente bloccato. Riprova tra %d minuti.',
@@ -79,7 +79,7 @@ if (isset($_GET['logout'])) {
             $message_type = 'error';
             break;
         case 'csrf_invalid':
-            $message = '🛡️ Token di sicurezza non valido. Ricarica la pagina e riprova.';
+            $message = '🛡️ Token di sicurezza non valido.  Ricarica la pagina e riprova.';
             $message_type = 'error';
             break;
         case 'session_expired':
@@ -92,7 +92,7 @@ if (isset($_GET['logout'])) {
     }
 }
 ?>
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -135,9 +135,9 @@ if (isset($_GET['logout'])) {
                     alertDiv.className = 'mt-4 p-3 rounded-lg bg-red-100 text-red-700';
                     alertDiv.innerHTML = `<strong>⚠️ Errore SSO:</strong> ${errorMessages[error]}`;
 
-                    const container = document.querySelector('.bg-white.rounded-2xl');
+                    const container = document.querySelector('.bg-white. rounded-2xl');
                     if (container) {
-                        const header = container.querySelector('.text-center');
+                        const header = container.querySelector('. text-center');
                         if (header) {
                             header.appendChild(alertDiv);
                         }
@@ -146,7 +146,7 @@ if (isset($_GET['logout'])) {
                     // Rimuovi parametro error dall'URL dopo 5 secondi
                     setTimeout(() => {
                         const url = new URL(window.location);
-                        url.searchParams.delete('error');
+                        url.searchParams. delete('error');
                         window.history.replaceState({}, document.title, url.pathname);
                         alertDiv.remove();
                     }, 5000);
@@ -170,7 +170,7 @@ if (isset($_GET['logout'])) {
                 ?>">
                     <?php echo htmlspecialchars($message); ?>
                 </div>
-            <?php endif; ?>
+            <? php endif; ?>
         </div>
 
         <!-- Form Login -->
@@ -191,18 +191,18 @@ if (isset($_GET['logout'])) {
                         <option value="">-- Scegli il tuo nome --</option>
                         
                         <!-- OSPITE - SEMPRE IN CIMA -->
-                        <?php if ($ospite): ?>
-                            <option value="<?php echo htmlspecialchars($ospite['nome']); ?>" 
+                        <? php if ($ospite): ?>
+                            <option value="<? php echo htmlspecialchars($ospite['nome']); ?>" 
                                     class="font-semibold" 
                                     style="background-color: #dbeafe; color: #1d4ed8;">
-                                👁️ <?php echo htmlspecialchars($ospite['nome']); ?> (<?php echo htmlspecialchars($ospite['grado']); ?>)
+                                👁️ <? php echo htmlspecialchars($ospite['nome']); ? > (<? php echo htmlspecialchars($ospite['grado']); ?>)
                             </option>
                             <option disabled>────────────────────</option>
                         <?php endif; ?>
                         
                         <!-- FRATELLI REGISTRATI -->
                         <?php foreach ($fratelli_per_grado as $grado => $lista_fratelli): ?>
-                            <?php 
+                            <? php 
                             $emoji = '';
                             switch($grado) {
                                 case 'Maestro': $emoji = '🔶'; break;
@@ -217,7 +217,7 @@ if (isset($_GET['logout'])) {
                                     </option>
                                 <?php endforeach; ?>
                             </optgroup>
-                        <?php endforeach; ?>
+                        <? php endforeach; ?>
                     </select>
                 </div>
             </div>
@@ -246,7 +246,7 @@ if (isset($_GET['logout'])) {
         <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
             <h3 class="text-sm font-semibold text-blue-800 mb-2">👁️ Accesso Ospite</h3>
             <p class="text-xs text-blue-600 mb-2">
-                Puoi accedere come ospite per esplorare il nostro catalogo di libri e leggere le recensioni.
+                Puoi accedere come ospite per esplorare il nostro catalogo di libri e leggere le recensioni. 
             </p>
             <p class="text-xs text-blue-700 font-medium">
                 Per le credenziali di accesso ospite, contatta l'amministratore del sistema.
@@ -277,7 +277,7 @@ if (isset($_GET['logout'])) {
         });
 
         // Auto-compilazione per ospite (per demo) - solo doppio click
-        document.querySelector('.bg-blue-50').addEventListener('dblclick', function() {
+        document.querySelector('. bg-blue-50').addEventListener('dblclick', function() {
             document.querySelector('select[name="fratello_nome"]').value = 'Ospite';
             document.querySelector('input[name="password"]').value = 'Ospite25';
             document.querySelector('input[name="password"]').focus();
