@@ -22,6 +22,12 @@ if (isset($_SESSION['fratello_id'])) {
     exit;
 }
 
+// Verifica se c'è un tentativo di login SSO
+if (isset($_GET['sso_token'])) {
+    require_once 'api/sso_login.php';
+    exit; // SSO login gestisce tutto (redirect o errore)
+}
+
 // Recupera la lista dei fratelli attivi ordinati per grado e nome (escluso Ospite)
 $query = "SELECT id, nome, grado FROM fratelli WHERE attivo = 1 AND nome != 'Ospite' ORDER BY 
           CASE 
@@ -93,6 +99,8 @@ if (isset($_GET['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca R∴ L∴ Kilwinning - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- JWT Decode Library per SSO -->
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -105,6 +113,49 @@ if (isset($_GET['logout'])) {
             background-clip: text;
         }
     </style>
+    <!-- SSO Error Handler -->
+    <script>
+        // Gestione messaggi errore SSO
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+
+            const errorMessages = {
+                'token_missing': 'Token SSO mancante. Effettua login manuale.',
+                'invalid_token': 'Token SSO scaduto o invalido. Effettua login manuale.',
+                'invalid_source': 'Token SSO non valido. Effettua login manuale.',
+                'invalid_payload': 'Dati SSO incompleti. Effettua login manuale.',
+                'session_error': 'Errore creazione sessione. Riprova.',
+                'server_error': 'Errore del server. Riprova più tardi.',
+                'fratello_non_trovato': 'Utente non trovato nel sistema.',
+                'user_inactive': 'Account non attivo. Contatta l\'amministratore.'
+            };
+
+            if (error && errorMessages[error] && error !== 'password_errata' && error !== 'credenziali_vuote') {
+                setTimeout(() => {
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'mt-4 p-3 rounded-lg bg-red-100 text-red-700';
+                    alertDiv.innerHTML = `<strong>⚠️ Errore SSO:</strong> ${errorMessages[error]}`;
+
+                    const container = document.querySelector('.bg-white.rounded-2xl');
+                    if (container) {
+                        const header = container.querySelector('.text-center');
+                        if (header) {
+                            header.appendChild(alertDiv);
+                        }
+                    }
+
+                    // Rimuovi parametro error dall'URL dopo 5 secondi
+                    setTimeout(() => {
+                        const url = new URL(window.location);
+                        url.searchParams.delete('error');
+                        window.history.replaceState({}, document.title, url.pathname);
+                        alertDiv.remove();
+                    }, 5000);
+                }, 100);
+            }
+        });
+    </script>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
