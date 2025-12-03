@@ -22,8 +22,8 @@ if (isset($_SESSION['fratello_id'])) {
     exit;
 }
 
-// Verifica se c'è un tentativo di login SSO
-if (isset($_GET['sso_token'])) {
+// ✅ FIX: Verifica se c'è un tentativo di login SSO con parametro corretto 'sso'
+if (isset($_GET['sso'])) {
     require_once 'api/sso_login.php';
     exit; // SSO login gestisce tutto (redirect o errore)
 }
