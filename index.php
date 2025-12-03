@@ -22,7 +22,11 @@ if (isset($_SESSION['fratello_id'])) {
     exit;
 }
 
+<<<<<<< HEAD
 // ✅ FIX: Verifica se c'è un tentativo di login SSO con il parametro corretto 'sso'
+=======
+// ✅ FIX: Verifica se c'è un tentativo di login SSO con parametro corretto 'sso'
+>>>>>>> bba4e0cf368921c5528c81797333c45764eb3900
 if (isset($_GET['sso'])) {
     require_once 'api/sso_login.php';
     exit; // SSO login gestisce tutto (redirect o errore)
